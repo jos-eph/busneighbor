@@ -45,7 +45,7 @@ class DataHolder {
 
 
 /**
- * Description placeholder
+ * Wrap the DataHolder in reactive code
  *
  * @param {DataHolder} initialObj
  * @returns {Proxy<DataHolder>}
@@ -76,7 +76,7 @@ const myObject = new DataHolder('a', 'beee', 'ceeee');
 myObject.addSetHandler( dummy );
 const proxyObject = wrappedDataHolder(myObject);
 
-proxyObject.a = 'new a value'; // Logs: Setting myProperty to new value
+proxyObject.a = 'new a value';
 console.log(proxyObject.a)
 proxyObject.beee = 2
 console.log(proxyObject.beee)
