@@ -66,17 +66,4 @@ const wrappedDataHolder = (initialObj) => {
   })
 }
 
-// Test it
-function dummy(str) {
-  console.log("Dummy invoked!");
-  console.log("Dummy is outputting: " + str);
-}
-
-const myObject = new DataHolder('a', 'beee', 'ceeee');
-myObject.addSetHandler( dummy );
-const proxyObject = wrappedDataHolder(myObject);
-
-proxyObject.a = 'new a value';
-console.log(proxyObject.a)
-proxyObject.beee = 2
-console.log(proxyObject.beee)
+export { DataHolder, wrappedDataHolder }

@@ -1,5 +1,6 @@
 import { get_location_data, get_route_alerts, raise_for_status } from './service/retrieval.js'
-import { track_object_with_function } from './service/tracked_update.js';
+import { DataHolder, wrappedDataHolder } from './model/data_holder.js';
+import { getCurrentCoordinatesPromise, compareUserVehicleLocation, LatitudeLongitude} from './service/location.js';
 
 // Get references to elements in your HTML
 const welcomeMessage = document.getElementById('welcome-message');
@@ -21,7 +22,7 @@ get_location_data("45").then(
       data => {
         console_text += JSON.stringify(data)
         retrieved_data.location = data
-        console.log(JSON.stringify(retrieved_data))
+        console.log(JSON.stringify(retrieved_data.location))
      } 
     )
     }
@@ -35,23 +36,44 @@ get_route_alerts("bus", "45").then(
       data => {
         console_text += "AND RESP 2..." + JSON.stringify(data)
         retrieved_data.alerts = data
-        console.log(JSON.stringify(retrieved_data))
+        console.log(JSON.stringify(retrieved_data.alerts))
       }
     )
   }
 )
 
-let test_object = {my: "house", mein: "rules"}
-
-function demo(newValue, originalObject, property, oldValue) {
-  console.log("New value: " + newValue);
-  console.log("original object: " + JSON.stringify(originalObject));
-  console.log("property: " + property);
-  console.log("oldValue: " + oldValue);
-
+function produceTestCase(userCoordinates, shouldIncrease, shouldLatitude, direction) {
+  if (shouldLatitude) {
+    const newLatitude = shouldIncrease ? userCoordinates.latitude + 0.1 : userCoordinates.latitude - 0.1
+    return [userCoordinates, new LatitudeLongitude(newLatitude, userCoordinates.longitude), direction];
+  } else {
+    const newLongitude = shouldIncrease ? userCoordinates.longitude + 0.1 : userCoordinates.longitude - 0.1;
+    return [userCoordinates, new LatitudeLongitude(userCoordinates.latitude, newLongitude), direction]
+  }
 }
 
-let observed = track_object_with_function(test_object, demo);
-observed.my = "dog";
+function testDirectionFinder() {
+  getCurrentCoordinatesPromise().then( result => {
+    console.log("user coordinates:" + JSON.stringify(result));
+    const northSouthComingTowards = produceTestCase(result, true, true, "SB"); // true
+    const northSouthAlsoComingTowards = produceTestCase(result, false, true, "NB"); // true
+    const northSouthGoingAway = produceTestCase(result, false, true, "SB"); // false
 
-console.log("Goodbye...")
+    const eastWestComingTowards = produceTestCase(result, true, false, "WB"); // true
+    const eastWestAlsoComingTowards = produceTestCase(result, false, false, "EB"); // true
+    const eastWestGoingAway = produceTestCase(result, true, false, "EB"); // false
+
+    const testCases = [northSouthAlsoComingTowards, northSouthAlsoComingTowards, 
+      northSouthGoingAway, eastWestComingTowards, eastWestAlsoComingTowards, eastWestGoingAway];
+
+    let results = [];
+    for (const testCase of testCases) {
+      results.push(compareUserVehicleLocation(...testCase));
+    }
+
+    console.log(JSON.stringify(results));
+    
+  });
+}
+
+testDirectionFinder();

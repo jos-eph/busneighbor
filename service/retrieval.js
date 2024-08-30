@@ -42,7 +42,7 @@ async function get_location_data(route_id) {
  * Get alerts for route
  *
  * @async
- * @param {string} type
+ * @param {string} type (bus, trolley)
  * @param {any} route_id
  * @returns {Promise<Response>}
  */
