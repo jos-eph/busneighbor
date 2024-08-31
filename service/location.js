@@ -91,7 +91,8 @@ class LatitudeLongitude {
  * @param {LatitudeLongitude} vehicleLocation
  * @param {NORTH, SOUTH, WEST, EAST} vehicleDirection
  */
-function compareUserVehicleLocation(userLocation, vehicleLocation, vehicleDirection) {
+function isApproachingMe(userLocation, vehicleLocation, vehicleDirection) {
+    console.log(`isApproachingMe ${JSON.stringify(vehicleDirection)} objs: ${JSON.stringify(userLocation)} | ${vehicleLocation} end objs`);
     const direction = vehicleDirection.slice(0, 1).toUpperCase();
     if (LATITUDE_DIRECTIONS.has(direction)) {
         return isLatitudeApproaching(userLocation.latitude, vehicleLocation.latitude, vehicleDirection);
@@ -101,4 +102,4 @@ function compareUserVehicleLocation(userLocation, vehicleLocation, vehicleDirect
 }
 
 
-export { getCurrentCoordinatesPromise, compareUserVehicleLocation, LatitudeLongitude }
+export { getCurrentCoordinatesPromise, isApproachingMe, LatitudeLongitude }
