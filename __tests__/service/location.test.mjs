@@ -29,7 +29,7 @@ const eastWestComingTowards = produceTestCase(STADIUM_COORDINATES, true, false, 
 const eastWestAlsoComingTowards = produceTestCase(STADIUM_COORDINATES, false, false, "EB"); // true
 const eastWestGoingAway = produceTestCase(STADIUM_COORDINATES, true, false, "EB"); // false
 
-const TEST_CASE_EXPECTED_OUTCOME = [
+const TEST_APPROACHING_EXPECTED_OUTCOME = [
     [northSouthComingTowards, true], 
     [northSouthAlsoComingTowards, true],
     [northSouthGoingAway, false],
@@ -38,7 +38,8 @@ const TEST_CASE_EXPECTED_OUTCOME = [
     [eastWestGoingAway, false]
 ];
   
-test.each(TEST_CASE_EXPECTED_OUTCOME)('Expect %j -- to return %p', (testCase, expected) => {
+test.each(TEST_APPROACHING_EXPECTED_OUTCOME)
+('Expect %j -- to return %p', (testCase, expected) => {
   expect(isApproachingMe(testCase.userCoordinates, testCase.vehicleCoordinates, testCase.vehicleDirection)).toBe(expected);
   });
 
