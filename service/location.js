@@ -1,8 +1,8 @@
 function getCurrentCoordinatesPromise() {
     return new Promise((resolve, reject) => {
-        if ("geolocation" in navigator) {
+        if (global.navigator && "geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
-                (position) => resolve(position.coords),
+                (position) => { resolve(position.coords) } ,
                 (error) => reject(error)
             );
         } else {
@@ -43,7 +43,7 @@ const LATITUDE_DIRECTIONS = new Set([NORTH, SOUTH]);
 function isLongitudeApproaching(userLongitude, vehicleLongitude, vehicleDirection) {
     const direction = vehicleDirection.slice(0, 1).toUpperCase();
     if (!LONGITUDE_DIRECTIONS.has(direction)) {
-        throw new Error(`${vehicleDirection} is not a valid longitude`)
+        throw new Error(`${vehicleDirection} is not a valid direction`);
     }
 
     if (direction == EAST) {
@@ -51,7 +51,6 @@ function isLongitudeApproaching(userLongitude, vehicleLongitude, vehicleDirectio
     } else if (direction == WEST) {
         return userLongitude < vehicleLongitude ? true: false;
     }
-    return false;
 }
 
 /**
@@ -65,7 +64,7 @@ function isLongitudeApproaching(userLongitude, vehicleLongitude, vehicleDirectio
 function isLatitudeApproaching(userLatitude, vehicleLatitude, vehicleDirection) {
     const direction = vehicleDirection.slice(0, 1).toUpperCase();
     if (!LATITUDE_DIRECTIONS.has(direction)) {
-        throw new Error(`${vehicleDirection} is not a valid latitude`)
+        throw new Error(`${vehicleDirection} is not a valid direction`);
     }
 
     if (direction == NORTH) {
@@ -73,7 +72,6 @@ function isLatitudeApproaching(userLatitude, vehicleLatitude, vehicleDirection) 
     } else if (direction == SOUTH) {
         return userLatitude < vehicleLatitude ? true: false;
     }
-    return false;
 }
 
 
@@ -91,7 +89,7 @@ class LatitudeLongitude {
  * @param {LatitudeLongitude} vehicleLocation
  * @param {NORTH, SOUTH, WEST, EAST} vehicleDirection
  */
-function compareUserVehicleLocation(userLocation, vehicleLocation, vehicleDirection) {
+function isApproachingMe(userLocation, vehicleLocation, vehicleDirection) {
     const direction = vehicleDirection.slice(0, 1).toUpperCase();
     if (LATITUDE_DIRECTIONS.has(direction)) {
         return isLatitudeApproaching(userLocation.latitude, vehicleLocation.latitude, vehicleDirection);
@@ -101,4 +99,7 @@ function compareUserVehicleLocation(userLocation, vehicleLocation, vehicleDirect
 }
 
 
-export { getCurrentCoordinatesPromise, compareUserVehicleLocation, LatitudeLongitude }
+export { getCurrentCoordinatesPromise, isApproachingMe, 
+    isLatitudeApproaching,
+    isLongitudeApproaching,
+    LatitudeLongitude, NORTH, SOUTH, EAST, WEST }

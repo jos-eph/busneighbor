@@ -51,29 +51,3 @@ function produceTestCase(userCoordinates, shouldIncrease, shouldLatitude, direct
     return [userCoordinates, new LatitudeLongitude(userCoordinates.latitude, newLongitude), direction]
   }
 }
-
-function testDirectionFinder() {
-  getCurrentCoordinatesPromise().then( result => {
-    console.log("user coordinates:" + JSON.stringify(result));
-    const northSouthComingTowards = produceTestCase(result, true, true, "SB"); // true
-    const northSouthAlsoComingTowards = produceTestCase(result, false, true, "NB"); // true
-    const northSouthGoingAway = produceTestCase(result, false, true, "SB"); // false
-
-    const eastWestComingTowards = produceTestCase(result, true, false, "WB"); // true
-    const eastWestAlsoComingTowards = produceTestCase(result, false, false, "EB"); // true
-    const eastWestGoingAway = produceTestCase(result, true, false, "EB"); // false
-
-    const testCases = [northSouthAlsoComingTowards, northSouthAlsoComingTowards, 
-      northSouthGoingAway, eastWestComingTowards, eastWestAlsoComingTowards, eastWestGoingAway];
-
-    let results = [];
-    for (const testCase of testCases) {
-      results.push(compareUserVehicleLocation(...testCase));
-    }
-
-    console.log(JSON.stringify(results));
-    
-  });
-}
-
-testDirectionFinder();
