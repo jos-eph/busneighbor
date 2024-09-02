@@ -102,4 +102,4 @@ function isApproachingMe(userLocation, vehicleLocation, vehicleDirection) {
 export { getCurrentCoordinatesPromise, isApproachingMe, 
     isLatitudeApproaching,
     isLongitudeApproaching,
-    LatitudeLongitude }
+    LatitudeLongitude, NORTH, SOUTH, EAST, WEST }
