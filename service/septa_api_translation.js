@@ -1,4 +1,3 @@
-import { NORTH, SOUTH, EAST, WEST } from "./location";
 import { includesAsWord, concatenateStrings } from "../common/utilities";
 
 const RouteTypes = {
@@ -7,19 +6,26 @@ const RouteTypes = {
     RAIL: "rr"
 };
 
-const VehicleDirections = {
-    NORTH: "NB",
-    SOUTH: "SB",
-    WEST: "WB",
-    EAST: "EB"
+const Directions = {
+    NORTH: "N",
+    SOUTH: "S",
+    WEST: "W",
+    EAST: "E"
+}
+
+const DirectionsLongForm = {
+    NORTH: "Northbound",
+    SOUTH: "Southbound",
+    WEST: "Westbound",
+    EAST: "Eastbound"
 }
 
 class DirectionsImpacted {
     constructor(directions) {
-        this[VehicleDirections.NORTH] = directions.includes(VehicleDirections.NORTH) ? true : false;
-        this[VehicleDirections.SOUTH] = directions.includes(VehicleDirections.SOUTH) ? true : false;
-        this[VehicleDirections.EAST] = directions.includes(VehicleDirections.EAST) ? true : false;
-        this[VehicleDirections.WEST] = directions.includes(VehicleDirections.WEST) ? true : false;
+        this[Directions.NORTH] = directions.includes(Directions.NORTH) ? true : false;
+        this[Directions.SOUTH] = directions.includes(Directions.SOUTH) ? true : false;
+        this[Directions.EAST] = directions.includes(Directions.EAST) ? true : false;
+        this[Directions.WEST] = directions.includes(Directions.WEST) ? true : false;
     }
 }
 
@@ -38,10 +44,10 @@ class ProcessedAlert {
 
 function determineDirectionsImpacted(text) {
     let directionsBound = [];
-    for (const direction in VehicleDirections) {
-        const directionBound = VehicleDirections[direction]
+    for (const direction in Directions) {
+        const directionBound = `${Directions[direction]}B`; // abbreviation for northbound, southbound
         if (includesAsWord(text, directionBound)) {
-            directionsBound.push(directionBound);
+            directionsBound.push(Directions[direction]);
         }
     }
 

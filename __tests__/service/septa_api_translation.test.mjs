@@ -12,7 +12,7 @@ const EXPECTED_ALERT = {
     detourId: "4624",
     detourStartLocation: "12th & Locust",
     detourReason: "Construction",
-    directionsImpacted: new DirectionsImpacted(["SB"])
+    directionsImpacted: new DirectionsImpacted(["S"])
 }
 
 test('Constructor for ProcessedAlert works', () => {
@@ -32,12 +32,12 @@ test('Constructor for ProcessedAlert works', () => {
 
 
 const EXPECTED_DIRECTION_OBJECT_CORRELATIONS = [
-    [["NB"], {"NB": true, "SB": false, "WB": false, "EB": false}],
-    [["SB"], {"NB": false, "SB": true, "WB": false, "EB": false}],
-    [["WB"], {"NB": false, "SB": false, "WB": true, "EB": false}],
-    [["EB"], {"NB": false, "SB": false, "WB": false, "EB": true}],
-    [["EB", "NB"], {"NB": true, "SB": false, "WB": false, "EB": true}],
-    [["EB", "SB", "NB"], {"NB": true, "SB": true, "WB": false, "EB": true}],
+    [["N"], {"N": true, "S": false, "W": false, "E": false}],
+    [["S"], {"N": false, "S": true, "W": false, "E": false}],
+    [["W"], {"N": false, "S": false, "W": true, "E": false}],
+    [["E"], {"N": false, "S": false, "W": false, "E": true}],
+    [["E", "N"], {"N": true, "S": false, "W": false, "E": true}],
+    [["E", "S", "N"], {"N": true, "S": true, "W": false, "E": true}],
 ]
 
 test.each(EXPECTED_DIRECTION_OBJECT_CORRELATIONS)
@@ -46,12 +46,12 @@ test.each(EXPECTED_DIRECTION_OBJECT_CORRELATIONS)
 });
 
 const DIRECTION_TEXT_PROCESSED_IMPACT = [
-    ["Hello, this is SB, NB", {"NB": true, "SB": true, "EB": false, "WB": false}],
-    ["Hello, this is WB, EB", {"NB": false, "SB": false, "EB": true, "WB": true}],
-    ["NB.", {"NB": true, "SB": false, "EB": false, "WB": false}],
-    ["SB.", {"NB": false, "SB": true, "EB": false, "WB": false}],
-    ["EB.", {"NB": false, "SB": false, "EB": true, "WB": false}],
-    ["WB.", {"NB": false, "SB": false, "EB": false, "WB": true}],
+    ["Hello, this is SB, NB", {"N": true, "S": true, "E": false, "W": false}],
+    ["Hello, this is WB, EB", {"N": false, "S": false, "E": true, "W": true}],
+    ["NB.", {"N": true, "S": false, "E": false, "W": false}],
+    ["SB.", {"N": false, "S": true, "E": false, "W": false}],
+    ["EB.", {"N": false, "S": false, "E": true, "W": false}],
+    ["WB.", {"N": false, "S": false, "E": false, "W": true}],
 ]
 
 test.each(DIRECTION_TEXT_PROCESSED_IMPACT)
