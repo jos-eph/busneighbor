@@ -1,21 +1,8 @@
-import { LOCATION_STUB, ALERT_STUB } from "../stubs/septa_api_samples";
-import { includesAsWord, ProcessedAlert, DirectionsImpacted } from "../../service/septa_api_translation";
+import { ALERT_SB_DISCONTINUED_ONE_ALERT } from "../stubs/septa_api_samples";
+import { ProcessedAlert, DirectionsImpacted, 
+    createProcessedAlert, determineDirectionsImpacted } from "../../service/septa_api_translation";
 
-const TEXT_SOUGHT_WORD_EXPECTED_OUTCOME = [
-    ["ABC", "ABC", true],
-    [" ABC", "ABC", true],
-    ["ABC ", "ABC", true],
-    ["ABC/DEF", "ABC", true],
-    ["abc ", "ABC", false],
-    ["kirk", "spock", false],
-    ["Affecting NB.", "NB", true],
-    ["Affecting NB/SB; some issues remain.", "SB", true]
-];
-  
-test.each(TEXT_SOUGHT_WORD_EXPECTED_OUTCOME)('Expect %j contains %j -- return %p', (text, sought, expected) => {
-      expect(includesAsWord(text, sought)).toBe(expected);
-  }
-);
+
 
 const EXPECTED_ALERT = {
     routeType: "bus",
@@ -56,4 +43,22 @@ const EXPECTED_DIRECTION_OBJECT_CORRELATIONS = [
 test.each(EXPECTED_DIRECTION_OBJECT_CORRELATIONS)
 ('Expect %j to return %s', (testDirections, expected) => {
     expect(new DirectionsImpacted(testDirections)).toEqual(expected);
+});
+
+const DIRECTION_TEXT_PROCESSED_IMPACT = [
+    ["Hello, this is SB, NB", {"NB": true, "SB": true, "EB": false, "WB": false}],
+    ["Hello, this is WB, EB", {"NB": false, "SB": false, "EB": true, "WB": true}],
+    ["NB.", {"NB": true, "SB": false, "EB": false, "WB": false}],
+    ["SB.", {"NB": false, "SB": true, "EB": false, "WB": false}],
+    ["EB.", {"NB": false, "SB": false, "EB": true, "WB": false}],
+    ["WB.", {"NB": false, "SB": false, "EB": false, "WB": true}],
+]
+
+test.each(DIRECTION_TEXT_PROCESSED_IMPACT)
+('Expect %j to return %j', (testString, expectedDirections) => {
+    expect(determineDirectionsImpacted(testString)).toEqual(expectedDirections);
+});
+
+test('Alerts are processed correctly, with impacted directions', () => {
+    expect(createProcessedAlert(ALERT_SB_DISCONTINUED_ONE_ALERT)).toEqual(EXPECTED_ALERT);
 });

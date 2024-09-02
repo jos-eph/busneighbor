@@ -1,4 +1,5 @@
 import { NORTH, SOUTH, EAST, WEST } from "./location";
+import { includesAsWord, concatenateStrings } from "../common/utilities";
 
 const RouteTypes = {
     BUS: "bus",
@@ -22,14 +23,6 @@ class DirectionsImpacted {
     }
 }
 
-function includesAsWord(text, word) {
-    const pattern = new RegExp(`\\b${word}\\b`, 'g'); 
-    return Boolean(text.match(pattern));
-}
-
-
-
-
 class ProcessedAlert {
     constructor(routeType, routeId, routeName, compoundMessage, detourId, detourStartLocation, detourReason, directionsImpacted) {
         this.routeType = routeType;
@@ -43,4 +36,33 @@ class ProcessedAlert {
     }
 }
 
-export { RouteTypes, includesAsWord, ProcessedAlert, DirectionsImpacted };
+function determineDirectionsImpacted(text) {
+    let directionsBound = [];
+    for (const direction in VehicleDirections) {
+        const directionBound = VehicleDirections[direction]
+        if (includesAsWord(text, directionBound)) {
+            directionsBound.push(directionBound);
+        }
+    }
+
+    return new DirectionsImpacted(directionsBound);
+}
+
+function createProcessedAlert(alertJson) {
+    const routeId = alertJson.route_id;
+    const routeType = alertJson.route_id.split("_")[0];
+    const routeName = alertJson.route_name;
+    const detourId = alertJson.detour_id;
+    const detourStartLocation = alertJson.detour_start_location;
+    const detourReason = alertJson.detour_reason;
+
+    const compoundMessage = concatenateStrings(alertJson.current_message, 
+        alertJson.advisory_message, alertJson.detour_message);
+    const directionsImpacted = determineDirectionsImpacted(compoundMessage);
+    
+    return new ProcessedAlert(routeType, routeId, routeName, compoundMessage, detourId,
+        detourStartLocation, detourReason, directionsImpacted);
+}
+
+export { RouteTypes, ProcessedAlert, DirectionsImpacted, 
+    determineDirectionsImpacted, createProcessedAlert };

@@ -46,6 +46,8 @@ const ALERT_STUB =
       "isSnow": "N"
     }
   ];
+
+const ALERT_SB_DISCONTINUED_ONE_ALERT = ALERT_STUB[0];
   
 const LOCATION_STUB = 
 [
@@ -131,4 +133,4 @@ const LOCATION_STUB =
     }
   ];  
 
-export { LOCATION_STUB, ALERT_STUB };
+export { LOCATION_STUB, ALERT_STUB, ALERT_SB_DISCONTINUED_ONE_ALERT };
