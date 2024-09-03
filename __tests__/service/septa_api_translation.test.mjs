@@ -1,6 +1,7 @@
 import { ALERT_SB_DISCONTINUED_ONE_ALERT } from "../stubs/septa_api_samples";
 import { ProcessedAlert, DirectionsImpacted, 
-    createProcessedAlert, determineDirectionsImpacted } from "../../service/septa_api_translation";
+    createProcessedAlert, determineDirectionsImpacted,
+translateSeatClassification } from "../../service/septa_api_translation";
 
 
 
@@ -61,4 +62,21 @@ test.each(DIRECTION_TEXT_PROCESSED_IMPACT)
 
 test('Alerts are processed correctly, with impacted directions', () => {
     expect(createProcessedAlert(ALERT_SB_DISCONTINUED_ONE_ALERT)).toEqual(EXPECTED_ALERT);
+});
+
+const RAW_SEAT_DATA_TRANSLATED = [
+    ["MANY_SEATS_AVAILABLE", "YES_SEATS"],
+    ["EMPTY", "YES_SEATS"],
+    ["FEW_SEATS_AVAILABLE", "SOME_SEATS"],
+    ["STANDING_ROOM_ONLY", "SOME_SEATS"],
+    ["NOT_AVAILABLE", "NO_SEATS"],
+    ["CRUSHED_STANDING_ROOM_ONLY", "NO_SEATS"],
+    ["FULL", "NO_SEATS"],
+    ["TAYLOR_SWIFT", "NO_SEATS"]
+];
+
+test.each(RAW_SEAT_DATA_TRANSLATED)
+('Expect %j to be traslated as %j, with proper default values',
+(presentValue, expectedTranslation) => {
+    expect(translateSeatClassification(presentValue)).toBe(expectedTranslation);
 });

@@ -1,4 +1,5 @@
 import { includesAsWord, concatenateStrings } from "../common/utilities";
+import { LatitudeLongitude } from "./location";
 
 const RouteTypes = {
     BUS: "bus",
@@ -11,6 +12,21 @@ const Directions = {
     SOUTH: "S",
     WEST: "W",
     EAST: "E"
+};
+
+const SeatsAvailable = {
+    YES_SEATS: new Set(["MANY_SEATS_AVAILABLE","EMPTY"]),
+    SOME_SEATS: new Set(["FEW_SEATS_AVAILABLE", "STANDING_ROOM_ONLY"]),
+    NO_SEATS: new Set(["NOT_AVAILABLE", "CRUSHED_STANDING_ROOM_ONLY", "FULL"])
+};
+
+function translateSeatClassification(seat_assertion) {
+    for (const seatClassification in SeatsAvailable) {
+        if (SeatsAvailable[seatClassification].has(seat_assertion)) {
+            return seatClassification;
+        }
+    }
+    return "NO_SEATS";
 }
 
 const DirectionsLongForm = {
@@ -71,4 +87,4 @@ function createProcessedAlert(alertJson) {
 }
 
 export { RouteTypes, ProcessedAlert, DirectionsImpacted, 
-    determineDirectionsImpacted, createProcessedAlert };
+    determineDirectionsImpacted, createProcessedAlert, translateSeatClassification };
