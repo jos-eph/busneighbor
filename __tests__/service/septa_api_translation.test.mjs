@@ -1,7 +1,8 @@
-import { ALERT_SB_DISCONTINUED_ONE_ALERT } from "../stubs/septa_api_samples";
+import { ALERT_SB_DISCONTINUED_ONE_ALERT, LOCATION_AT_12TH_CATHERINE  } from "../stubs/septa_api_samples";
 import { ProcessedAlert, DirectionsImpacted, 
     createProcessedAlert, determineDirectionsImpacted,
-translateSeatClassification } from "../../service/septa_api_translation";
+translateSeatClassification, createProcessedLocation, 
+translateDirectionLongForm, MAGIC_TIMESTAMP_FOR_STOPPED_BUS } from "../../service/septa_api_translation";
 
 
 
@@ -13,7 +14,7 @@ const EXPECTED_ALERT = {
     detourId: "4624",
     detourStartLocation: "12th & Locust",
     detourReason: "Construction",
-    directionsImpacted: new DirectionsImpacted(["S"])
+    directionsImpacted: {"N": false, "S": true, "W": false, "E": false}
 }
 
 test('Constructor for ProcessedAlert works', () => {
@@ -69,7 +70,7 @@ const RAW_SEAT_DATA_TRANSLATED = [
     ["EMPTY", "YES_SEATS"],
     ["FEW_SEATS_AVAILABLE", "SOME_SEATS"],
     ["STANDING_ROOM_ONLY", "SOME_SEATS"],
-    ["NOT_AVAILABLE", "NO_SEATS"],
+    ["NOT_AVAILABLE", "SOME_SEATS"],
     ["CRUSHED_STANDING_ROOM_ONLY", "NO_SEATS"],
     ["FULL", "NO_SEATS"],
     ["TAYLOR_SWIFT", "NO_SEATS"]
@@ -79,4 +80,45 @@ test.each(RAW_SEAT_DATA_TRANSLATED)
 ('Expect %j to be traslated as %j, with proper default values',
 (presentValue, expectedTranslation) => {
     expect(translateSeatClassification(presentValue)).toBe(expectedTranslation);
+});
+
+const LONG_FORM_DIRECTION_TO_DIRECTION = [
+    ["NorthBound", "N"],
+    ["Southbound", "S"],
+    ["eastbound", "E"],
+    ["WestBound", "W"],
+    ["Homebound", undefined],
+    ["NighNorth", undefined]
+]
+test.each(LONG_FORM_DIRECTION_TO_DIRECTION)
+('Expect %j in long form to translate as %p',
+(text, expectedTranslation) => {
+    expect(translateDirectionLongForm(text)).toBe(expectedTranslation);
+});
+
+const EXPECTED_PROCESSED_LOCATION = {
+    vehicleLocation: {"latitude": 39.941833, "longitude": -75.16203},
+    routeId: "45",
+    trip: "966229",
+    vehicleId: "3537",
+    blockId: "7054",
+    direction: "S",
+    destination: "Broad-Oregon",
+    heading: null,
+    secondsLate: 222,
+    nextStopId: "16504",
+    nextStopName: "12th St & Catharine St",
+    seatAvailabilityRaw: "EMPTY",
+    seatAvailabilityTranslated: "YES_SEATS",
+    positionTimestamp: 1724645461
+}
+
+test('Locations are processed correctly, with appropriate translations', () => {
+    expect(createProcessedLocation(LOCATION_AT_12TH_CATHERINE)).toEqual(EXPECTED_PROCESSED_LOCATION);
+});
+
+test('The magic timestamp value for a stopped bus results in a NO_SEATS translation', () => {
+    let busIsStopped = {...LOCATION_AT_12TH_CATHERINE};
+    busIsStopped.timestamp = MAGIC_TIMESTAMP_FOR_STOPPED_BUS;
+    expect(createProcessedLocation(busIsStopped).seatAvailabilityTranslated).toBe("NO_SEATS");
 });

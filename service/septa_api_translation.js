@@ -16,9 +16,11 @@ const Directions = {
 
 const SeatsAvailable = {
     YES_SEATS: new Set(["MANY_SEATS_AVAILABLE","EMPTY"]),
-    SOME_SEATS: new Set(["FEW_SEATS_AVAILABLE", "STANDING_ROOM_ONLY"]),
-    NO_SEATS: new Set(["NOT_AVAILABLE", "CRUSHED_STANDING_ROOM_ONLY", "FULL"])
+    SOME_SEATS: new Set(["FEW_SEATS_AVAILABLE", "STANDING_ROOM_ONLY", "NOT_AVAILABLE"]),
+    NO_SEATS: new Set(["CRUSHED_STANDING_ROOM_ONLY", "FULL"])
 };
+
+const MAGIC_TIMESTAMP_FOR_STOPPED_BUS = 63240;
 
 function translateSeatClassification(seat_assertion) {
     for (const seatClassification in SeatsAvailable) {
@@ -34,6 +36,14 @@ const DirectionsLongForm = {
     SOUTH: "Southbound",
     WEST: "Westbound",
     EAST: "Eastbound"
+}
+
+function translateDirectionLongForm(text) {
+    for (const direction in DirectionsLongForm) {
+        if (DirectionsLongForm[direction].toUpperCase() == text.toUpperCase()) {
+            return Directions[direction];
+        }
+    }
 }
 
 class DirectionsImpacted {
@@ -57,6 +67,53 @@ class ProcessedAlert {
         this.directionsImpacted = directionsImpacted;
     }
 }
+
+class ProcessedLocation {
+    constructor(vehicleLocation, routeId, trip, vehicleId, blockId,
+         direction, destination, heading, secondsLate, nextStopId,
+          nextStopName, seatAvailabilityRaw, seatAvailabilityTranslated,
+           positionTimestamp) {
+            this.vehicleLocation = vehicleLocation;
+            this.routeId = routeId;
+            this.trip = trip;
+            this.vehicleId = vehicleId;
+            this.blockId = blockId;
+            this.direction = direction;
+            this.destination = destination;
+            this.heading = heading;
+            this.secondsLate = secondsLate;
+            this.nextStopId = nextStopId;
+            this.nextStopName = nextStopName;
+            this.seatAvailabilityRaw = seatAvailabilityRaw;
+            this.seatAvailabilityTranslated = seatAvailabilityTranslated;
+            this.positionTimestamp = positionTimestamp;
+           }
+}
+
+function createProcessedLocation(locationJson) {
+    console.log(`${JSON.stringify(locationJson)}\n\n`);
+        return new ProcessedLocation(
+            new LatitudeLongitude(locationJson.lat, locationJson.lng),
+            locationJson.route_id,
+            locationJson.trip,
+            locationJson.VehicleID, 
+            locationJson.BlockID,
+            translateDirectionLongForm(locationJson.Direction),
+            locationJson.destination,
+            locationJson.heading,
+            Number(locationJson.Offset_sec),
+            locationJson.next_stop_id,
+            locationJson.next_stop_name,
+            locationJson.estimated_seat_availability,
+
+            locationJson.timestamp === MAGIC_TIMESTAMP_FOR_STOPPED_BUS 
+            ? "NO_SEATS" 
+            : translateSeatClassification(locationJson.estimated_seat_availability),
+
+            locationJson.timestamp
+        );
+
+    }
 
 function determineDirectionsImpacted(text) {
     let directionsBound = [];
@@ -87,4 +144,5 @@ function createProcessedAlert(alertJson) {
 }
 
 export { RouteTypes, ProcessedAlert, DirectionsImpacted, 
-    determineDirectionsImpacted, createProcessedAlert, translateSeatClassification };
+    determineDirectionsImpacted, createProcessedAlert, translateSeatClassification,
+translateDirectionLongForm, createProcessedLocation, MAGIC_TIMESTAMP_FOR_STOPPED_BUS };
