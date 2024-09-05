@@ -5,7 +5,8 @@ let TRAPPED_METHODS = ["get", "set"];
 class DataHolder {
     /**
      * Creates an instance of DataHolder, with default adds and a clear method for supported intercepts.
-     *
+     * Generates this.getHandlers, this.setHandlers, addGetHandler(), addSetHandler()
+     * 
      * @constructor
      * @param {...{string}} restArgs Known data fields
      */
@@ -46,7 +47,7 @@ class DataHolder {
 
 /**
  * Wrap the DataHolder in reactive code
- *
+ * Set holders only
  * @param {DataHolder} initialObj
  * @returns {Proxy<DataHolder>}
  */
@@ -56,9 +57,8 @@ const wrappedDataHolder = (initialObj) => {
           const oldValue = originalObject[property];
           originalObject[property] = newValue;
 
-          
           originalObject['setHandlers'].forEach(callbackFunc => {
-            callbackFunc(newValue, originalObject, property, oldValue);
+            callbackFunc(originalObject, property, newValue, oldValue);
           });
 
           return true;
@@ -66,4 +66,10 @@ const wrappedDataHolder = (initialObj) => {
   })
 }
 
-export { DataHolder, wrappedDataHolder }
+
+const createWrappedDataHolder = (...args) => {
+  const dataHolder = new DataHolder(...args);
+  return wrappedDataHolder(dataHolder);
+};
+
+export { createWrappedDataHolder };
