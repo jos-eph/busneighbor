@@ -1,17 +1,13 @@
 import { includesAsWord, concatenateStrings } from "../common/utilities";
 import { LatitudeLongitude } from "./location";
+import { DirectionsImpacted, Directions } from "../model/directions_impacted";
+import { ProcessedAlert } from "../model/processed_alert";
+import { ProcessedLocation } from "../model/processed_location";
 
 const RouteTypes = {
     BUS: "bus",
     TROLLEY: "trolley",
     RAIL: "rr"
-};
-
-const Directions = {
-    NORTH: "N",
-    SOUTH: "S",
-    WEST: "W",
-    EAST: "E"
 };
 
 const SeatsAvailable = {
@@ -44,50 +40,6 @@ function translateDirectionLongForm(text) {
             return Directions[direction];
         }
     }
-}
-
-class DirectionsImpacted {
-    constructor(directions) {
-        this[Directions.NORTH] = directions.includes(Directions.NORTH) ? true : false;
-        this[Directions.SOUTH] = directions.includes(Directions.SOUTH) ? true : false;
-        this[Directions.EAST] = directions.includes(Directions.EAST) ? true : false;
-        this[Directions.WEST] = directions.includes(Directions.WEST) ? true : false;
-    }
-}
-
-class ProcessedAlert {
-    constructor(routeType, routeId, routeName, compoundMessage, detourId, detourStartLocation, detourReason, directionsImpacted) {
-        this.routeType = routeType;
-        this.routeId = routeId;
-        this.routeName = routeName;
-        this.compoundMessage = compoundMessage;
-        this.detourId = detourId;
-        this.detourStartLocation = detourStartLocation;
-        this.detourReason = detourReason;
-        this.directionsImpacted = directionsImpacted;
-    }
-}
-
-class ProcessedLocation {
-    constructor(vehicleLocation, routeId, trip, vehicleId, blockId,
-         direction, destination, heading, secondsLate, nextStopId,
-          nextStopName, seatAvailabilityRaw, seatAvailabilityTranslated,
-           positionTimestamp) {
-            this.vehicleLocation = vehicleLocation;
-            this.routeId = routeId;
-            this.trip = trip;
-            this.vehicleId = vehicleId;
-            this.blockId = blockId;
-            this.direction = direction;
-            this.destination = destination;
-            this.heading = heading;
-            this.secondsLate = secondsLate;
-            this.nextStopId = nextStopId;
-            this.nextStopName = nextStopName;
-            this.seatAvailabilityRaw = seatAvailabilityRaw;
-            this.seatAvailabilityTranslated = seatAvailabilityTranslated;
-            this.positionTimestamp = positionTimestamp;
-           }
 }
 
 function createProcessedLocation(locationJson) {
