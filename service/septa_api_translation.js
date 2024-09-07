@@ -43,7 +43,6 @@ function translateDirectionLongForm(text) {
 }
 
 function createProcessedLocation(locationJson) {
-    console.log(`${JSON.stringify(locationJson)}\n\n`);
         return new ProcessedLocation(
             new LatitudeLongitude(locationJson.lat, locationJson.lng),
             locationJson.route_id,

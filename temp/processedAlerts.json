@@ -1,0 +1,50 @@
+[
+  {
+    "processedRouteIdentifier": "45",
+    "processedRouteType": "bus",
+    "processedDirectionsImpacted": {
+      "N": false,
+      "S": true,
+      "E": false,
+      "W": false
+    },
+    "processedCompoundMessage": "until 12/31/24, SB discontinued transit stop, 12th & Locust.",
+    "routeId": "bus_route_45",
+    "routeName": "45",
+    "detourId": "4624",
+    "detourStartLocation": "12th & Locust",
+    "detourReason": "Construction"
+  },
+  {
+    "processedRouteIdentifier": "45",
+    "processedRouteType": "bus",
+    "processedDirectionsImpacted": {
+      "N": false,
+      "S": true,
+      "E": false,
+      "W": false
+    },
+    "processedCompoundMessage": "9:00PM to 12:00AM, SB via 10th St, Right on Bigalr St (Slow operation), Right on Broad St, Reg Rre, Layover at Broad & Oregon, Ave",
+    "routeId": "bus_route_45",
+    "routeName": "45",
+    "detourId": "11153",
+    "detourStartLocation": "10th & Biglar Sts",
+    "detourReason": "Stadium Event"
+  },
+  {
+    "processedRouteIdentifier": "45",
+    "processedRouteType": "bus",
+    "processedDirectionsImpacted": {
+      "N": false,
+      "S": true,
+      "E": false,
+      "W": false
+    },
+    "processedCompoundMessage": "until 6/30/25, SB near side transit stop, discontinued at 12th & Vine., Board passengers SB far, side stop 12th & Vine at the, layover until further notice.",
+    "routeId": "bus_route_45",
+    "routeName": "45",
+    "detourId": "12490",
+    "detourStartLocation": "12th & Vine",
+    "detourReason": "Construction"
+  }
+]

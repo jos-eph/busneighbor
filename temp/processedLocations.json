@@ -1,0 +1,82 @@
+[
+  {
+    "processedRouteIdentifier": "45",
+    "processedVehicleLocation": {
+      "latitude": 39.941833,
+      "longitude": -75.16203
+    },
+    "processedDirection": "S",
+    "processedSeatAvailability": "YES_SEATS",
+    "processedSecondsLate": 222,
+    "routeId": "45",
+    "trip": "966229",
+    "vehicleId": "3537",
+    "blockId": "7054",
+    "destination": "Broad-Oregon",
+    "heading": null,
+    "nextStopId": "16504",
+    "nextStopName": "12th St & Catharine St",
+    "seatAvailabilityRaw": "EMPTY",
+    "positionTimestamp": 1724645461
+  },
+  {
+    "processedRouteIdentifier": "45",
+    "processedVehicleLocation": {
+      "latitude": 39.949947,
+      "longitude": -75.15862
+    },
+    "processedDirection": "N",
+    "processedSeatAvailability": "YES_SEATS",
+    "processedSecondsLate": 48,
+    "routeId": "45",
+    "trip": "966254",
+    "vehicleId": "3539",
+    "blockId": "7055",
+    "destination": "Noble-12th",
+    "heading": null,
+    "nextStopId": "32331",
+    "nextStopName": "11th St & Market St",
+    "seatAvailabilityRaw": "MANY_SEATS_AVAILABLE",
+    "positionTimestamp": 1724645457
+  },
+  {
+    "processedRouteIdentifier": "45",
+    "processedVehicleLocation": {
+      "latitude": 39.916387,
+      "longitude": -75.171274
+    },
+    "processedDirection": "N",
+    "processedSeatAvailability": "NO_SEATS",
+    "processedSecondsLate": 0,
+    "routeId": "45",
+    "trip": "965763",
+    "vehicleId": "0",
+    "blockId": "7063",
+    "destination": "Noble-12th",
+    "heading": null,
+    "nextStopId": null,
+    "nextStopName": null,
+    "seatAvailabilityRaw": "NOT_AVAILABLE",
+    "positionTimestamp": 63240
+  },
+  {
+    "processedRouteIdentifier": "45",
+    "processedVehicleLocation": {
+      "latitude": 39.957825,
+      "longitude": -75.158689
+    },
+    "processedDirection": "S",
+    "processedSeatAvailability": "NO_SEATS",
+    "processedSecondsLate": 0,
+    "routeId": "45",
+    "trip": "965703",
+    "vehicleId": "0",
+    "blockId": "7066",
+    "destination": "Broad-Oregon",
+    "heading": null,
+    "nextStopId": null,
+    "nextStopName": null,
+    "seatAvailabilityRaw": "NOT_AVAILABLE",
+    "positionTimestamp": 63240
+  }
+]

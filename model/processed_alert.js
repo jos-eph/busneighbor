@@ -1,13 +1,16 @@
 class ProcessedAlert {
-    constructor(routeType, routeId, routeName, compoundMessage, detourId, detourStartLocation, detourReason, directionsImpacted) {
-        this.routeType = routeType;
+    constructor(processedRouteType, routeId, routeName, 
+        processedCompoundMessage, detourId, detourStartLocation, detourReason, 
+        processedDirectionsImpacted) {
+        this.processedRouteIdentifier = routeName;
+        this.processedRouteType = processedRouteType;
+        this.processedDirectionsImpacted = processedDirectionsImpacted;
+        this.processedCompoundMessage = processedCompoundMessage;
         this.routeId = routeId;
         this.routeName = routeName;
-        this.compoundMessage = compoundMessage;
         this.detourId = detourId;
         this.detourStartLocation = detourStartLocation;
         this.detourReason = detourReason;
-        this.directionsImpacted = directionsImpacted;
     }
 }
 
