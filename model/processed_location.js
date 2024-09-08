@@ -1,0 +1,24 @@
+class ProcessedLocation {
+    constructor(processedVehicleLocation, routeId, trip, vehicleId, blockId,
+         processedDirection, destination, heading, processedSecondsLate, nextStopId,
+          nextStopName, seatAvailabilityRaw, processedSeatAvailability,
+           positionTimestamp) {
+            this.processedRouteIdentifier = routeId;
+            this.processedVehicleLocation = processedVehicleLocation;
+            this.processedDirection = processedDirection;
+            this.processedSeatAvailability = processedSeatAvailability;
+            this.processedSecondsLate = processedSecondsLate;
+            this.routeId = routeId;
+            this.trip = trip;
+            this.vehicleId = vehicleId;
+            this.blockId = blockId;
+            this.destination = destination;
+            this.heading = heading;
+            this.nextStopId = nextStopId;
+            this.nextStopName = nextStopName;
+            this.seatAvailabilityRaw = seatAvailabilityRaw;
+            this.positionTimestamp = positionTimestamp;
+           }
+}
+
+export { ProcessedLocation };

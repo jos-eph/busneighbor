@@ -1,32 +1,35 @@
-import { ALERT_SB_DISCONTINUED_ONE_ALERT, LOCATION_AT_12TH_CATHERINE  } from "../stubs/septa_api_samples";
-import { ProcessedAlert, DirectionsImpacted, 
-    createProcessedAlert, determineDirectionsImpacted,
-translateSeatClassification, createProcessedLocation, 
+import { ALERT_SB_DISCONTINUED_ONE_ALERT, LOCATION_AT_12TH_CATHERINE,
+    ALERT_STUB, LOCATION_STUB
+  } from "../stubs/septa_api_samples";
+import { ProcessedAlert, 
+    createProcessedAlert, createProcessedLocation, 
+    determineDirectionsImpacted, translateSeatClassification, 
 translateDirectionLongForm, MAGIC_TIMESTAMP_FOR_STOPPED_BUS } from "../../service/septa_api_translation";
-
+import { DirectionsImpacted } from "../../service/septa_api_translation";
 
 
 const EXPECTED_ALERT = {
-    routeType: "bus",
+    processedRouteType: "bus",
     routeId: "bus_route_45",
     routeName: "45",
-    compoundMessage: "until 12/31/24, SB discontinued transit stop, 12th & Locust.",
+    processedCompoundMessage: "until 12/31/24, SB discontinued transit stop, 12th & Locust.",
     detourId: "4624",
     detourStartLocation: "12th & Locust",
     detourReason: "Construction",
-    directionsImpacted: {"N": false, "S": true, "W": false, "E": false}
+    processedDirectionsImpacted: {"N": false, "S": true, "W": false, "E": false},
+    processedRouteIdentifier: "45"
 }
 
 test('Constructor for ProcessedAlert works', () => {
     const resultAlert = new ProcessedAlert(
-        EXPECTED_ALERT.routeType,
+        EXPECTED_ALERT.processedRouteType,
         EXPECTED_ALERT.routeId,
         EXPECTED_ALERT.routeName,
-        EXPECTED_ALERT.compoundMessage,
+        EXPECTED_ALERT.processedCompoundMessage,
         EXPECTED_ALERT.detourId,
         EXPECTED_ALERT.detourStartLocation,
         EXPECTED_ALERT.detourReason,
-        EXPECTED_ALERT.directionsImpacted
+        EXPECTED_ALERT.processedDirectionsImpacted
     );
 
     expect(resultAlert).toEqual(EXPECTED_ALERT);
@@ -97,19 +100,20 @@ test.each(LONG_FORM_DIRECTION_TO_DIRECTION)
 });
 
 const EXPECTED_PROCESSED_LOCATION = {
-    vehicleLocation: {"latitude": 39.941833, "longitude": -75.16203},
+    processedRouteIdentifier: "45",
+    processedVehicleLocation: {"latitude": 39.941833, "longitude": -75.16203},
     routeId: "45",
     trip: "966229",
     vehicleId: "3537",
     blockId: "7054",
-    direction: "S",
+    processedDirection: "S",
     destination: "Broad-Oregon",
     heading: null,
-    secondsLate: 222,
+    processedSecondsLate: 222,
     nextStopId: "16504",
     nextStopName: "12th St & Catharine St",
     seatAvailabilityRaw: "EMPTY",
-    seatAvailabilityTranslated: "YES_SEATS",
+    processedSeatAvailability: "YES_SEATS",
     positionTimestamp: 1724645461
 }
 
@@ -120,5 +124,13 @@ test('Locations are processed correctly, with appropriate translations', () => {
 test('The magic timestamp value for a stopped bus results in a NO_SEATS translation', () => {
     let busIsStopped = {...LOCATION_AT_12TH_CATHERINE};
     busIsStopped.timestamp = MAGIC_TIMESTAMP_FOR_STOPPED_BUS;
-    expect(createProcessedLocation(busIsStopped).seatAvailabilityTranslated).toBe("NO_SEATS");
+    expect(createProcessedLocation(busIsStopped).processedSeatAvailability).toBe("NO_SEATS");
+});
+
+
+///
+
+test('Invoke processors on stubs', () => {
+    const processedAlerts = ALERT_STUB.map(alert => createProcessedAlert(alert));
+    const processedLocations = LOCATION_STUB.map(location => createProcessedLocation(location));
 });
