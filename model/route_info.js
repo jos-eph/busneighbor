@@ -2,6 +2,7 @@ import { Directions } from "./directions_impacted";
 
 const LOCATIONS = "locations";
 const ALERTS = "alerts";
+const NO_DIRECTION = "noDirectionFound"
 
 const _empty_locations_alerts = () => {
     return {
@@ -16,7 +17,7 @@ const _empty_info_by_direction = () => {
         [Directions.SOUTH]: _empty_locations_alerts(),
         [Directions.WEST]: _empty_locations_alerts(),
         [Directions.EAST]: _empty_locations_alerts(),
-        null: { [ALERTS]: [] }
+        [NO_DIRECTION]: { [ALERTS]: [] }
     }
 };
 
@@ -28,4 +29,4 @@ class RouteInfo {
     }
 }
 
-export { RouteInfo }
+export { RouteInfo, NO_DIRECTION }

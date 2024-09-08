@@ -18,7 +18,7 @@ const EXPECTED_ROUTE_INFO = {
             "locations": [],
             "alerts": []
         },
-        null: {
+        "noDirectionFound": {
             "alerts": []
         }
     },
@@ -40,7 +40,7 @@ const EXPECTED_ROUTE_INFO = {
             "locations": [],
             "alerts": []
         },
-        null: {
+        "noDirectionFound": {
             "alerts": []
         }
     }
