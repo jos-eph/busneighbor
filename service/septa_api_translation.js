@@ -96,4 +96,4 @@ function createProcessedAlert(alertJson) {
 
 export { RouteTypes, ProcessedAlert, DirectionsImpacted, 
     determineDirectionsImpacted, createProcessedAlert, translateSeatClassification,
-translateDirectionLongForm, createProcessedLocation, MAGIC_TIMESTAMP_FOR_STOPPED_BUS };
+translateDirectionLongForm, createProcessedLocation, MAGIC_TIMESTAMP_FOR_STOPPED_BUS, SeatsAvailable };
