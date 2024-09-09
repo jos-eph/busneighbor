@@ -47,11 +47,11 @@ class DataHolder {
 
 /**
  * Wrap the DataHolder in reactive code
- * Set holders only
+ * Set holders only. This cannot easily be rewritten to intercept all methods, because each method has a different Proxy param list.
  * @param {DataHolder} initialObj
  * @returns {Proxy<DataHolder>}
  */
-const wrappedDataHolder = (initialObj) => {
+const reactiveDataHolder = (initialObj) => {
   return new Proxy(initialObj, {
       set(originalObject, property, newValue, objectAssignmentDirectedTo) {
           const oldValue = originalObject[property];
@@ -66,10 +66,10 @@ const wrappedDataHolder = (initialObj) => {
   })
 }
 
-const createWrappedDataHolder = (...args) => {
+const createReactiveDataHolder = (...args) => {
   const dataHolder = new DataHolder(...args);
-  return wrappedDataHolder(dataHolder);
+  return reactiveDataHolder(dataHolder);
 };
 
-export { createWrappedDataHolder };
+export { createReactiveDataHolder };
 

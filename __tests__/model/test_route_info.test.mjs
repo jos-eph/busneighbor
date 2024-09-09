@@ -47,5 +47,5 @@ const EXPECTED_ROUTE_INFO = {
 }
 
 test('Confirm constructor works as expected', () => {
-    expect(new RouteInfo("12", "15")).toEqual(EXPECTED_ROUTE_INFO)
+    expect(new RouteInfo("12", "15")).toMatchObject(EXPECTED_ROUTE_INFO)
 });

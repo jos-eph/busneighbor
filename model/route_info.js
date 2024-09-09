@@ -1,14 +1,15 @@
 import { Directions } from "./directions_impacted";
+import { createReactiveDataHolder } from "./data_holder";
 
 const LOCATIONS = "locations";
 const ALERTS = "alerts";
 const NO_DIRECTION = "noDirectionFound"
 
 const _empty_locations_alerts = () => {
-    return {
-        [LOCATIONS]: [],
-        [ALERTS]: []
-    }
+    const locationsAlerts = createReactiveDataHolder([LOCATIONS], [ALERTS]);
+    locationsAlerts[LOCATIONS] = [];
+    locationsAlerts[ALERTS] = [];
+    return locationsAlerts;
 }
 
 const _empty_info_by_direction = () => {
@@ -29,4 +30,4 @@ class RouteInfo {
     }
 }
 
-export { RouteInfo, NO_DIRECTION }
+export { RouteInfo, NO_DIRECTION, LOCATIONS, ALERTS }
