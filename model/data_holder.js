@@ -66,10 +66,10 @@ const wrappedDataHolder = (initialObj) => {
   })
 }
 
-
 const createWrappedDataHolder = (...args) => {
   const dataHolder = new DataHolder(...args);
   return wrappedDataHolder(dataHolder);
 };
 
 export { createWrappedDataHolder };
+

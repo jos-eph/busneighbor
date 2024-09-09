@@ -33,7 +33,7 @@ function raise_for_status(response) {
  */
 async function get_location_data(route_id) {
     const url = _build_url(LOCATION_URL + new URLSearchParams({route: route_id}));
-    return fetch(url)
+    return fetch(url);
 }
 
 
@@ -49,7 +49,7 @@ async function get_location_data(route_id) {
 async function get_route_alerts(type, route_id_number) {
   let route_id_formatted = `${type}_route_${route_id_number}`
   const url = _build_url(ROUTE_ALERTS + new URLSearchParams({route_id: route_id_formatted}));
-  return fetch(url)
+  return fetch(url);
 }
 
 

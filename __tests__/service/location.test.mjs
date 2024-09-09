@@ -79,7 +79,7 @@ test('isLongitudeApproaching throws an error with an invalid direction', () => {
 
 
 test('getCurrentCoordinatesPromise returns coordinates', async () => {
-  global.navigator = global.navigator || {};
+  global.navigator = global.navigator || {}; // 'global' does not exist in browsers, only in Node
   global.navigator.geolocation = { getCurrentPosition: jest.fn() };
   const mockCoords = { latitude: 37.7749, longitude: -122.4194 }; // Example coordinates
   global.navigator.geolocation.getCurrentPosition.mockImplementationOnce((successCallback) => {
