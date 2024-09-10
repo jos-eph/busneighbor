@@ -15,15 +15,22 @@ const WORKSPACE_PARAM = "workspace";
  * These references are not actually for data retrieval but to trigger a display handler, since they are themselves reactive.
  *
  * @param {string} routes
- * @param {function} locationsFactory
- * @param {function} alertsFactory
+ * @param {function} locationsHandler
+ * @param {function} alertsHandler
  */
-const createStore = (routes, locationsFactory, alertsFactory) => {
+const createStore = (routes, locationsHandler, alertsHandler) => {
     const routeInfo = new RouteInfo(...routes);
+    
+
     const locationReferences = createReactiveDataHolder(...routes);
+    locationReferences.addSetHandler(locationsHandler);
+
     const alertReferences = createReactiveDataHolder(...routes);
+    alertReferences.addSetHandler(alertsHandler);
+
     const workspace = {};
 
+    // RouteInfo auto-populates 
     for (const route of routes) {
         routeInfo[route].addSetHandler(
             (originalObj, property, value) => {

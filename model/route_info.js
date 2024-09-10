@@ -1,5 +1,5 @@
 import { Directions } from "./directions_impacted";
-import { createReactiveDataHolder } from "./data_holder";
+import { createReactiveDataHolder, DataHolder } from "./data_holder";
 
 const LOCATIONS = "locations";
 const ALERTS = "alerts";
@@ -22,11 +22,14 @@ const _empty_info_by_direction = () => {
     }
 };
 
-class RouteInfo {
+class RouteInfo extends DataHolder {
     constructor(...routes) {
+        super(...routes);
+        console.log(`RouteInfo: ${JSON.stringify(this)} routes: ${routes}`);
         for (let route of routes) {
             this[route] = _empty_info_by_direction();
         }
+        console.log(`RouteInfo: ${JSON.stringify(this)} routes: ${routes}`);
     }
 }
 

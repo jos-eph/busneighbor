@@ -17,8 +17,11 @@ class DataHolder {
       }
 
       // Declare trapped method handler sets and generate set variable names
-      
-      this['trappedMethodHandlerCollectionNames'] = []
+      Object.defineProperty(this, 'trappedMethodHandlerCollectionNames', {
+        value: [],
+        writable: true, 
+        enumerable: false
+      });
       for (let trappedMethod of TRAPPED_METHODS) {
         this['trappedMethodHandlerCollectionNames'].push(`${trappedMethod}Handlers`);
       }
@@ -37,7 +40,11 @@ class DataHolder {
 
     clearHandlers() {
       for (let setName of this.trappedMethodHandlerCollectionNames) {
-        this[setName] = new Set();
+        Object.defineProperty(this, [setName], {
+          value: new Set(),
+          writable: true, 
+          enumerable: false
+        });
       }
     }
   }
@@ -48,15 +55,15 @@ class DataHolder {
 /**
  * Wrap the DataHolder in reactive code
  * Set holders only. This cannot easily be rewritten to intercept all methods, because each method has a different Proxy param list.
- * @param {DataHolder} initialObj
+ * @param {DataHolder} initialDataHolder
  * @returns {Proxy<DataHolder>}
  */
-const reactiveDataHolder = (initialObj) => {
-  return new Proxy(initialObj, {
+const reactiveDataHolder = (initialDataHolder) => {
+  return new Proxy(initialDataHolder, {
       set(originalObject, property, newValue, objectAssignmentDirectedTo) {
           const oldValue = originalObject[property];
           originalObject[property] = newValue;
-
+          console.log(`Here: ${JSON.stringify(originalObject['setHandlers'])}`);
           originalObject['setHandlers'].forEach(callbackFunc => {
             callbackFunc(originalObject, property, newValue, oldValue);
           });
@@ -71,5 +78,5 @@ const createReactiveDataHolder = (...args) => {
   return reactiveDataHolder(dataHolder);
 };
 
-export { createReactiveDataHolder };
+export { createReactiveDataHolder, DataHolder };
 
