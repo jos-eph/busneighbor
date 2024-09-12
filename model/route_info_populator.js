@@ -1,6 +1,6 @@
-import { RouteInfo, NO_DIRECTION } from "./route_info";
-import { Directions } from "./directions_impacted";
-import { SeatsAvailable } from "../service/septa_api_translation";
+import { RouteInfo, NO_DIRECTION } from "./route_info.js";
+import { Directions } from "./directions_impacted.js";
+import { SeatsAvailable } from "../service/septa_api_translation.js";
 
 const populateRouteInfoAlerts = (routeInfo, processedAlerts) => {
     for (let processedAlert of processedAlerts) {
@@ -34,7 +34,6 @@ const populateRouteInfoLocations = (routeInfo, processedLocations) => {
 
 const cleanRouteInfo = (routeInfo) => {
     for (const route of Object.keys(routeInfo)) {
-        console.log(`keys of routeInfo[route]: ${Object.keys(routeInfo[route])} routeInfo[route]: ${JSON.stringify(routeInfo[route])}`);
         for (const direction of Object.keys(routeInfo[route])) {
             if (direction == [NO_DIRECTION]) { // We do not include locations for unknown directions
                 if (routeInfo[route][NO_DIRECTION].alerts.length == 0) {
@@ -42,7 +41,6 @@ const cleanRouteInfo = (routeInfo) => {
                 }
                 continue;
             }
-            console.log(`Trying to clean routeInfo: ${JSON.stringify(routeInfo)} direction: ${direction}`);
             if (routeInfo[route][direction].locations.length == 0 &&
                 routeInfo[route][direction].alerts.length == 0) {
                     delete routeInfo[route][direction];

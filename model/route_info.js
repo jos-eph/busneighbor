@@ -1,12 +1,11 @@
-import { Directions } from "./directions_impacted";
-import { createReactiveDataHolder, DataHolder } from "./data_holder";
+import { Directions } from "./directions_impacted.js";
 
 const LOCATIONS = "locations";
 const ALERTS = "alerts";
 const NO_DIRECTION = "noDirectionFound"
 
 const _empty_locations_alerts = () => {
-    const locationsAlerts = createReactiveDataHolder([LOCATIONS], [ALERTS]);
+    let locationsAlerts = {};
     locationsAlerts[LOCATIONS] = [];
     locationsAlerts[ALERTS] = [];
     return locationsAlerts;
@@ -22,14 +21,11 @@ const _empty_info_by_direction = () => {
     }
 };
 
-class RouteInfo extends DataHolder {
+class RouteInfo {
     constructor(...routes) {
-        super(...routes);
-        console.log(`RouteInfo: ${JSON.stringify(this)} routes: ${routes}`);
         for (let route of routes) {
             this[route] = _empty_info_by_direction();
         }
-        console.log(`RouteInfo: ${JSON.stringify(this)} routes: ${routes}`);
     }
 }
 

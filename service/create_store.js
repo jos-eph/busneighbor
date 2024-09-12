@@ -1,5 +1,5 @@
-import { createReactiveDataHolder } from "../model/data_holder";
-import { RouteInfo, ALERTS, LOCATIONS } from "../model/route_info";
+import { createReactiveDataHolder } from "../model/data_holder.js";
+import { RouteInfo, ALERTS, LOCATIONS } from "../model/route_info.js";
 
 const ROUTE_INFO_PARAM = "routeInfo";
 const LOCATION_REFERENCES_PARAM = "locationReferences";
@@ -14,13 +14,15 @@ const WORKSPACE_PARAM = "workspace";
  * routeInfo is a reactive object that copies references to its new values to locationReferences and alertReferences as appropriate.
  * These references are not actually for data retrieval but to trigger a display handler, since they are themselves reactive.
  *
- * @param {string} routes
+ * @param {array[str]} routes
  * @param {function} locationsHandler
  * @param {function} alertsHandler
  */
 const createStore = (routes, locationsHandler, alertsHandler) => {
     const routeInfo = new RouteInfo(...routes);
-    
+    for (const route of Object.keys(routeInfo)) {
+        console.log(`Yo, route ${route}`);
+    }
 
     const locationReferences = createReactiveDataHolder(...routes);
     locationReferences.addSetHandler(locationsHandler);
@@ -32,6 +34,7 @@ const createStore = (routes, locationsHandler, alertsHandler) => {
 
     // RouteInfo auto-populates 
     for (const route of routes) {
+        console.log(`Route: ${route}, ${Object.keys(routeInfo)} ${typeof routeInfo[route].addSetHandler}`);
         routeInfo[route].addSetHandler(
             (originalObj, property, value) => {
                 if (property == [LOCATIONS]) {
@@ -52,3 +55,5 @@ const createStore = (routes, locationsHandler, alertsHandler) => {
         [WORKSPACE_PARAM]: workspace
     };
 };
+
+export { createStore };
