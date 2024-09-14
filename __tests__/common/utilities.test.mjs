@@ -1,4 +1,4 @@
-import { includesAsWord, concatenateStrings } from "../../common/utilities";
+import { includesAsWord, concatenateStrings } from "../../common/utilities.js";
 
 const TEXT_SOUGHT_WORD_EXPECTED_OUTCOME = [
     ["ABC", "ABC", true],

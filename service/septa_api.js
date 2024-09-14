@@ -16,10 +16,11 @@ function _build_url(url) {
  * @param {Response} response
  * @returns {boolean}
  */
-function raise_for_status(response) {
-    if (response.status >= 300) {
-        alert(`Error ${response.status}!`)
-        return true
+function raiseForStatus(response) {
+    if (!response.ok) {
+        const message = `Error ${response.status}, ${response.body}!`;
+        alert(message);
+        throw new Error(message);
     }
     return false
 }
@@ -31,9 +32,12 @@ function raise_for_status(response) {
  * @param {number} route_id
  * @returns {Promise<Response>}
  */
-async function get_location_data(route_id) {
-    const url = _build_url(LOCATION_URL + new URLSearchParams({route: route_id}));
-    return fetch(url);
+async function getLocationData(route_id) {
+    const url = _build_url(LOCATION_URL + new URLSearchParams({route: `${route_id}`}));
+    const response = await fetch(url);
+    raiseForStatus(response);
+    const arrayWithKeyBus = await response.json();
+    return Object.values(arrayWithKeyBus)[0];
 }
 
 
@@ -46,11 +50,13 @@ async function get_location_data(route_id) {
  * @param {any} route_id
  * @returns {Promise<Response>}
  */
-async function get_route_alerts(type, route_id_number) {
+async function getRouteAlerts(route_id_number, type="bus") {
   let route_id_formatted = `${type}_route_${route_id_number}`
   const url = _build_url(ROUTE_ALERTS + new URLSearchParams({route_id: route_id_formatted}));
-  return fetch(url);
+  const response = await fetch(url);
+  raiseForStatus(response);
+  return await response.json();
 }
 
 
-export { get_location_data, get_route_alerts, raise_for_status }
+export { getLocationData, getRouteAlerts, raiseForStatus }

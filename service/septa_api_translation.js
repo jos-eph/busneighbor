@@ -1,8 +1,8 @@
-import { includesAsWord, concatenateStrings } from "../common/utilities";
-import { LatitudeLongitude } from "./location";
-import { DirectionsImpacted, Directions } from "../model/directions_impacted";
-import { ProcessedAlert } from "../model/processed_alert";
-import { ProcessedLocation } from "../model/processed_location";
+import { includesAsWord, concatenateStrings } from "../common/utilities.js";
+import { LatitudeLongitude } from "./location.js";
+import { DirectionsImpacted, Directions } from "../model/directions_impacted.js";
+import { ProcessedAlert } from "../model/processed_alert.js";
+import { ProcessedLocation } from "../model/processed_location.js";
 
 const RouteTypes = {
     BUS: "bus",
