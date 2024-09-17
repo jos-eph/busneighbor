@@ -21,4 +21,8 @@ const getReactiveWrapper = (dataObject) => {
     });
 }
 
-export { getReactiveWrapper };
+const getNewReactiveObject = () => {
+    return getReactiveWrapper({});
+}
+
+export { getReactiveWrapper, getNewReactiveObject };
