@@ -5,8 +5,10 @@ import { PROXY, LOCATION_URL, ROUTE_ALERTS } from './constants/septa_urls.js'
  * @param {string} url
  * @returns {string}
  */
+
 function _build_url(url) {
-  return PROXY + url;
+  return url;
+  // return PROXY + url;
 }
 
 

@@ -11,7 +11,6 @@ import { ProcessedLocation } from "../../model/processed_location.js";
  */
 function simpleTextAlert(alert) {
     let directionsString = "";
-    console.log(JSON.stringify(alert));
     for (const [key, value] of Object.entries(alert.processedDirectionsImpacted)) {
         if (value == true) {
             directionsString += key;
@@ -28,8 +27,8 @@ function simpleTextAlert(alert) {
  * @returns {string}
  */
 function simpleTextLocation(location) {
-    return (location.processedDirection === undefined) ? "<<empty>>"
-    : `${location.processedRouteIdentifier} going ${location.processedDirection}: ${location.nextStopName}`;
+    return (!location.processedDirection) ? "<<empty>>"
+    : `${location.vehicleId}\t${location.processedRouteIdentifier} going ${location.processedDirection}: ${location.nextStopName} \t ${location.processedSeatAvailability} ${location.processedStalenessSeconds}`;
 }
 
 

@@ -1,4 +1,4 @@
-import { includesAsWord, concatenateStrings } from "../common/utilities.js";
+import { includesAsWord, concatenateStrings, stalenessSeconds } from "../common/utilities.js";
 import { LatitudeLongitude } from "./location.js";
 import { DirectionsImpacted, Directions } from "../model/directions_impacted.js";
 import { ProcessedAlert } from "../model/processed_alert.js";
@@ -43,6 +43,7 @@ function translateDirectionLongForm(text) {
 }
 
 function createProcessedLocation(locationJson) {
+    console.log(`Timestamp: ${locationJson.timestamp} ${typeof locationJson.timestamp} `)
         return new ProcessedLocation(
             new LatitudeLongitude(locationJson.lat, locationJson.lng),
             locationJson.route_id,
@@ -61,7 +62,8 @@ function createProcessedLocation(locationJson) {
             ? "NO_SEATS" 
             : translateSeatClassification(locationJson.estimated_seat_availability),
 
-            locationJson.timestamp
+            locationJson.timestamp,
+            stalenessSeconds(Number(locationJson.timestamp))
         );
 
     }

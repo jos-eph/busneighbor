@@ -11,5 +11,11 @@ function concatenateStrings(...args) {
     return concatenated;
 }
 
-export { includesAsWord, concatenateStrings };
+function stalenessSeconds(epochTime) {
+    const nowSecs = Math.floor(Date.now() / 1000);
+    console.log(`NowSecs: ${nowSecs} , epoch ${epochTime}`)
+    return (nowSecs - epochTime);
+}
+
+export { includesAsWord, concatenateStrings, stalenessSeconds };
 

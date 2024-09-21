@@ -118,7 +118,7 @@ const EXPECTED_PROCESSED_LOCATION = {
 }
 
 test('Locations are processed correctly, with appropriate translations', () => {
-    expect(createProcessedLocation(LOCATION_AT_12TH_CATHERINE)).toEqual(EXPECTED_PROCESSED_LOCATION);
+    expect(createProcessedLocation(LOCATION_AT_12TH_CATHERINE)).toMatchObject(EXPECTED_PROCESSED_LOCATION);
 });
 
 test('The magic timestamp value for a stopped bus results in a NO_SEATS translation', () => {

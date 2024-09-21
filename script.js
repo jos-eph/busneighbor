@@ -4,6 +4,7 @@ import { getCurrentCoordinatesPromise, isApproachingMe, LatitudeLongitude} from 
 import { getNewReactiveObject } from './model/reactive_service.js';
 import { simpleTextAlert, simpleTextLocation } from './service/processors/demonstration_processors.js';
 import { aggregateForRoutes, processStore } from './service/processors/processor_aggregators.js';
+import { validLocation } from './service/processors/display_filters.js';
 
 const routes = ["45", "29", "47", "4"]
 var locationsStore = getNewReactiveObject();
@@ -13,7 +14,7 @@ var alertsStore = getNewReactiveObject();
 
 async function updateLocationsData() {
     return aggregateForRoutes(routes, "bus", getLocationData,
-        createProcessedLocation, locationsStore);
+        createProcessedLocation, locationsStore, validLocation);
 }
 
 async function updateAlertData() {
@@ -25,7 +26,6 @@ async function updateAlertData() {
 
 locationsStore.setHandler = (data) => {
     const locations = processStore(data, simpleTextLocation);
-    console.log(JSON.stringify(locations));
     for (const locationMessage of locations) {
         console.log(locationMessage);
     }

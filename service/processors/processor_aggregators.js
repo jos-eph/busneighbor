@@ -6,17 +6,25 @@
  * @param {function} restGetter
  * @param {function} individualProcessor
  * @param {Object} targetStore
+ * @param {function } arrayFilter
+ * @param {function} arraySorter
  * @returns {*}
  */
-async function aggregateForRoutes(routes, routeType="bus", restGetter, individualProcessor, targetStore) {
+async function aggregateForRoutes(routes, routeType="bus", restGetter, individualProcessor, targetStore,
+                                  arrayFilter, arraySorter
+) {
     const allNewData = [];
     for (const route of routes) {
         const dataArray = await restGetter(route, routeType);
-        const newData = [];
+        let newData = [];
         for (const individualData of dataArray) {
             const processedData = individualProcessor(individualData);
             newData.push(processedData)
         }
+        
+        newData = (arrayFilter) ? newData.filter(arrayFilter) : newData;
+        newData = (arraySorter) ? toSorted(newData) : newData;
+
         targetStore[route] = newData;
         allNewData.push(newData);
     }
@@ -30,7 +38,6 @@ function processStore(store, processor) {
             processed.push(processor(data));
         }
     }
-    console.log(JSON.stringify(processed));
     return processed;
 }
 
