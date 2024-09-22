@@ -49,3 +49,6 @@ function testMe() {
 setInterval(testMe, 10000);
 
 console.log("You're in.")
+
+const resp = await fetch("https://www3.septa.org/api/v2/alerts/?route_id=45");
+console.log(JSON.stringify(await resp.json()));

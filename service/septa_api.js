@@ -7,8 +7,7 @@ import { PROXY, LOCATION_URL, ROUTE_ALERTS } from './constants/septa_urls.js'
  */
 
 function _build_url(url) {
-  return url;
-  // return PROXY + url;
+  return PROXY + url;
 }
 
 
@@ -36,7 +35,10 @@ function raiseForStatus(response) {
  */
 async function getLocationData(route_id) {
     const url = _build_url(LOCATION_URL + new URLSearchParams({route: `${route_id}`}));
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      mode: 'cors',
+      method: 'GET'},
+    );
     raiseForStatus(response);
     const arrayWithKeyBus = await response.json();
     return Object.values(arrayWithKeyBus)[0];
