@@ -22,4 +22,16 @@ class ProcessedLocation {
            }
 }
 
+class ProcessedLocationV2 {
+    constructor(processedRouteIdentifier, processedVehicleLocation, processedDirection, processedSeatAvailability, processedSecondsLate, processedStalenessSeconds, rawLocation) {
+            this.processedRouteIdentifier = rawLocation.route_id;
+            this.processedVehicleLocation = processedVehicleLocation;
+            this.processedDirection = processedDirection;
+            this.processedSeatAvailability = processedSeatAvailability;
+            this.processedSecondsLate = processedSecondsLate;
+            this.processedStalenessSeconds = processedStalenessSeconds;
+            this.rawLocation = rawLocation;
+           }
+}
+
 export { ProcessedLocation };

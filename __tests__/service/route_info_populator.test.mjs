@@ -2,7 +2,7 @@ import { populateRouteInfoAlerts, populateRouteInfoLocations,
     cleanRouteInfo
  } from "../../model/route_info_populator";
 import { createProcessedAlert, createProcessedLocation } from "../../service/septa_api_translation";
-import { ALERT_STUB, LOCATION_STUB } from "../stubs/septa_api_samples";
+import { ALERT_STUB, LOCATION_STUB } from "../stubs/septa_api_v1_samples";
 import { RouteInfo, NO_DIRECTION } from "../../model/route_info";
 import { ProcessedAlert } from "../../service/septa_api_translation";
 import { DirectionsImpacted } from "../../service/septa_api_translation";

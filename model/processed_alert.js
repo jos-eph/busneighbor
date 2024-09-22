@@ -11,7 +11,16 @@ class ProcessedAlert {
         this.detourId = detourId;
         this.detourStartLocation = detourStartLocation;
         this.detourReason = detourReason;
-    }
+        }
+}
+
+class ProcessedAlertV2 {
+    constructor(processedRouteType, processedCompoundMessage, processedDirectionsImpacted, rawAlert) {
+        this.processedRouteType = processedRouteType;
+        this.processedCompoundMessage = processedCompoundMessage;
+        this.processedDirectionsImpacted = processedDirectionsImpacted;
+        this.rawAlert = rawAlert;
+        }
 }
 
 export { ProcessedAlert }

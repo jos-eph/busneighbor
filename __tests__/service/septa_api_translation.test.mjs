@@ -1,6 +1,6 @@
 import { ALERT_SB_DISCONTINUED_ONE_ALERT, LOCATION_AT_12TH_CATHERINE,
     ALERT_STUB, LOCATION_STUB
-  } from "../stubs/septa_api_samples";
+  } from "../stubs/septa_api_v1_samples";
 import { ProcessedAlert, 
     createProcessedAlert, createProcessedLocation, 
     determineDirectionsImpacted, translateSeatClassification, 
