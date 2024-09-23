@@ -15,12 +15,12 @@ class ProcessedAlert {
 }
 
 class ProcessedAlertV2 {
-    constructor(processedRouteType, processedCompoundMessage, processedDirectionsImpacted, rawAlert) {
-        this.processedRouteType = processedRouteType;
-        this.processedCompoundMessage = processedCompoundMessage;
-        this.processedDirectionsImpacted = processedDirectionsImpacted;
+    constructor(alertId, message, directionsImpacted, rawAlert) {
+        this.alertId = alertId;
+        this.message = message;
+        this.directionsImpacted = directionsImpacted;
         this.rawAlert = rawAlert;
         }
 }
 
-export { ProcessedAlert }
+export { ProcessedAlert, ProcessedAlertV2 }

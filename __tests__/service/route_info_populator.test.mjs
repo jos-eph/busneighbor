@@ -4,8 +4,8 @@ import { populateRouteInfoAlerts, populateRouteInfoLocations,
 import { createProcessedAlert, createProcessedLocation } from "../../service/septa_api_translation";
 import { ALERT_STUB, LOCATION_STUB } from "../stubs/septa_api_v1_samples";
 import { RouteInfo, NO_DIRECTION } from "../../model/route_info";
-import { ProcessedAlert } from "../../service/septa_api_translation";
-import { DirectionsImpacted } from "../../service/septa_api_translation";
+import { ProcessedAlert } from "../../model/processed_alert";
+import { DirectionsImpacted } from "../../model/directions_impacted";
 
 test('Invoke alert populator and processors on stub and confirm no-direction population', () => {
     const processedAlerts = ALERT_STUB.map(alert => createProcessedAlert(alert));

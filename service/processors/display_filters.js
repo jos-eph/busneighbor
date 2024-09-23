@@ -1,7 +1,7 @@
 // Filters
 
 const validLocation = (processedLocation) => 
-        Boolean(processedLocation.nextStopName && processedLocation.processedVehicleLocation);
+        Boolean(processedLocation.nextStopName && processedLocation.vehicleLocation);
 
 
 export { validLocation } 

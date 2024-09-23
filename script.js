@@ -1,5 +1,5 @@
-import { getLocationData, getRouteAlerts } from './service/septa_api.js'
-import { createProcessedAlert, createProcessedLocation } from './service/septa_api_translation.js';
+import { getLocationDataV2, getRouteAlertsV2 } from './service/septa_api.js'
+import { createProcessedAlertV2, createProcessedLocationV2 } from './service/septa_api_translation.js';
 import { getCurrentCoordinatesPromise, isApproachingMe, LatitudeLongitude} from './service/location.js';
 import { getNewReactiveObject } from './model/reactive_service.js';
 import { simpleTextAlert, simpleTextLocation } from './service/processors/demonstration_processors.js';
@@ -13,13 +13,13 @@ var alertsStore = getNewReactiveObject();
 
 
 async function updateLocationsData() {
-    return aggregateForRoutes(routes, "bus", getLocationData,
-        createProcessedLocation, locationsStore, validLocation);
+    return aggregateForRoutes(routes, getLocationDataV2,
+        createProcessedLocationV2, locationsStore, validLocation);
 }
 
 async function updateAlertData() {
-    return aggregateForRoutes(routes, "bus", getRouteAlerts,
-        createProcessedAlert, alertsStore);
+    return aggregateForRoutes(routes, getRouteAlertsV2,
+        createProcessedAlertV2, alertsStore);
 }
 
 
@@ -49,6 +49,3 @@ function testMe() {
 setInterval(testMe, 10000);
 
 console.log("You're in.")
-
-const resp = await fetch("https://www3.septa.org/api/v2/alerts/?route_id=45");
-console.log(JSON.stringify(await resp.json()));

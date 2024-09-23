@@ -9,26 +9,26 @@ import { ProcessedLocation } from "../../model/processed_location.js";
  * @param {ProcessedAlert} alert
  * @returns {string}
  */
-function simpleTextAlert(alert) {
+function simpleTextAlert(alertV2) {
     let directionsString = "";
-    for (const [key, value] of Object.entries(alert.processedDirectionsImpacted)) {
+    for (const [key, value] of Object.entries(alertV2.directionsImpacted)) {
         if (value == true) {
             directionsString += key;
         }
     }
     return (!directionsString) ? undefined
-    : `${alert.processedRouteType} ${alert.processedRouteIdentifier} going ${directionsString}: ${alert.processedCompoundMessage}`;
+    : `going ${directionsString}: ${alertV2.message}`;
 }
 
 /**
  * Convert locations to a simple text string
  *
- * @param {ProcessedLocation} location
+ * @param {ProcessedLocationV2} location
  * @returns {string}
  */
 function simpleTextLocation(location) {
-    return (!location.processedDirection) ? "<<empty>>"
-    : `${location.vehicleId}\t${location.processedRouteIdentifier} going ${location.processedDirection}: ${location.nextStopName} \t ${location.processedSeatAvailability} ${location.processedStalenessSeconds}`;
+    return (!location.direction) ? "<<empty>>"
+    : `${location.rawLocation.vehicle_id}\t${location.routeIdentifier} going ${location.direction}: ${location.nextStopName} \t ${location.seatAvailability} ${location.stalenessSeconds}`;
 }
 
 

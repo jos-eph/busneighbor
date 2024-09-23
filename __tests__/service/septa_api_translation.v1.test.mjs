@@ -1,11 +1,11 @@
 import { ALERT_SB_DISCONTINUED_ONE_ALERT, LOCATION_AT_12TH_CATHERINE,
     ALERT_STUB, LOCATION_STUB
   } from "../stubs/septa_api_v1_samples";
-import { ProcessedAlert, 
-    createProcessedAlert, createProcessedLocation, 
+import { createProcessedAlert, createProcessedLocation, 
     determineDirectionsImpacted, translateSeatClassification, 
 translateDirectionLongForm, MAGIC_TIMESTAMP_FOR_STOPPED_BUS } from "../../service/septa_api_translation";
-import { DirectionsImpacted } from "../../service/septa_api_translation";
+import { ProcessedAlert } from "../../model/processed_alert";
+import { DirectionsImpacted } from "../../model/directions_impacted";
 
 
 const EXPECTED_ALERT = {

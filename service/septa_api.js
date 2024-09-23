@@ -1,4 +1,4 @@
-import { PROXY, LOCATION_URL, ROUTE_ALERTS } from './constants/septa_urls.js'
+import { PROXY, LOCATION_URL, ROUTE_ALERTS, ALERTS_URL_V2, LOCATION_URL_V2 } from './constants/septa_urls.js'
 /**
  * Add Dev Proxy if needed
  *
@@ -44,6 +44,20 @@ async function getLocationData(route_id) {
     return Object.values(arrayWithKeyBus)[0];
 }
 
+/**
+ * Get location of a route, by ID. Use the v2 api.
+ *
+ * @async
+ * @param {number} route_id
+ * @returns {Promise<Response>}
+ */
+async function getLocationDataV2(route_id) {
+  const url = LOCATION_URL_V2 + new URLSearchParams({route_id: `${route_id}`});
+  const response = await fetch(url);
+  raiseForStatus(response);
+  return await response.json();
+}
+
 
 
 /**
@@ -62,5 +76,22 @@ async function getRouteAlerts(route_id_number, type="bus") {
   return await response.json();
 }
 
+/**
+ * Get alerts for route. Use the v2 api.
+ *
+ * @async
+ * @param {any} route_id
+ * @returns {Promise<Response>}
+ */
+async function getRouteAlertsV2(route_id) {
+  const url = ALERTS_URL_V2 + new URLSearchParams({route_id: `${route_id}`});
+  const response = await fetch(url);
+  raiseForStatus(response);
+  const json = await response.json();
+  return json;
+}
 
-export { getLocationData, getRouteAlerts, raiseForStatus }
+
+export { getLocationData, getRouteAlerts, raiseForStatus,
+  getLocationDataV2, getRouteAlertsV2
+ }

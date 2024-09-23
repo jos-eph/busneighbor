@@ -23,15 +23,18 @@ class ProcessedLocation {
 }
 
 class ProcessedLocationV2 {
-    constructor(processedRouteIdentifier, processedVehicleLocation, processedDirection, processedSeatAvailability, processedSecondsLate, processedStalenessSeconds, rawLocation) {
-            this.processedRouteIdentifier = rawLocation.route_id;
-            this.processedVehicleLocation = processedVehicleLocation;
-            this.processedDirection = processedDirection;
-            this.processedSeatAvailability = processedSeatAvailability;
-            this.processedSecondsLate = processedSecondsLate;
-            this.processedStalenessSeconds = processedStalenessSeconds;
+    constructor(processedRouteIdentifier, processedVehicleLocation, processedDirection, processedNextStopName, processedSeatAvailability, processedMinutesLate, processedStalenessSeconds, 
+        timestamp, rawLocation) {
+            this.routeIdentifier = processedRouteIdentifier,
+            this.vehicleLocation = processedVehicleLocation;
+            this.direction = processedDirection;
+            this.nextStopName = processedNextStopName;
+            this.seatAvailability = processedSeatAvailability;
+            this.minutesLate = processedMinutesLate;
+            this.stalenessSeconds = processedStalenessSeconds;
+            this.timestamp = timestamp;
             this.rawLocation = rawLocation;
            }
 }
 
-export { ProcessedLocation };
+export { ProcessedLocation, ProcessedLocationV2 };

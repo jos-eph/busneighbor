@@ -1,8 +1,8 @@
 import { includesAsWord, concatenateStrings, stalenessSeconds } from "../common/utilities.js";
 import { LatitudeLongitude } from "./location.js";
 import { DirectionsImpacted, Directions } from "../model/directions_impacted.js";
-import { ProcessedAlert } from "../model/processed_alert.js";
-import { ProcessedLocation } from "../model/processed_location.js";
+import { ProcessedAlert, ProcessedAlertV2 } from "../model/processed_alert.js";
+import { ProcessedLocation, ProcessedLocationV2 } from "../model/processed_location.js";
 
 const RouteTypes = {
     BUS: "bus",
@@ -43,7 +43,6 @@ function translateDirectionLongForm(text) {
 }
 
 function createProcessedLocation(locationJson) {
-    console.log(`Timestamp: ${locationJson.timestamp} ${typeof locationJson.timestamp} `)
         return new ProcessedLocation(
             new LatitudeLongitude(locationJson.lat, locationJson.lng),
             locationJson.route_id,
@@ -67,6 +66,23 @@ function createProcessedLocation(locationJson) {
         );
 
     }
+
+
+function createProcessedLocationV2(locationJsonV2) {
+    return new ProcessedLocationV2(
+        locationJsonV2.route_id,
+        new LatitudeLongitude(locationJsonV2.lat, locationJsonV2.lon),
+        translateDirectionLongForm(locationJsonV2.direction_name),
+        locationJsonV2.next_stop_name,
+        locationJsonV2.timestamp === MAGIC_TIMESTAMP_FOR_STOPPED_BUS 
+        ? "NO_SEATS" 
+        : translateSeatClassification(locationJsonV2.estimated_seat_availability),
+        locationJsonV2.delay,
+        stalenessSeconds(Number(locationJsonV2.timestamp)),
+        locationJsonV2.timestamp,
+        locationJsonV2
+    );
+}
 
 function determineDirectionsImpacted(text) {
     let directionsBound = [];
@@ -96,6 +112,16 @@ function createProcessedAlert(alertJson) {
         detourStartLocation, detourReason, directionsImpacted);
 }
 
-export { RouteTypes, ProcessedAlert, DirectionsImpacted, 
+function createProcessedAlertV2(alertJsonV2) {
+    return new ProcessedAlertV2(
+       alertJsonV2.alert_id,
+       alertJsonV2.message,
+       determineDirectionsImpacted(alertJsonV2.message),
+       alertJsonV2
+    );
+}
+
+export { RouteTypes,
     determineDirectionsImpacted, createProcessedAlert, translateSeatClassification,
-translateDirectionLongForm, createProcessedLocation, MAGIC_TIMESTAMP_FOR_STOPPED_BUS, SeatsAvailable };
+translateDirectionLongForm, createProcessedLocation, createProcessedAlertV2,
+createProcessedLocationV2, MAGIC_TIMESTAMP_FOR_STOPPED_BUS, SeatsAvailable };

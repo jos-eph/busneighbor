@@ -13,7 +13,6 @@ function concatenateStrings(...args) {
 
 function stalenessSeconds(epochTime) {
     const nowSecs = Math.floor(Date.now() / 1000);
-    console.log(`NowSecs: ${nowSecs} , epoch ${epochTime}`)
     return (nowSecs - epochTime);
 }
 

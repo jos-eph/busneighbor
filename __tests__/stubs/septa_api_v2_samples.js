@@ -1,5 +1,3 @@
-import { LOCATION_STUB } from "./septa_api_v1_samples";
-
 const ALERT_STUB = [
     {
       "alert_id": "D4624",
@@ -323,3 +321,8 @@ const ALERT_STUB = [
   ];
   
 const EARLY_BUS_12TH_BAINBRIDGE  = LOCATION_STUB[7];
+const MAGIC_VALUE_LOCATION = LOCATION_STUB[0];
+
+export { ALERT_SB_DISCONTINUED_ONE_ALERT, ALERT_STUB,
+  LOCATION_STUB, EARLY_BUS_12TH_BAINBRIDGE, MAGIC_VALUE_LOCATION
+}

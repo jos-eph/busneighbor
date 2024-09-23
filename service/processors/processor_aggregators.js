@@ -10,12 +10,12 @@
  * @param {function} arraySorter
  * @returns {*}
  */
-async function aggregateForRoutes(routes, routeType="bus", restGetter, individualProcessor, targetStore,
+async function aggregateForRoutes(routes, restGetter, individualProcessor, targetStore,
                                   arrayFilter, arraySorter
 ) {
     const allNewData = [];
     for (const route of routes) {
-        const dataArray = await restGetter(route, routeType);
+        const dataArray = await restGetter(route);
         let newData = [];
         for (const individualData of dataArray) {
             const processedData = individualProcessor(individualData);
