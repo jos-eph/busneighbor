@@ -76,7 +76,7 @@ function createProcessedLocationV2(locationJsonV2) {
         locationJsonV2.next_stop_name,
         locationJsonV2.timestamp === MAGIC_TIMESTAMP_FOR_STOPPED_BUS 
         ? "NO_SEATS" 
-        : translateSeatClassification(locationJsonV2.estimated_seat_availability),
+        : translateSeatClassification(locationJsonV2.seat_availability),
         locationJsonV2.delay,
         stalenessSeconds(Number(locationJsonV2.timestamp)),
         locationJsonV2.timestamp,

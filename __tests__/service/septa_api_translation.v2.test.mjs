@@ -12,7 +12,7 @@ const EXPECTED_PROCESSED_LOCATION = { // No staleness; staleness is dynamic
   "vehicleLocation": { "latitude": 39.937599, "longitude": -75.163022 },
   "direction": "S",
   "nextStopName": "12th St & Bainbridge St",
-  "seatAvailability": "NO_SEATS",
+  "seatAvailability": "SOME_SEATS",
   "minutesLate": -2.6,
   "timestamp": 1726970987,
   "rawLocation": {

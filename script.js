@@ -1,27 +1,12 @@
-import { getLocationDataV2, getRouteAlertsV2 } from './service/septa_api.js'
-import { createProcessedAlertV2, createProcessedLocationV2 } from './service/septa_api_translation.js';
 import { getCurrentCoordinatesPromise, isApproachingMe, LatitudeLongitude} from './service/location.js';
 import { getNewReactiveObject } from './model/reactive_service.js';
 import { simpleTextAlert, simpleTextLocation } from './service/processors/demonstration_processors.js';
-import { aggregateForRoutes, processStore } from './service/processors/processor_aggregators.js';
-import { validLocation } from './service/processors/display_filters.js';
+import { populateAlertsStore, populateLocationsStore } from './service/processors/store_creators.js';
+import { processStore } from './service/processors/processor_aggregators.js';
 
 const routes = ["45", "29", "47", "4"]
 var locationsStore = getNewReactiveObject();
 var alertsStore = getNewReactiveObject();
-
-
-
-async function updateLocationsData() {
-    return aggregateForRoutes(routes, getLocationDataV2,
-        createProcessedLocationV2, locationsStore, validLocation);
-}
-
-async function updateAlertData() {
-    return aggregateForRoutes(routes, getRouteAlertsV2,
-        createProcessedAlertV2, alertsStore);
-}
-
 
 
 locationsStore.setHandler = (data) => {
@@ -38,11 +23,11 @@ alertsStore.setHandler = (data) => {
     }
 };
 
-updateAlertData();
+populateAlertsStore(routes, alertsStore);
 
 function testMe() {
     console.log("Test cycle running");
-    updateLocationsData();
+    populateLocationsStore(routes, locationsStore);
 }
 
 
