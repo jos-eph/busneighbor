@@ -1,7 +1,3 @@
-import { ProcessedAlert } from "../../model/processed_alert.js";
-import { ProcessedLocation } from "../../model/processed_location.js";
-
-
 
 /**
  * Convert alerts to a simple text string
