@@ -16,5 +16,29 @@ function stalenessSeconds(epochTime) {
     return (nowSecs - epochTime);
 }
 
-export { includesAsWord, concatenateStrings, stalenessSeconds };
+function iterableToString(iterable, delimiter=", ") {
+    const iterableArray = [...iterable];
+    return iterableArray.join(delimiter);
+}
+
+function objectOfKeys(iterable, defaultValueFactory) {
+    const newObject = {};
+    console.log(defaultValueFactory);
+
+    if (defaultValueFactory === undefined) {
+        defaultValueFactory = () => new Object();
+    }
+
+    console.log(defaultValueFactory);
+
+    for (const key of iterable) {
+        newObject[key] = defaultValueFactory(key);
+    }
+
+    return newObject;
+}
+
+export { includesAsWord, concatenateStrings, 
+    stalenessSeconds, iterableToString, objectOfKeys
+ };
 

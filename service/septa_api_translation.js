@@ -1,6 +1,6 @@
 import { includesAsWord, concatenateStrings, stalenessSeconds } from "../common/utilities.js";
 import { LatitudeLongitude } from "./location.js";
-import { DirectionsImpacted, Directions } from "../model/directions_impacted.js";
+import { Directions } from "../model/directions_impacted.js";
 import { ProcessedAlertV2 } from "../model/processed_alert.js";
 import { ProcessedLocationV2 } from "../model/processed_location.js";
 
@@ -60,21 +60,22 @@ function createProcessedLocationV2(locationJsonV2) {
 }
 
 function determineDirectionsImpacted(text) {
-    let directionsBound = [];
+    let directionsBound = new Set();
     for (const direction in Directions) {
         const directionBound = `${Directions[direction]}B`; // abbreviation for northbound, southbound
         if (includesAsWord(text, directionBound)) {
-            directionsBound.push(Directions[direction]);
+            directionsBound.add(Directions[direction]);
         }
     }
 
-    return new DirectionsImpacted(directionsBound);
+    return directionsBound;
 }
 
 
 function createProcessedAlertV2(alertJsonV2) {
     return new ProcessedAlertV2(
        alertJsonV2.alert_id,
+       alertJsonV2.routes,
        alertJsonV2.message,
        determineDirectionsImpacted(alertJsonV2.message),
        alertJsonV2

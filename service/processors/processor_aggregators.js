@@ -31,11 +31,11 @@ async function aggregateForRoutes(routes, restGetter, individualProcessor, targe
     return allNewData;
 }
 
-function processStore(store, processor) {
+function processStore(store, processor, objectToPopulate) {
     const processed = [];
     for (const route of Object.keys(store)) {
         for (const data of store[route]) {
-            processed.push(processor(data));
+            processed.push(processor(route, data, objectToPopulate));
         }
     }
     return processed;

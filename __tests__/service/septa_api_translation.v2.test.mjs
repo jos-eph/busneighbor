@@ -40,7 +40,7 @@ const EXPECTED_PROCESSED_LOCATION = { // No staleness; staleness is dynamic
 const EXPECTED_PROCESSED_ALERT = {
   "alertId": "D4624",
   "message": "until 12/31/24, SB discontinued transit stop, 12th & Locust.",
-  "directionsImpacted": { "N": false, "S": true, "E": false, "W": false },
+  "directionsImpacted": new Set("S"),
   "rawAlert": {
     "alert_id": "D4624",
     "routes": ["23", "45"],
