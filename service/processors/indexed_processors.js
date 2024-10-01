@@ -37,8 +37,6 @@ function indexLocation(route, location, locationStore) {
     if (!locationStore[route][location.direction].hasOwnProperty(LOCATIONS)) {
         locationStore[route][location.direction][LOCATIONS] = [];
     }
-    console.log(locationStore[route][location.direction][LOCATIONS]);
-    console.log("now attempting to push...")
     locationStore[route][location.direction][LOCATIONS].push(location);
 }
 
