@@ -1,10 +1,11 @@
-import { PROXY, LOCATION_URL, ROUTE_ALERTS } from './constants/septa_urls.js'
+import { PROXY, LOCATION_URL, ROUTE_ALERTS, ALERTS_URL_V2, LOCATION_URL_V2 } from './constants/septa_urls.js'
 /**
  * Add Dev Proxy if needed
  *
  * @param {string} url
  * @returns {string}
  */
+
 function _build_url(url) {
   return PROXY + url;
 }
@@ -16,10 +17,11 @@ function _build_url(url) {
  * @param {Response} response
  * @returns {boolean}
  */
-function raise_for_status(response) {
-    if (response.status >= 300) {
-        alert(`Error ${response.status}!`)
-        return true
+function raiseForStatus(response) {
+    if (!response.ok) {
+        const message = `Error ${response.status}, ${response.body}!`;
+        alert(message);
+        throw new Error(message);
     }
     return false
 }
@@ -31,9 +33,29 @@ function raise_for_status(response) {
  * @param {number} route_id
  * @returns {Promise<Response>}
  */
-async function get_location_data(route_id) {
-    const url = _build_url(LOCATION_URL + new URLSearchParams({route: route_id}));
-    return fetch(url)
+async function getLocationData(route_id) {
+    const url = _build_url(LOCATION_URL + new URLSearchParams({route: `${route_id}`}));
+    const response = await fetch(url, {
+      mode: 'cors',
+      method: 'GET'},
+    );
+    raiseForStatus(response);
+    const arrayWithKeyBus = await response.json();
+    return Object.values(arrayWithKeyBus)[0];
+}
+
+/**
+ * Get location of a route, by ID. Use the v2 api.
+ *
+ * @async
+ * @param {number} route_id
+ * @returns {Promise<Response>}
+ */
+async function getLocationDataV2(route_id) {
+  const url = LOCATION_URL_V2 + new URLSearchParams({route_id: `${route_id}`});
+  const response = await fetch(url);
+  raiseForStatus(response);
+  return await response.json();
 }
 
 
@@ -46,11 +68,30 @@ async function get_location_data(route_id) {
  * @param {any} route_id
  * @returns {Promise<Response>}
  */
-async function get_route_alerts(type, route_id_number) {
+async function getRouteAlerts(route_id_number, type="bus") {
   let route_id_formatted = `${type}_route_${route_id_number}`
   const url = _build_url(ROUTE_ALERTS + new URLSearchParams({route_id: route_id_formatted}));
-  return fetch(url)
+  const response = await fetch(url);
+  raiseForStatus(response);
+  return await response.json();
+}
+
+/**
+ * Get alerts for route. Use the v2 api.
+ *
+ * @async
+ * @param {any} route_id
+ * @returns {Promise<Response>}
+ */
+async function getRouteAlertsV2(route_id) {
+  const url = ALERTS_URL_V2 + new URLSearchParams({route_id: `${route_id}`});
+  const response = await fetch(url);
+  raiseForStatus(response);
+  const json = await response.json();
+  return json;
 }
 
 
-export { get_location_data, get_route_alerts, raise_for_status }
+export { getLocationData, getRouteAlerts, raiseForStatus,
+  getLocationDataV2, getRouteAlertsV2
+ }

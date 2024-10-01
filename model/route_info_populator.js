@@ -1,6 +1,6 @@
-import { RouteInfo, NO_DIRECTION } from "./route_info";
-import { Directions } from "./directions_impacted";
-import { SeatsAvailable } from "../service/septa_api_translation";
+import { RouteInfo, NO_DIRECTION } from "./route_info.js";
+import { Directions } from "./directions_impacted.js";
+import { SeatsAvailable } from "../service/septa_api_translation.js";
 
 const populateRouteInfoAlerts = (routeInfo, processedAlerts) => {
     for (let processedAlert of processedAlerts) {

@@ -1,14 +1,14 @@
-import { Directions } from "./directions_impacted";
+import { Directions } from "./directions_impacted.js";
 
 const LOCATIONS = "locations";
 const ALERTS = "alerts";
 const NO_DIRECTION = "noDirectionFound"
 
 const _empty_locations_alerts = () => {
-    return {
-        [LOCATIONS]: [],
-        [ALERTS]: []
-    }
+    let locationsAlerts = {};
+    locationsAlerts[LOCATIONS] = [];
+    locationsAlerts[ALERTS] = [];
+    return locationsAlerts;
 }
 
 const _empty_info_by_direction = () => {
@@ -29,4 +29,4 @@ class RouteInfo {
     }
 }
 
-export { RouteInfo, NO_DIRECTION }
+export { RouteInfo, NO_DIRECTION, LOCATIONS, ALERTS }

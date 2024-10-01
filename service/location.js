@@ -1,6 +1,6 @@
 function getCurrentCoordinatesPromise() {
     return new Promise((resolve, reject) => {
-        if (global.navigator && "geolocation" in navigator) {
+        if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
                 (position) => { resolve(position.coords) } ,
                 (error) => reject(error)

@@ -1,28 +1,45 @@
-import { get_location_data, get_route_alerts, raise_for_status } from './service/septa_api.js'
-import { createWrappedDataHolder } from './model/data_holder.js';
 import { getCurrentCoordinatesPromise, isApproachingMe, LatitudeLongitude} from './service/location.js';
+import { getNewReactiveObject } from './model/reactive_service.js';
+import { simpleTextAlert, simpleTextLocation } from './service/processors/demonstration_processors.js';
+import { populateAlertsStore, populateLocationsStore } from './service/processors/store_creators.js';
+import { indexAlert, indexLocation } from './service/processors/indexed_processors.js';
+import { processStore } from './service/processors/processor_aggregators.js';
+import { objectOfKeys } from './common/utilities.js';
 
-// Get references to elements in your HTML
+const routes = ["45", "29", "47", "4"]
+var locationsStore = getNewReactiveObject();
+var alertsStore = getNewReactiveObject();
 
-console.log("Hello! I don't do anything, yet.")
+const templateIndex = objectOfKeys(routes);
+let compiledData = new Object();
 
-let tester = []
-
-const wrappedDh = createWrappedDataHolder("location", "locationsHistory");
-wrappedDh.locationsHistory = [];
-wrappedDh.addSetHandler( (originalObject, property, newValue) => {
-    console.log("property: " + property);
-    if (property == "location") {
-        console.log(`location newValue: ${newValue}`);
-        originalObject.locationsHistory.push(newValue);
-        tester.push(newValue);
-        console.log(originalObject.locationsHistory);
+locationsStore.setHandler = (data) => {
+    const locations = processStore(data, simpleTextLocation);
+    for (const locationMessage of locations) {
+//        console.log(locationMessage);
     }
-})
+};
 
-wrappedDh.location = "Minneapolis";
-wrappedDh.location = "New York";
-wrappedDh.location = "San Francisco";
-wrappedDh.location = "Detroit";
-console.log("And now...");
-console.log(tester);
+alertsStore.setHandler = (data) => {
+    const alerts = processStore(data, simpleTextAlert);
+    processStore(data, indexAlert, templateIndex);
+    for (const alert of alerts) {
+//        console.log(alert);
+    }
+};
+
+populateAlertsStore(routes, alertsStore);
+
+function testMe() {
+    console.log("Test cycle running");
+    populateLocationsStore(routes, locationsStore);
+    const aggregate = structuredClone(templateIndex);
+    processStore(locationsStore, indexLocation, aggregate);
+    compiledData = aggregate;
+    console.log(aggregate);
+}
+
+
+setInterval(testMe, 10000);
+
+console.log("You're in.")
