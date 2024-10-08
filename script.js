@@ -13,21 +13,6 @@ var alertsStore = getNewReactiveObject();
 const templateIndex = objectOfKeys(routes);
 let compiledData = new Object();
 
-locationsStore.setHandler = (data) => {
-    const locations = processStore(data, simpleTextLocation);
-    for (const locationMessage of locations) {
-//        console.log(locationMessage);
-    }
-};
-
-alertsStore.setHandler = (data) => {
-    const alerts = processStore(data, simpleTextAlert);
-    processStore(data, indexAlert, templateIndex);
-    for (const alert of alerts) {
-//        console.log(alert);
-    }
-};
-
 populateAlertsStore(routes, alertsStore);
 
 function testMe() {
@@ -35,8 +20,10 @@ function testMe() {
     populateLocationsStore(routes, locationsStore);
     const aggregate = structuredClone(templateIndex);
     processStore(locationsStore, indexLocation, aggregate);
+    processStore(alertsStore, indexAlert, aggregate);
     compiledData = aggregate;
-    console.log(aggregate);
+    console.log("Compiled data...");
+    console.log(compiledData);
 }
 
 
