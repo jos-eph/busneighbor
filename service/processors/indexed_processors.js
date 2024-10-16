@@ -35,7 +35,7 @@ function indexAlert(route, alert, alertStore) {
 function indexLocation(route, location, locationStore) {
     if (!locationStore[route].hasOwnProperty(location.direction)) {
         locationStore[route][location.direction] = new Object();  
-    } 
+    }
     if (!locationStore[route][location.direction].hasOwnProperty(LOCATIONS)) {
         locationStore[route][location.direction][LOCATIONS] = [];
     }

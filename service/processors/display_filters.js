@@ -22,6 +22,8 @@ function relevantLocationFactory(currentLocation) {
         }
 }
 
+
+
 export { validLocation, relevantLocationFactory } 
 
 

@@ -62,14 +62,14 @@ function isLongitudeApproaching(userLongitude, vehicleLongitude, vehicleDirectio
  * @returns {boolean}
  */
 function isLatitudeApproaching(userLatitude, vehicleLatitude, vehicleDirection) {
-    const direction = vehicleDirection.slice(0, 1).toUpperCase();
-    if (!LATITUDE_DIRECTIONS.has(direction)) {
+    const vehicleDirectionStandard = vehicleDirection.slice(0, 1).toUpperCase();
+    if (!LATITUDE_DIRECTIONS.has(vehicleDirectionStandard)) {
         throw new Error(`${vehicleDirection} is not a valid direction`);
     }
 
-    if (direction == NORTH) {
+    if (vehicleDirectionStandard == NORTH) {
         return userLatitude > vehicleLatitude ? true : false;
-    } else if (direction == SOUTH) {
+    } else if (vehicleDirectionStandard == SOUTH) {
         return userLatitude < vehicleLatitude ? true: false;
     }
 }
@@ -98,6 +98,54 @@ function isApproachingMe(userLocation, vehicleLocation, vehicleDirection) {
     }
 }
 
+
+// Define necessary operations
+const LATITUDE = "latitude";
+const LONGITUDE = "longitude";
+const COMPARE_TO = "compareTo";
+const INVERT_DIFFERENCE = "invertSign" // whether to invert the sign of me distance - vehicle distance; positive indicates approaching
+
+const vehicleDirectionDistanceParams = {
+    [NORTH]: {
+        [COMPARE_TO]: [LATITUDE],
+        [INVERT_DIFFERENCE]: false,
+    },
+
+    [SOUTH]: {
+        [COMPARE_TO]: [LATITUDE],
+        [INVERT_DIFFERENCE]: true
+    },
+
+    [EAST]: {
+        [COMPARE_TO]: [LONGITUDE],
+        [INVERT_DIFFERENCE]: false,
+    },
+
+    [WEST]: {
+        [COMPARE_TO]: [LONGITUDE],
+        [INVERT_DIFFERENCE]: true
+    }
+}
+
+
+/**
+ * Show the perpendicular distance, in degrees. User position - vehicle position.
+ * Lower numbers are better, but negative numbers must be discarded.
+ *
+ * @param {LatitudeLongitude} userPosition
+ * @param {LatitudeLongitude} vehiclePosition
+ * @param {string} vehicleDirection
+ * @returns {number} distance
+ */
+function perpendicularDegreeDistance(userPosition, vehiclePosition, vehicleDirection) {
+    const settings = vehicleDirectionDistanceParams[vehicleDirection];
+    const dimension = settings[COMPARE_TO]
+    const multiplier = settings[INVERT_DIFFERENCE] ? -1 : 1;
+
+    return (user[dimension] - vehiclePosition[dimension]) * multiplier;
+}
+
+// ^ above needs to be tested
 
 export { getCurrentCoordinatesPromise, isApproachingMe, 
     isLatitudeApproaching,

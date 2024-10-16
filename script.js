@@ -6,7 +6,7 @@ import { indexAlert, indexLocation } from './service/processors/indexed_processo
 import { processStore } from './service/processors/processor_aggregators.js';
 import { objectOfKeys } from './common/utilities.js';
 
-const routes = ["45", "29", "47", "4"]
+const routes = ["45", "29", "47", "4", "40"]
 var locationsStore = getNewReactiveObject();
 var alertsStore = getNewReactiveObject();
 
@@ -22,8 +22,8 @@ function testMe() {
     processStore(locationsStore, indexLocation, aggregate);
     processStore(alertsStore, indexAlert, aggregate);
     compiledData = aggregate;
-    console.log("Compiled data...");
-    console.log(compiledData);
+    console.log(aggregate);
+    console.log(JSON.stringify(aggregate));
 }
 
 
