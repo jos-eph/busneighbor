@@ -145,7 +145,6 @@ function perpendicularDegreeDistance(userPosition, vehiclePosition, vehicleDirec
     return (user[dimension] - vehiclePosition[dimension]) * multiplier;
 }
 
-// ^ above needs to be tested
 
 export { getCurrentCoordinatesPromise, isApproachingMe, 
     isLatitudeApproaching,
