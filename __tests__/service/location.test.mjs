@@ -1,7 +1,7 @@
 // Buggy - last test won't run
 
 import { getCurrentCoordinatesPromise, isApproachingMe, isLatitudeApproaching, isLongitudeApproaching,
-     LatitudeLongitude } from "../../service/location";
+     LatitudeLongitude, perpendicularDegreeDistance } from "../../service/location";
 
 class TestCase {
   constructor (userCoordinates, vehicleCoordinates, vehicleDirection) {
@@ -112,22 +112,35 @@ test('Unsupported geolocation capability detected', () => {
 })
 
 const FAKE_VEHICLE_LOCATION_AND_DIRECTION = [
-  // Route, vehicle direction, Latitude, Longitude
-  [4, "S", 39.948579, -75.164376],
-  [4, "N", 39.92747, -75.168974],
-  [40, "E", 39.979545, -75.225339],
-  [40, "W", 39.94235, -75.1465],
-  ["Fake", "W", 39.952583, -75.165222],
-  ["Fake", "N", 39.9521, -75.1636]
+  // Test case number, Route, vehicle direction, Latitude, Longitude
+  [0, 4, "S", new LatitudeLongitude(39.948579, -75.164376)],
+  [1, 4, "N", new LatitudeLongitude(39.92747, -75.168974)],
+  [2, 40, "E", new LatitudeLongitude(39.979545, -75.225339)],
+  [3, 40, "W", new LatitudeLongitude(39.94235, -75.1465)],
+  [4, "Fake", "W", new LatitudeLongitude(39.952583, -75.165222)],
+  [5, "Fake", "N", new LatitudeLongitude(39.9521, -75.1636)]
 ]
 
-const MOCK_USER_LOCATION = [39.9289, -75.1645]
+const MOCK_USER_LOCATION = new LatitudeLongitude(39.9289, -75.1645)
 const EXPECTED_FAKE_VEHICLE_SCORE_AND_APPROACHING = [
-  -1 * (MOCK_USER_LOCATION[0] - FAKE_VEHICLE_LOCATION_AND_DIRECTION[0][2]), true,
-  MOCK_USER_LOCATION[0] - FAKE_VEHICLE_LOCATION_AND_DIRECTION[1][2], true,
-  MOCK_USER_LOCATION[1] - FAKE_VEHICLE_LOCATION_AND_DIRECTION[2][3], true,
-  -1 * (MOCK_USER_LOCATION[1] - FAKE_VEHICLE_LOCATION_AND_DIRECTION[3][3]), true,
-  -1 * (MOCK_USER_LOCATION[1] - FAKE_VEHICLE_LOCATION_AND_DIRECTION[4][3]), false,
-  MOCK_USER_LOCATION[0] - FAKE_VEHICLE_LOCATION_AND_DIRECTION[5][2], false
+  [-1 * (MOCK_USER_LOCATION.latitude - FAKE_VEHICLE_LOCATION_AND_DIRECTION[0][3].latitude), true],
+  [MOCK_USER_LOCATION.latitude - FAKE_VEHICLE_LOCATION_AND_DIRECTION[1][3].latitude, true],
+  [MOCK_USER_LOCATION.longitude - FAKE_VEHICLE_LOCATION_AND_DIRECTION[2][3].longitude, true],
+  [-1 * (MOCK_USER_LOCATION.longitude - FAKE_VEHICLE_LOCATION_AND_DIRECTION[3][3].longitude), true],
+  [-1 * (MOCK_USER_LOCATION.longitude - FAKE_VEHICLE_LOCATION_AND_DIRECTION[4][3].longitude), false],
+  [MOCK_USER_LOCATION.latitude - FAKE_VEHICLE_LOCATION_AND_DIRECTION[5][3].latitude, false]
 ]
+
+console.log(`Expected fake vehicle: ${EXPECTED_FAKE_VEHICLE_SCORE_AND_APPROACHING}`);
 // need to test above and confirm that these calculations are correct
+
+test.each(FAKE_VEHICLE_LOCATION_AND_DIRECTION)
+('%p - Expect correct perpendicular distance for route %p going %p coordinates %p', (testCaseNumber, route, direction, vehicleLocation) => {
+  expect(perpendicularDegreeDistance(MOCK_USER_LOCATION, vehicleLocation, direction)).toBe(EXPECTED_FAKE_VEHICLE_SCORE_AND_APPROACHING[testCaseNumber][0])
+});
+
+
+// test.each(TEST_APPROACHING_EXPECTED_OUTCOME)
+// ('Expect %j -- to return %p', (testCase, expected) => {
+//   expect(isApproachingMe(testCase.userCoordinates, testCase.vehicleCoordinates, testCase.vehicleDirection)).toBe(expected);
+//   });

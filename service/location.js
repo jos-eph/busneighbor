@@ -142,11 +142,15 @@ function perpendicularDegreeDistance(userPosition, vehiclePosition, vehicleDirec
     const dimension = settings[COMPARE_TO]
     const multiplier = settings[INVERT_DIFFERENCE] ? -1 : 1;
 
-    return (user[dimension] - vehiclePosition[dimension]) * multiplier;
+    console.log(`${JSON.stringify(userPosition)} ${JSON.stringify(vehiclePosition)} ${JSON.stringify(vehicleDirection)} ${multiplier}`)
+
+    return (userPosition[dimension] - vehiclePosition[dimension]) * multiplier;
 }
 
 
 export { getCurrentCoordinatesPromise, isApproachingMe, 
     isLatitudeApproaching,
     isLongitudeApproaching,
-    LatitudeLongitude, NORTH, SOUTH, EAST, WEST }
+    LatitudeLongitude, NORTH, SOUTH, EAST, WEST,
+    perpendicularDegreeDistance 
+}

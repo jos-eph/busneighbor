@@ -6,7 +6,7 @@
  * @param {function} restGetter
  * @param {function} individualProcessor
  * @param {Object} targetStore
- * @param {function } arrayFilter
+ * @param {function} arrayFilter
  * @param {function} arraySorter
  * @returns {*}
  */
