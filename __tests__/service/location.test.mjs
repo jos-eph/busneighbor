@@ -138,9 +138,3 @@ test.each(FAKE_VEHICLE_LOCATION_AND_DIRECTION)
 ('%p - Expect correct perpendicular distance for route %p going %p coordinates %p', (testCaseNumber, route, direction, vehicleLocation) => {
   expect(perpendicularDegreeDistance(MOCK_USER_LOCATION, vehicleLocation, direction)).toBe(EXPECTED_FAKE_VEHICLE_SCORE_AND_APPROACHING[testCaseNumber][0])
 });
-
-
-// test.each(TEST_APPROACHING_EXPECTED_OUTCOME)
-// ('Expect %j -- to return %p', (testCase, expected) => {
-//   expect(isApproachingMe(testCase.userCoordinates, testCase.vehicleCoordinates, testCase.vehicleDirection)).toBe(expected);
-//   });

@@ -130,7 +130,7 @@ const vehicleDirectionDistanceParams = {
 
 /**
  * Show the perpendicular distance, in degrees. User position - vehicle position.
- * Lower numbers are better, but negative numbers must be discarded.
+ * Lower numbers are closer, but negative numbers must be discarded because they are beyond the user and traveling away.
  *
  * @param {LatitudeLongitude} userPosition
  * @param {LatitudeLongitude} vehiclePosition
@@ -141,8 +141,6 @@ function perpendicularDegreeDistance(userPosition, vehiclePosition, vehicleDirec
     const settings = vehicleDirectionDistanceParams[vehicleDirection];
     const dimension = settings[COMPARE_TO]
     const multiplier = settings[INVERT_DIFFERENCE] ? -1 : 1;
-
-    console.log(`${JSON.stringify(userPosition)} ${JSON.stringify(vehiclePosition)} ${JSON.stringify(vehicleDirection)} ${multiplier}`)
 
     return (userPosition[dimension] - vehiclePosition[dimension]) * multiplier;
 }
