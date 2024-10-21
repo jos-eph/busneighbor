@@ -22,8 +22,7 @@ function testMe() {
     processStore(locationsStore, indexLocation, aggregate);
     processStore(alertsStore, indexAlert, aggregate);
     compiledData = aggregate;
-    console.log(aggregate);
-    console.log(JSON.stringify(aggregate));
+    console.log(compiledData);
 }
 
 

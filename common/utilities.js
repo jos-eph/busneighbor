@@ -23,13 +23,10 @@ function iterableToString(iterable, delimiter=", ") {
 
 function objectOfKeys(iterable, defaultValueFactory) {
     const newObject = {};
-    console.log(defaultValueFactory);
 
     if (defaultValueFactory === undefined) {
         defaultValueFactory = () => new Object();
     }
-
-    console.log(defaultValueFactory);
 
     for (const key of iterable) {
         newObject[key] = defaultValueFactory(key);

@@ -9,8 +9,9 @@ async function populateLocationsStore(routes, locationsStore) {
     const createProcessedLocation = createProcessedLocationFactoryV2(currentLocation);
     return processRouteGets(routes, getLocationDataV2,
         createProcessedLocation, locationsStore, 
-        (processedLocation) => processedLocation[PERPENDICULAR_DISTANCE] >= 0),
-        (location1, location2) => location1[PERPENDICULAR_DISTANCE] - location2[PERPENDICULAR_DISTANCE];
+        (processedLocation) => processedLocation[PERPENDICULAR_DISTANCE] >= 0,
+        (location1, location2) => location1[PERPENDICULAR_DISTANCE] - location2[PERPENDICULAR_DISTANCE]
+        );
 }
 
 async function populateAlertsStore(routes, alertsStore) {
