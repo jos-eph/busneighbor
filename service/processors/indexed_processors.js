@@ -17,6 +17,8 @@ function indexAlert(route, alert, alertStore) {
     for (const direction of alert.directionsImpacted) {
         if (!alertStore[route].hasOwnProperty(direction)) {
             alertStore[route][direction] = new Object();
+        }
+        if (!alertStore[route][direction].hasOwnProperty(ALERTS)) {
             alertStore[route][direction][ALERTS] = new Set();
         }
         alertStore[route][direction][ALERTS].add(alert);
@@ -33,7 +35,7 @@ function indexAlert(route, alert, alertStore) {
 function indexLocation(route, location, locationStore) {
     if (!locationStore[route].hasOwnProperty(location.direction)) {
         locationStore[route][location.direction] = new Object();  
-    } 
+    }
     if (!locationStore[route][location.direction].hasOwnProperty(LOCATIONS)) {
         locationStore[route][location.direction][LOCATIONS] = [];
     }

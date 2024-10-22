@@ -1,7 +1,7 @@
 // Buggy - last test won't run
 
 import { getCurrentCoordinatesPromise, isApproachingMe, isLatitudeApproaching, isLongitudeApproaching,
-     LatitudeLongitude } from "../../service/location";
+     LatitudeLongitude, perpendicularDegreeDistance } from "../../service/location";
 
 class TestCase {
   constructor (userCoordinates, vehicleCoordinates, vehicleDirection) {
@@ -111,3 +111,30 @@ test('Unsupported geolocation capability detected', () => {
   return expect(getCurrentCoordinatesPromise()).rejects.toThrow('Geolocation not supported by this browser.');
 })
 
+const FAKE_VEHICLE_LOCATION_AND_DIRECTION = [
+  // Test case number, Route, vehicle direction, Latitude, Longitude
+  [0, 4, "S", new LatitudeLongitude(39.948579, -75.164376)],
+  [1, 4, "N", new LatitudeLongitude(39.92747, -75.168974)],
+  [2, 40, "E", new LatitudeLongitude(39.979545, -75.225339)],
+  [3, 40, "W", new LatitudeLongitude(39.94235, -75.1465)],
+  [4, "Fake", "W", new LatitudeLongitude(39.952583, -75.165222)],
+  [5, "Fake", "N", new LatitudeLongitude(39.9521, -75.1636)]
+]
+
+const MOCK_USER_LOCATION = new LatitudeLongitude(39.9289, -75.1645)
+const EXPECTED_FAKE_VEHICLE_SCORE_AND_APPROACHING = [
+  [-1 * (MOCK_USER_LOCATION.latitude - FAKE_VEHICLE_LOCATION_AND_DIRECTION[0][3].latitude), true],
+  [MOCK_USER_LOCATION.latitude - FAKE_VEHICLE_LOCATION_AND_DIRECTION[1][3].latitude, true],
+  [MOCK_USER_LOCATION.longitude - FAKE_VEHICLE_LOCATION_AND_DIRECTION[2][3].longitude, true],
+  [-1 * (MOCK_USER_LOCATION.longitude - FAKE_VEHICLE_LOCATION_AND_DIRECTION[3][3].longitude), true],
+  [-1 * (MOCK_USER_LOCATION.longitude - FAKE_VEHICLE_LOCATION_AND_DIRECTION[4][3].longitude), false],
+  [MOCK_USER_LOCATION.latitude - FAKE_VEHICLE_LOCATION_AND_DIRECTION[5][3].latitude, false]
+]
+
+console.log(`Expected fake vehicle: ${EXPECTED_FAKE_VEHICLE_SCORE_AND_APPROACHING}`);
+// need to test above and confirm that these calculations are correct
+
+test.each(FAKE_VEHICLE_LOCATION_AND_DIRECTION)
+('%p - Expect correct perpendicular distance for route %p going %p coordinates %p', (testCaseNumber, route, direction, vehicleLocation) => {
+  expect(perpendicularDegreeDistance(MOCK_USER_LOCATION, vehicleLocation, direction)).toBe(EXPECTED_FAKE_VEHICLE_SCORE_AND_APPROACHING[testCaseNumber][0])
+});

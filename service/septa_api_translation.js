@@ -1,5 +1,5 @@
 import { includesAsWord, concatenateStrings, stalenessSeconds } from "../common/utilities.js";
-import { LatitudeLongitude } from "./location.js";
+import { LatitudeLongitude, perpendicularDegreeDistance } from "./location.js";
 import { Directions } from "../model/directions_impacted.js";
 import { ProcessedAlertV2 } from "../model/processed_alert.js";
 import { ProcessedLocationV2 } from "../model/processed_location.js";
@@ -59,6 +59,16 @@ function createProcessedLocationV2(locationJsonV2) {
     );
 }
 
+const PERPENDICULAR_DISTANCE = "perpendicularDistance";
+
+function createProcessedLocationFactoryV2(currentLocation) {
+    return (locationJsonV2) => {
+        const processedLocation = createProcessedLocationV2(locationJsonV2);
+        processedLocation[PERPENDICULAR_DISTANCE] = perpendicularDegreeDistance(currentLocation, processedLocation.vehicleLocation,  processedLocation.direction);
+        return processedLocation;
+    };
+}
+
 function determineDirectionsImpacted(text) {
     let directionsBound = new Set();
     for (const direction in Directions) {
@@ -85,4 +95,4 @@ function createProcessedAlertV2(alertJsonV2) {
 export { RouteTypes,
     determineDirectionsImpacted, translateSeatClassification,
 translateDirectionLongForm, createProcessedAlertV2,
-createProcessedLocationV2, MAGIC_TIMESTAMP_FOR_STOPPED_BUS, SeatsAvailable };
+createProcessedLocationV2, createProcessedLocationFactoryV2, MAGIC_TIMESTAMP_FOR_STOPPED_BUS, PERPENDICULAR_DISTANCE, SeatsAvailable };

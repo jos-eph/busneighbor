@@ -6,27 +6,12 @@ import { indexAlert, indexLocation } from './service/processors/indexed_processo
 import { processStore } from './service/processors/processor_aggregators.js';
 import { objectOfKeys } from './common/utilities.js';
 
-const routes = ["45", "29", "47", "4"]
+const routes = ["45", "29", "47", "4", "40"]
 var locationsStore = getNewReactiveObject();
 var alertsStore = getNewReactiveObject();
 
 const templateIndex = objectOfKeys(routes);
 let compiledData = new Object();
-
-locationsStore.setHandler = (data) => {
-    const locations = processStore(data, simpleTextLocation);
-    for (const locationMessage of locations) {
-//        console.log(locationMessage);
-    }
-};
-
-alertsStore.setHandler = (data) => {
-    const alerts = processStore(data, simpleTextAlert);
-    processStore(data, indexAlert, templateIndex);
-    for (const alert of alerts) {
-//        console.log(alert);
-    }
-};
 
 populateAlertsStore(routes, alertsStore);
 
@@ -35,8 +20,9 @@ function testMe() {
     populateLocationsStore(routes, locationsStore);
     const aggregate = structuredClone(templateIndex);
     processStore(locationsStore, indexLocation, aggregate);
+    processStore(alertsStore, indexAlert, aggregate);
     compiledData = aggregate;
-    console.log(aggregate);
+    console.log(compiledData);
 }
 
 
