@@ -5,6 +5,7 @@ import { populateAlertsStore, populateLocationsStore } from './service/processor
 import { indexAlert, indexLocation } from './service/processors/indexed_processors.js';
 import { processStore } from './service/processors/processor_aggregators.js';
 import { objectOfKeys } from './common/utilities.js';
+import { yieldLocationText } from './service/displayers/text_only_displayer.js';
 
 const routes = ["45", "29", "47", "4", "40"]
 var locationsStore = getNewReactiveObject();
@@ -23,6 +24,12 @@ function testMe() {
     processStore(alertsStore, indexAlert, aggregate);
     compiledData = aggregate;
     console.log(compiledData);
+    let yieldedText = yieldLocationText(compiledData);
+    console.log(yieldLocationText(yieldedText));
+
+    // populate the DOM
+    const paragraph = document.getElementById("change-text");
+    paragraph.textContent = yieldedText;
 }
 
 
