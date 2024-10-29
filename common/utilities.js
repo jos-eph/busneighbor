@@ -48,8 +48,6 @@ function safeAddToKeyedSet(mapLikeObj, setKey, setMember) {
         mapLikeObj[setKey] = new Set();
     }
 
-    console.log(`${mapLikeObj[setKey]} ${mapLikeObj[setKey] instanceof Set}`);
-
     if (!(mapLikeObj[setKey] instanceof Set)) {
         throw new Error("Existing key does not hold a Set.");
     }
@@ -58,7 +56,15 @@ function safeAddToKeyedSet(mapLikeObj, setKey, setMember) {
 
 }
 
+function defineHiddenProperty(obj, propertyName) {
+    Object.defineProperty(obj, propertyName, {
+        value: {},
+        writable: true,
+        enumerable: false
+    });
+}
+
 export { includesAsWord, concatenateStrings, 
-    stalenessSeconds, iterableToString, objectOfKeys, safeAddToKeyedSet
+    stalenessSeconds, iterableToString, objectOfKeys, safeAddToKeyedSet, defineHiddenProperty
  };
 

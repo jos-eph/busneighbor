@@ -15,27 +15,7 @@ let INDENT = 5;
 // refactor
 function yieldLocationText(aggregate) {
     console.log(aggregate);
-    let output = "";
-    for (const route in aggregate) {
-        let indent = INDENT;
-        if ((Object.keys(aggregate[route]).length)) {
-            output += (`${route}\n`);
-            for (const direction in aggregate[route]) {
-                console.log[route];
-                console.log[direction];
-                console.log(aggregate[route][direction]);
-                if (((Object.keys(aggregate[route][direction])).length) && (LOCATIONS in aggregate[route][direction])) {
-                    output += `${insertSpacesAtBeginning(direction, indent)}\n`
-                    for (const locationData of aggregate[route][direction][LOCATIONS]) {
-                        output += `${insertSpacesAtBeginning(locationData.nextStopName, indent * 2)}`
-                    }
-
-                }
-
-            }
-            output += "\n";
-        }
-    }
+    let output = "^ Just output locations...";
     return output;
 }
 

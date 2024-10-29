@@ -1,4 +1,6 @@
 import { NO_DIRECTION, ALERTS, LOCATIONS } from "../../model/route_info.js";
+import { safeAddToKeyedSet } from "../../common/utilities.js";
+import { POPULATED_ALERTS, POPULATED_LOCATIONS } from "./store_creators.js";
 /*
     45
     N
@@ -13,6 +15,8 @@ import { NO_DIRECTION, ALERTS, LOCATIONS } from "../../model/route_info.js";
 */
 
 
+
+
 function indexAlert(route, alert, alertStore) {
     for (const direction of alert.directionsImpacted) {
         if (!alertStore[route].hasOwnProperty(direction)) {
@@ -22,6 +26,8 @@ function indexAlert(route, alert, alertStore) {
             alertStore[route][direction][ALERTS] = new Set();
         }
         alertStore[route][direction][ALERTS].add(alert);
+        safeAddToKeyedSet(alertStore[POPULATED_ALERTS], route, direction);
+        
     }
     if (alert.directionsImpacted.size === 0) {
         if (!alertStore[route].hasOwnProperty(NO_DIRECTION)) {
@@ -29,17 +35,19 @@ function indexAlert(route, alert, alertStore) {
             alertStore[route][NO_DIRECTION][ALERTS] = new Set();
         }
         alertStore[route][NO_DIRECTION][ALERTS].add(alert);
+        safeAddToKeyedSet(alertStore[POPULATED_ALERTS], route, NO_DIRECTION);
     }
 }
 
-function indexLocation(route, location, locationStore) {
-    if (!locationStore[route].hasOwnProperty(location.direction)) {
-        locationStore[route][location.direction] = new Object();  
+function indexLocation(route, location, index) {
+    if (!index[route].hasOwnProperty(location.direction)) {
+        index[route][location.direction] = new Object();  
     }
-    if (!locationStore[route][location.direction].hasOwnProperty(LOCATIONS)) {
-        locationStore[route][location.direction][LOCATIONS] = [];
+    if (!index[route][location.direction].hasOwnProperty(LOCATIONS)) {
+        index[route][location.direction][LOCATIONS] = [];
     }
-    locationStore[route][location.direction][LOCATIONS].push(location);
+    index[route][location.direction][LOCATIONS].push(location);
+    safeAddToKeyedSet(index[POPULATED_LOCATIONS], route, location.direction);
 }
 
-export { indexAlert, indexLocation }
+export { indexAlert, indexLocation, POPULATED_ALERTS, POPULATED_LOCATIONS }
