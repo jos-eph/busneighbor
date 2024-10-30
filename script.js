@@ -12,8 +12,8 @@ import { POPULATED_ALERTS, POPULATED_LOCATIONS } from './service/processors/stor
 const routes = ["45", "29", "47", "4", "40"]
 
 // Create the stores
-var locationsStore = getNewReactiveObject();
-var alertsStore = getNewReactiveObject();
+var locationsStore = {};
+var alertsStore = {};
 
 // Create the alerts store
 await populateAlertsStore(routes, alertsStore);
