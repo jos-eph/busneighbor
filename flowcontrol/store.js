@@ -1,7 +1,8 @@
 import { defineHiddenProperty, objectOfKeys } from '../common/utilities.js';
-import { POPULATED_ALERTS, POPULATED_LOCATIONS } from '../service/processors/store_creators.js';
-import { populateAlertsStore, populateLocationsStore } from './service/processors/store_creators.js';
-import { indexAlert } from '../service/processors/indexed_processors.js';
+import { POPULATED_ALERTS, POPULATED_LOCATIONS } from '../../service/processors/store_creators.js';
+import { populateAlertsStore, populateLocationsStore } from '../../service/processors/store_creators.js';
+import { indexAlert, indexLocation } from '../../service/processors/indexed_processors.js';
+import { processStore } from '../service/processors/processor_aggregators.js';
 
 class Store {
     constructor(routes) {
@@ -10,6 +11,13 @@ class Store {
         this.alertsStore = {};
         this.sortedAlerts = {};
         this.sortedLocations = {};
+    }
+
+    async initialize() {
+        await this.requestAlertsRefresh();
+        await this.requestLocationsRefresh();
+        this.indexAlerts();
+        this.indexLocations();
     }
 
     // Alerts
@@ -35,3 +43,5 @@ class Store {
         processStore(this.locationsStore, indexLocation, this.sortedLocations);
     }
 }
+
+export { Store }
