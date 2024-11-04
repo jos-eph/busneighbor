@@ -1,22 +1,19 @@
-import { LOCATIONS, ALERTS } from "../../model/route_info.js";
-import { Directions } from "../../model/directions_impacted.js";
+import { Store } from "../../flowcontrol/store.js";
+import { Indenter } from "../../common/indenter.js";
+import { simpleTextAlert, simpleTextLocation } from "../processors/demonstration_processors.js";
 
-function insertSpacesAtEnd(text, numSpaces) {
-    return text.padEnd(text.length + numSpaces, " ");
-  }
-  
-function insertSpacesAtBeginning(text, numSpaces) {
-    return text.padStart(text.length + numSpaces, " ");
+
+/**
+ * Description placeholder
+ *
+ * @param { Store } store
+ */
+function getTextStore(store) {
+    const indenter = new Indenter(3, " ");
+    for (const route in store.sortedLocations.populatedLocations) {
+        console.log("route");   
+    }
+
 }
 
-let INDENT = 5;
-
-// extremely buggy
-// refactor
-function yieldLocationText(aggregate) {
-    console.log(aggregate);
-    let output = "^ Just output locations...";
-    return output;
-}
-
-export { yieldLocationText }
+export { getTextStore }

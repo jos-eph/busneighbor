@@ -1,9 +1,7 @@
 import { getLocationDataV2, getRouteAlertsV2 } from "../septa_api.js";
 import { createProcessedAlertV2, createProcessedLocationFactoryV2, PERPENDICULAR_DISTANCE } from "../septa_api_translation.js";
-import { relevantLocationFactory } from "./display_filters.js";
 import { processRouteGets } from "./processor_aggregators.js";
 import { getCurrentCoordinatesPromise } from "../location.js";
-import { defineHiddenProperty } from "../../common/utilities.js";
 
 const POPULATED_LOCATIONS = "populatedLocations";
 const POPULATED_ALERTS = "populatedAlerts";

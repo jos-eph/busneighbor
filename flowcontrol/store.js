@@ -1,6 +1,6 @@
 import { defineHiddenProperty, objectOfKeys } from '../common/utilities.js';
-import { POPULATED_ALERTS, POPULATED_LOCATIONS } from '../../service/processors/store_creators.js';
-import { populateAlertsStore, populateLocationsStore } from '../../service/processors/store_creators.js';
+import { POPULATED_ALERTS, POPULATED_LOCATIONS } from '../../service/processors/store_organizers.js';
+import { populateAlertsStore, populateLocationsStore } from '../../service/processors/store_organizers.js';
 import { indexAlert, indexLocation } from '../../service/processors/indexed_processors.js';
 import { processStore } from '../service/processors/processor_aggregators.js';
 

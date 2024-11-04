@@ -1,6 +1,6 @@
 import { NO_DIRECTION, ALERTS, LOCATIONS } from "../../model/route_info.js";
 import { safeAddToKeyedSet } from "../../common/utilities.js";
-import { POPULATED_ALERTS, POPULATED_LOCATIONS } from "./store_creators.js";
+import { POPULATED_ALERTS, POPULATED_LOCATIONS } from "./store_organizers.js";
 /*
     45
     N

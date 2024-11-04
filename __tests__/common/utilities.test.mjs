@@ -1,4 +1,4 @@
-import { includesAsWord, concatenateStrings, 
+import { includesAsWord, concatenateStrings, defineHiddenProperty,
     iterableToString, objectOfKeys, safeAddToKeyedSet} from "../../common/utilities.js";
 
 const TEXT_SOUGHT_WORD_EXPECTED_OUTCOME = [
@@ -77,5 +77,14 @@ test('Confirm error on attempt to add set member to object with an array',
         expect(() => safeAddToKeyedSet(oldObject, 'a', 1)).toThrow("Existing key does not hold a Set.");
     }
 
+)
+
+
+test('test defineHiddenProperty',
+    () => {
+        const obj = {'a': 2};
+        defineHiddenProperty(obj, "parc");
+        expect(obj.hasOwnProperty("parc")).toBe(true);
+    }
 )
 

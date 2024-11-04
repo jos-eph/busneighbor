@@ -1,4 +1,5 @@
 import { Store } from './flowcontrol/store.js';
+import { getTextStore } from './service/displayers/text_only_displayer.js';
 
 // Define routes
 const routes = ["45", "29", "47", "4", "40"]
@@ -19,6 +20,7 @@ function showText() {
     const alertText = JSON.stringify(store.sortedAlerts);
     const locationsText = JSON.stringify(store.sortedLocations);
     const displayText = `${alertText}\n${locationsText}\n`;
+    getTextStore(store);
 
     // populate the DOM
     console.log(store.sortedAlerts);

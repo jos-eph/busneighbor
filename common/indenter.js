@@ -1,3 +1,10 @@
+class IndentedBlock {
+    constructor(text, levels) {
+        this.text = text;
+        this.levels = levels;
+    }
+}
+
 class Indenter {
     constructor(levelMultiplier = 2, spacer = "A") {
         this.levelMultiplier = levelMultiplier;
@@ -5,7 +12,8 @@ class Indenter {
         this.currentLevel = 0;
         this.maxLevel = 0;
         this.memoSpaces = [];
-        console.log("Constructed")
+        this.storedBlocks = [];
+        this.newLine = "\n";
     }
 
     indent = () => {
@@ -30,17 +38,37 @@ class Indenter {
             this.memoSpaces[level] = this.spacer.repeat(repetitions); // Store repeated '#' directly
         }
     }
-}
 
-
-
-function demo() {
-    const indenter = new Indenter(levelMultiplier=10, spacer="@");
-    for (let i = 0; i < 10; i ++) {
-        indenter.indent();
+    place(text) {
+        this.storedBlocks.push(new IndentedBlock(text, this.currentLevel));
     }
-    indenter.memoizeSpaces();
-    console.log(indenter.memoSpaces);
+
+    placeRight(text) {
+        this.indent();
+        this.place(text);
+    }
+
+    placeLeft(text) {
+        this.outdent();
+        this.place(text);
+    }
+
+    getFormatted() {
+        this.memoizeSpaces();
+        console.log(this.memoSpaces);
+        let formattedText = "";
+        for (let block of this.storedBlocks) {
+            formattedText += this.memoSpaces[block.levels] + block.text + this.newLine;
+        }
+        return formattedText;
+    }
+
+    setLevelMultiplier(multiplier) {
+        this.levelMultiplier = multiplier;
+    }
+ 
+
 }
 
-demo();
+
+export { Indenter };
