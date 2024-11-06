@@ -20,7 +20,7 @@ function showText() {
     const alertText = JSON.stringify(store.sortedAlerts);
     const locationsText = JSON.stringify(store.sortedLocations);
     const displayText = `${alertText}\n${locationsText}\n`;
-    getTextStore(store);
+    console.log(getTextStore(store));
 
     // populate the DOM
     console.log(store.sortedAlerts);

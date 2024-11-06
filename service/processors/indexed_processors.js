@@ -1,4 +1,3 @@
-import { NO_DIRECTION, ALERTS, LOCATIONS } from "../../model/route_info.js";
 import { safeAddToKeyedSet } from "../../common/utilities.js";
 import { POPULATED_ALERTS, POPULATED_LOCATIONS } from "./store_organizers.js";
 /*
@@ -14,7 +13,9 @@ import { POPULATED_ALERTS, POPULATED_LOCATIONS } from "./store_organizers.js";
 
 */
 
-
+const LOCATIONS = "locations";
+const ALERTS = "alerts";
+const NO_DIRECTION = "noDirectionFound"
 
 
 function indexAlert(route, alert, alertStore) {
@@ -50,4 +51,4 @@ function indexLocation(route, location, index) {
     safeAddToKeyedSet(index[POPULATED_LOCATIONS], route, location.direction);
 }
 
-export { indexAlert, indexLocation, POPULATED_ALERTS, POPULATED_LOCATIONS }
+export { indexAlert, indexLocation, POPULATED_ALERTS, POPULATED_LOCATIONS, LOCATIONS, ALERTS, NO_DIRECTION }

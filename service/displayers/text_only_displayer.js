@@ -1,19 +1,61 @@
 import { Store } from "../../flowcontrol/store.js";
 import { Indenter } from "../../common/indenter.js";
 import { simpleTextAlert, simpleTextLocation } from "../processors/demonstration_processors.js";
+import { LOCATIONS, ALERTS, NO_DIRECTION } from "../processors/indexed_processors.js";
 
+
+// buggy - figure out why buggy
 
 /**
  * Description placeholder
  *
+ * @param {*} route
+ * @param {Array} locationData
+ * @param {Array} alertData
+ */
+function oneRoute(route, locationData, alertData) {
+    const indenter = new Indenter(4, " ");
+    indenter.place(`${route}`);
+    for (const direction in locationData) {
+        indenter.placeRight(direction);
+        indenter.indent();
+        for(const individualLocation of locationData[direction][LOCATIONS]) {
+            indenter.place(simpleTextLocation(individualLocation));
+        }
+        indenter.place("\n");
+        if (alertData && alertData.hasOwnProperty(direction)) {
+            for (const individualAlert of alertData[direction][ALERTS]) {
+                indenter.place(simpleTextAlert(individualAlert));
+            }
+        }
+        indenter.outdent();
+    }
+    if (!alertData) {
+        return indenter.getFormatted();
+    }
+    if (alertData.hasOwnProperty(NO_DIRECTION)) {
+        indenter.place("\n--Applicable To All Directions--");
+        indenter.indent();
+        for (const individualAlert of alertData[NO_DIRECTION][ALERTS]) {
+            indenter.place(simpleTextAlert(individualAlert));
+        }
+        indenter.outdent();
+    }
+
+    return indenter.getFormatted();
+}
+
+/**
+ * Convert a store to a useful text representation
+ *
  * @param { Store } store
  */
 function getTextStore(store) {
-    const indenter = new Indenter(3, " ");
+    let text = "";
     for (const route in store.sortedLocations.populatedLocations) {
-        console.log("route");   
+        text += oneRoute(route, store.sortedLocations[route], store.sortedAlerts[route]) + "\n";   
     }
-
+    return text;
 }
 
 export { getTextStore }
