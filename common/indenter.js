@@ -55,7 +55,6 @@ class Indenter {
 
     getFormatted() {
         this.memoizeSpaces();
-        console.log(this.memoSpaces);
         let formattedText = "";
         for (let block of this.storedBlocks) {
             formattedText += this.memoSpaces[block.levels] + block.text + this.newLine;

@@ -19,12 +19,9 @@ function showText() {
     // create the text
     const alertText = JSON.stringify(store.sortedAlerts);
     const locationsText = JSON.stringify(store.sortedLocations);
-    const displayText = `${alertText}\n${locationsText}\n`;
-    console.log(getTextStore(store));
-
+    const displayText = getTextStore(store);
+    console.log(displayText);
     // populate the DOM
-    console.log(store.sortedAlerts);
-    console.log(store.sortedLocations);
     const paragraph = document.getElementById("change-text");
     paragraph.textContent = displayText;
 }

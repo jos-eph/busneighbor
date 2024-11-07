@@ -18,13 +18,13 @@ function oneRoute(route, locationData, alertData) {
     indenter.place(`${route}`);
     for (const direction in locationData) {
         indenter.placeRight(direction);
-        indenter.indent();
-        for(const individualLocation of locationData[direction][LOCATIONS]) {
+//        indenter.indent();
+        for(const individualLocation of locationData[direction]) {
             indenter.place(simpleTextLocation(individualLocation));
         }
         indenter.place("\n");
         if (alertData && alertData.hasOwnProperty(direction)) {
-            for (const individualAlert of alertData[direction][ALERTS]) {
+            for (const individualAlert of alertData[direction]) {
                 indenter.place(simpleTextAlert(individualAlert));
             }
         }
@@ -33,11 +33,11 @@ function oneRoute(route, locationData, alertData) {
     if (!alertData) {
         return indenter.getFormatted();
     }
-    if (alertData.hasOwnProperty(NO_DIRECTION)) {
-        indenter.place("\n--Applicable To All Directions--");
-        indenter.indent();
-        for (const individualAlert of alertData[NO_DIRECTION][ALERTS]) {
-            indenter.place(simpleTextAlert(individualAlert));
+    if (alertData.hasOwnProperty(NO_DIRECTION) && alertData[NO_DIRECTION].size > 0) {
+        indenter.place("\t\t--Applicable To All Directions--");
+//        indenter.indent();
+        for (const individualAlert of alertData[NO_DIRECTION]) {
+            indenter.place("\t\t" + simpleTextAlert(individualAlert));
         }
         indenter.outdent();
     }
@@ -51,6 +51,7 @@ function oneRoute(route, locationData, alertData) {
  * @param { Store } store
  */
 function getTextStore(store) {
+    console.log(store);
     let text = "";
     for (const route in store.sortedLocations.populatedLocations) {
         text += oneRoute(route, store.sortedLocations[route], store.sortedAlerts[route]) + "\n";   
