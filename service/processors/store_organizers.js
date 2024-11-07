@@ -1,8 +1,10 @@
 import { getLocationDataV2, getRouteAlertsV2 } from "../septa_api.js";
 import { createProcessedAlertV2, createProcessedLocationFactoryV2, PERPENDICULAR_DISTANCE } from "../septa_api_translation.js";
-import { relevantLocationFactory } from "./display_filters.js";
 import { processRouteGets } from "./processor_aggregators.js";
 import { getCurrentCoordinatesPromise } from "../location.js";
+
+const POPULATED_LOCATIONS = "populatedLocations";
+const POPULATED_ALERTS = "populatedAlerts";
 
 async function populateLocationsStore(routes, locationsStore) {
     const currentLocation = await getCurrentCoordinatesPromise();
@@ -19,4 +21,5 @@ async function populateAlertsStore(routes, alertsStore) {
         createProcessedAlertV2, alertsStore);
 }
 
-export { populateAlertsStore, populateLocationsStore };
+export { populateAlertsStore, populateLocationsStore, 
+    POPULATED_ALERTS, POPULATED_LOCATIONS };
