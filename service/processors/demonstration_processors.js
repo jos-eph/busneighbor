@@ -1,6 +1,3 @@
-import { ProcessedAlertV2 } from "../../model/processed_alert.js";
-import { iterableToString } from "../../common/utilities.js";
-
 /**
  * Convert alerts to a simple text string
  *
