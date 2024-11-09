@@ -1,17 +1,5 @@
 import { safeAddToKeyedSet } from "../../common/utilities.js";
 import { POPULATED_ALERTS, POPULATED_LOCATIONS } from "./store_organizers.js";
-/*
-    45
-    N
-        alerts
-        locations
-    S
-        directions
-        alerts
-    NO_DIRECTION
-        alerts
-
-*/
 
 const LOCATIONS = "locations";
 const ALERTS = "alerts";

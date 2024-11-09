@@ -6,13 +6,19 @@ import { getCurrentCoordinatesPromise } from "../location.js";
 const POPULATED_LOCATIONS = "populatedLocations";
 const POPULATED_ALERTS = "populatedAlerts";
 
+function locationFilter(processedLocation) {
+    return processedLocation[PERPENDICULAR_DISTANCE] >= 0 && processedLocation.nextStopName != null;
+}
+
+function locationSorter(location1, location2) {
+    return location1[PERPENDICULAR_DISTANCE] - location2[PERPENDICULAR_DISTANCE];
+}
+
 async function populateLocationsStore(routes, locationsStore) {
     const currentLocation = await getCurrentCoordinatesPromise();
     const createProcessedLocation = createProcessedLocationFactoryV2(currentLocation);
     return processRouteGets(routes, getLocationDataV2,
-        createProcessedLocation, locationsStore, 
-        (processedLocation) => processedLocation[PERPENDICULAR_DISTANCE] >= 0,
-        (location1, location2) => location1[PERPENDICULAR_DISTANCE] - location2[PERPENDICULAR_DISTANCE]
+        createProcessedLocation, locationsStore, locationFilter, locationSorter
         );
 }
 
