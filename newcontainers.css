@@ -33,16 +33,17 @@ a:hover {
 /* Bus position indicator */
 
 .busBox {
-    aspect-ratio: 1 / 1;
     display: grid;
-    grid-template-rows: 2fr 5fr 3fr;
+    grid-template-rows: 1fr 2fr 1fr;
     grid-template-columns: 1fr;
     column-gap: 1px;
+    row-gap: 0px;
     grid-auto-flow: row;
-    max-width: 225px;
+    min-width: 180px;
+    min-height: 180px;
     font-family: Helvetica, Arial, sans-serif;
     flex-shrink: 0;
-    width: 30%;  /* Make each box take full width of its container */
+    width: max-content;
     height: auto; /* Height will adjust automatically to maintain aspect ratio */
 
 }
@@ -62,13 +63,17 @@ a:hover {
 
     .busDirection {
         justify-content: right;
-        font-size: 2em;
+        font-size: 1.5em;
     }
 
     .busNumber {
-        font-size: 4em;
+        font-size: 3em;
         font-weight: bolder;
         letter-spacing: 0.05em;
+    }
+
+    .busStreet {
+        font-size: 1.5em;
     }
 
 .busVehicles {
