@@ -1,0 +1,66 @@
+/* Demo styles */
+
+.showMe {
+    /* Highlight the element's content area */
+    background-color: rgba(255, 81, 0, 0.3); /* Light yellow with transparency */
+    
+    /* Highlight the border */
+    outline: 3px solid rgba(3, 197, 251, 0.3); /* Blue with transparency */
+  
+   }
+
+
+/* Body Styles */
+  body {
+    font-family: Menlo, 'Droid Sans Mono', Consolas, 'Courier New', monospace; 
+    line-height: 1.6;
+    font-size: large;
+    color: #99cc99; /* Light text for dark background */
+    background-color: #222; /* Dark background */
+  }
+
+/* Link Styles */
+a {
+    color: #0096c7; /* Teal link color for dark mode */
+    text-decoration: none;
+    }
+    
+a:hover {
+    text-decoration: underline;
+}
+
+
+/* Bus position indicator */
+
+.busBox {
+    display: grid;
+    grid-template-rows: 2fr 5fr 2fr;
+    grid-template-columns: 1fr;
+    column-gap: 1px;
+    grid-auto-flow: row;
+    max-width: 225px;
+    min-height: 225px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+
+.busItem {
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    white-space: wrap;
+    text-overflow: ellipsis;
+    height:100%;
+    width:100%;
+}
+
+    .busDirection {
+        justify-content: right;
+    }
+
+    .busNumber {
+        font-size: 4em;
+        font-weight: bolder;
+        letter-spacing: 0.05em;
+    }
