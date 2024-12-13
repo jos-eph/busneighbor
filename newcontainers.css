@@ -33,30 +33,36 @@ a:hover {
 /* Bus position indicator */
 
 .busBox {
+    aspect-ratio: 1 / 1;
     display: grid;
-    grid-template-rows: 2fr 5fr 2fr;
+    grid-template-rows: 2fr 5fr 3fr;
     grid-template-columns: 1fr;
     column-gap: 1px;
     grid-auto-flow: row;
     max-width: 225px;
-    min-height: 225px;
     font-family: Helvetica, Arial, sans-serif;
+    flex-shrink: 0;
+    width: 30%;  /* Make each box take full width of its container */
+    height: auto; /* Height will adjust automatically to maintain aspect ratio */
+
 }
 
 
-.busItem {
-    display: flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    white-space: wrap;
-    text-overflow: ellipsis;
-    height:100%;
-    width:100%;
-}
+    .busItem {
+        display: flex;
+        align-items:center;
+        justify-content:space-around;
+        overflow:hidden;
+        white-space: wrap;
+        text-overflow: ellipsis;
+        height:100%;
+        width:100%;
+        font-size: 1em;
+    }
 
     .busDirection {
         justify-content: right;
+        font-size: 2em;
     }
 
     .busNumber {
@@ -64,3 +70,11 @@ a:hover {
         font-weight: bolder;
         letter-spacing: 0.05em;
     }
+
+.busVehicles {
+    display: flex;
+    gap: 2em;
+    padding: 2em;
+    flex-grow: 1;
+    flex-wrap: wrap;
+}
