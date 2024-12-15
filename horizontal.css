@@ -113,7 +113,7 @@ a:hover {
 
     .alertMessage {
         font-family: "Atkinson Hyperlegible", Courier, 'Courier New', monospace;
-        font-size: larger;
+        font-size: x-large;
         word-wrap: break-word;
         overflow: scroll;
         box-sizing: border-box;
@@ -124,4 +124,18 @@ a:hover {
         display: flex; 
       }
     
+/* Stack multiple status boxes */
 
+.statusLineWithMessageGroups {
+    display: flex;
+    gap: 3em 8em;
+    max-width: 80vw;
+    flex-wrap: wrap;
+}
+
+.statusLineWithMessageGroups .statusLineWithAlertMessage {
+    border: 1px dotted blue;
+    padding: 1em;
+    border-style: dashed;
+    border-spacing: 10px;
+} 
