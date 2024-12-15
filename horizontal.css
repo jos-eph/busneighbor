@@ -90,17 +90,17 @@ a:hover {
     justify-content:first baseline;
 }
 
-
-/* Encapsulate multiple direction statuses */
-
 .statusLine {
     display: grid;
     gap: 20px;
     grid-template-columns: min-content min-content min-content;
     min-width: fit-content;
     max-width: 80vw;
-    grid-template-rows: min-content; /* Adjust as needed */
+    grid-template-rows: min-content;
 }
+
+/* Encapsulate multiple direction statuses */
+
 
 .statusLineWithAlertMessage {
     display: grid;
