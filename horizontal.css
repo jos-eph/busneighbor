@@ -113,7 +113,8 @@ a:hover {
 
     .alertMessage {
         font-family: "Atkinson Hyperlegible", Courier, 'Courier New', monospace;
-        font-size: x-large;
+        font-size: 1em;
+        line-height: 1;
         word-wrap: break-word;
         overflow: scroll;
         box-sizing: border-box;
