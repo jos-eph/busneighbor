@@ -68,6 +68,7 @@ a:hover {
     grid-template-rows: min-content min-content;
     width: min-content;
     max-height: 50vh;
+    align-self: start; /* */
 }
 
 .directionHeader {
@@ -96,5 +97,30 @@ a:hover {
     display: grid;
     gap: 20px;
     grid-template-columns: min-content min-content min-content;
+    min-width: fit-content;
     max-width: 80vw;
+    grid-template-rows: min-content; /* Adjust as needed */
 }
+
+.statusLineWithAlertMessage {
+    display: grid;
+    gap: 1em;
+    grid-template-columns: min-content;
+    grid-template-rows: min-content 1fr;
+    min-height: fit-content;
+    width: fit-content;
+}
+
+    .alertMessage {
+        font-family: "Atkinson Hyperlegible", Courier, 'Courier New', monospace;
+        word-wrap: break-word;
+        overflow: scroll;
+        box-sizing: border-box;
+        hyphens: auto;
+    }
+
+    .statusLineWithAlertMessage .statusLine {
+        display: flex; 
+      }
+    
+
