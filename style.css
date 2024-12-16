@@ -13,6 +13,11 @@
     color: #99cc99; /* Light text for dark background */
     background-color: #222; /* Dark background */
   }
+
+  /* pre styles */
+  pre {
+    font-size: 24px;
+  }
   
   /* Heading Styles */
   h1, h2, h3 {
@@ -33,11 +38,4 @@
   
   a:hover {
     text-decoration: underline;
-  }
-  
-  /* Container for Content */
-  .container {
-    max-width: 960px;
-    margin: 2rem auto;
-    padding: 0 1rem;
   }
