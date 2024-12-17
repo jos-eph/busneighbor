@@ -1,0 +1,1 @@
+alert("Table demo script started!")
