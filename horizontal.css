@@ -62,7 +62,7 @@ a:hover {
 
 /* Multi-bus Display With Direction */
 
-.multiBusDirection {
+.busSingleDirectionPosition {
     display: grid;
     max-width: 50vw;
     grid-template-rows: min-content min-content;
