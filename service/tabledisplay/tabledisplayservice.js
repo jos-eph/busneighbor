@@ -1,6 +1,9 @@
 import {  INFO_BOX, INFO_TEXT, ROUTE_GROUP, SINGLE_ROUTE_STATUS, VEHICLE_POSITIONS, BUS_NUMBER,
     INDIVIDUAL_DIRECTION, DIRECTION_HEADER, STATUS_HOLDER, STREET_POSITION, ALERT_MESSAGE } from './tabledisplayconstants.js'
 
+import { DirectionLocations } from '../../model/directionLocations.js';
+import { stringifySet, unStringifySet } from '../../common/utilities.js';
+
 const newDiv = () => document.createElement('div');
 
 function createDivOfClasses(classes, textContent) {
@@ -20,7 +23,7 @@ function createDivOfClasses(classes, textContent) {
  * @param {string} busNumber
 j * @returns {HTMLElement}
  */
-function createBusNumber(busNumber) {
+function createRouteNumber(busNumber) {
     let enclosingBox = createDivOfClasses([INFO_BOX]);
     let innerBox = createDivOfClasses([INFO_TEXT, BUS_NUMBER], busNumber);
     enclosingBox.appendChild(innerBox);
@@ -49,9 +52,25 @@ function createBusSingleDirectionPosition(direction, streets) {
 
 }
 
+/**
+ * List positions for a bus in a single direction
+ *
+ * @param {string} route
+ * @param {Array[DirectionLocations]} directionsInfo
+ * @returns {HTMLElement}
+ */
+function createStatusLineWithAlertMessage(route, directionsInfo) {
+    const enclosingBox = createDivOfClasses([SINGLE_ROUTE_STATUS]);
+    
+    const busNumber = createRouteNumber(route);
+    enclosingBox.appendChild(busNumber);
+
+
+}
+
 
 // You can store data in e.g. element.dataset['parameter']
 // encapsulate the message in a constructor function
 // element.dataset.<<property>> = to set
 
-export { createDivOfClasses, createBusNumber };
+export { createDivOfClasses, createRouteNumber as createBusNumber };
