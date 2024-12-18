@@ -11,6 +11,6 @@ function createAndAppend(classes, text) {
     document.body.append(newElement);
 }
 
-createAndAppend([INFO_BOX, INFO_TEXT, BUS_NUMBER], "Ÿoto");
+createAndAppend([INFO_BOX, INFO_TEXT, BUS_NUMBER], "ŸotAo");
 createAndAppend([[INFO_BOX, STREET_POSITION], "yellow"]);
 createAndAppend([INFO_BOX, INFO_TEXT, ALERT_MESSAGE], "Hello alert!")

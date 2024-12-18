@@ -49,6 +49,7 @@ function createBusSingleDirectionPosition(direction, streets) {
 
 }
 
+
 // You can store data in e.g. element.dataset['parameter']
 // encapsulate the message in a constructor function
 // element.dataset.<<property>> = to set
