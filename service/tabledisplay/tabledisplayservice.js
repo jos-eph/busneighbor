@@ -11,6 +11,7 @@ function createDivOfClasses(classes, textContent) {
     for (let cls of classes) {
         newElement.classList.add(cls);
     }
+    newElement.classList.add("showMe")
     if (textContent !== undefined) {
         newElement.innerText = textContent;
     }

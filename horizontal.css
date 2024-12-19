@@ -66,26 +66,26 @@ a:hover {
     display: grid;
     max-width: 50vw;
     grid-template-rows: min-content min-content;
+    row-gap: 0;
+    gap: 0;
     width: min-content;
     max-height: 50vh;
-    align-self: start; /* */
+    align-self: start;
+    justify-items: left;
 }
 
 .directionHeader {
     display: flex;
     font-size: 1.2em;
-    margin: 0.7em;
     min-width: 0;
     text-align: center;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     letter-spacing: 0.6ch;
-    align-items: center;
 }
 
 .statusHolder {
     display: flex;
     flex-wrap: wrap;
-    gap:1em;
     flex: 1;
     justify-content:first baseline;
 }
