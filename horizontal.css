@@ -129,7 +129,7 @@ a:hover {
 
 .statusLineWithMessageGroups {
     display: flex;
-    gap: 3em 8em;
+    gap: 2em 2em;
     max-width: 80vw;
     flex-wrap: wrap;
 }
