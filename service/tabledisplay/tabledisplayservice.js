@@ -65,6 +65,14 @@ function createStatusLineWithAlertMessage(route, directionsInfo) {
     const busNumber = createRouteNumber(route);
     enclosingBox.appendChild(busNumber);
 
+    directionsInfo.forEach(directionInfo => {
+        enclosingBox.appendChild(
+            createBusSingleDirectionPosition(directionInfo.direction, directionInfo.locations)
+        );
+    });
+
+    enclosingBox.appendChild(createDivOfClasses([ALERT_MESSAGE])); // leave it blank and insert it last
+
 
 }
 

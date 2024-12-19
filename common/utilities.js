@@ -64,10 +64,6 @@ function defineHiddenProperty(obj, propertyName) {
     });
 }
 
-
-const stringifySet = (someSet) => JSON.stringify(Array.from(someSet));
-const unStringifySet = (jsonArrayString) => new Set(JSON.parse(jsonArrayString));
-
 export { includesAsWord, concatenateStrings, 
     stalenessSeconds, iterableToString, objectOfKeys, 
     safeAddToKeyedSet, defineHiddenProperty, stringifySet, unStringifySet
