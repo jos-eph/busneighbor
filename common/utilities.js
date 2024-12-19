@@ -66,6 +66,6 @@ function defineHiddenProperty(obj, propertyName) {
 
 export { includesAsWord, concatenateStrings, 
     stalenessSeconds, iterableToString, objectOfKeys, 
-    safeAddToKeyedSet, defineHiddenProperty, stringifySet, unStringifySet
+    safeAddToKeyedSet, defineHiddenProperty
  };
 

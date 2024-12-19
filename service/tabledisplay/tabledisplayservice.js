@@ -2,8 +2,8 @@ import {  INFO_BOX, INFO_TEXT, ROUTE_GROUP, SINGLE_ROUTE_STATUS, VEHICLE_POSITIO
     INDIVIDUAL_DIRECTION, DIRECTION_HEADER, STATUS_HOLDER, STREET_POSITION, ALERT_MESSAGE } from './tabledisplayconstants.js'
 
 import { DirectionLocations } from '../../model/directionLocations.js';
-import { stringifySet, unStringifySet } from '../../common/utilities.js';
 
+const ALERT_TEXT = "directionAlertText";
 const newDiv = () => document.createElement('div');
 
 function createDivOfClasses(classes, textContent) {
@@ -45,7 +45,11 @@ function createBusSingleDirectionPosition(direction, streets) {
     busDirectionBox.appendChild(directionHeader);
 
     const statusHolder = createDivOfClasses([STATUS_HOLDER]);
-    streets.forEach(street => statusHolder.appendChild(createDivOfClasses[INFO_TEXT, STREET_POSITION]));
+    streets.forEach(street => {
+        const streetPosition = createDivOfClasses([INFO_TEXT, STREET_POSITION]);
+        streetPosition.innerText = street;
+        statusHolder.appendChild(streetPosition);
+    });
     busDirectionBox.appendChild(statusHolder);
 
     return busDirectionBox;
@@ -65,14 +69,26 @@ function createStatusLineWithAlertMessage(route, directionsInfo) {
     const busNumber = createRouteNumber(route);
     enclosingBox.appendChild(busNumber);
 
+    const directionAlerts = {};
     directionsInfo.forEach(directionInfo => {
+        console.log(directionInfo);
         enclosingBox.appendChild(
             createBusSingleDirectionPosition(directionInfo.direction, directionInfo.locations)
         );
+
+        if (directionInfo.alert !== undefined) {
+            directionAlerts[[directionInfo.direction]] = directionInfo.alert;
+        }
     });
+    enclosingBox.dataset[[ALERT_TEXT]] = JSON.stringify(directionAlerts);
 
-    enclosingBox.appendChild(createDivOfClasses([ALERT_MESSAGE])); // leave it blank and insert it last
+    // leave it blank and insert it last
+    // text will be inserted dynamically based on JavaScript from the data.alertText object
+    const alertMessage = createDivOfClasses([ALERT_MESSAGE]);
+    alertMessage.innerText = JSON.stringify(directionAlerts);
+    enclosingBox.appendChild(alertMessage); 
 
+    return enclosingBox;
 
 }
 
@@ -81,4 +97,4 @@ function createStatusLineWithAlertMessage(route, directionsInfo) {
 // encapsulate the message in a constructor function
 // element.dataset.<<property>> = to set
 
-export { createDivOfClasses, createRouteNumber as createBusNumber };
+export { createDivOfClasses, createRouteNumber, createStatusLineWithAlertMessage };
