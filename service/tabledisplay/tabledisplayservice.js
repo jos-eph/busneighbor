@@ -64,15 +64,16 @@ function createBusSingleDirectionPosition(direction, streets) {
  * @returns {HTMLElement}
  */
 function createStatusLineWithAlertMessage(route, directionsInfo) {
-    const enclosingBox = createDivOfClasses([SINGLE_ROUTE_STATUS]);
+    const statusLineWithAlertMessage = createDivOfClasses([SINGLE_ROUTE_STATUS]);
     
+    const statusLine = createDivOfClasses([VEHICLE_POSITIONS])
     const busNumber = createRouteNumber(route);
-    enclosingBox.appendChild(busNumber);
+    statusLine.appendChild(busNumber);
 
     const directionAlerts = {};
     directionsInfo.forEach(directionInfo => {
         console.log(directionInfo);
-        enclosingBox.appendChild(
+        statusLine.appendChild(
             createBusSingleDirectionPosition(directionInfo.direction, directionInfo.locations)
         );
 
@@ -80,15 +81,17 @@ function createStatusLineWithAlertMessage(route, directionsInfo) {
             directionAlerts[[directionInfo.direction]] = directionInfo.alert;
         }
     });
-    enclosingBox.dataset[[ALERT_TEXT]] = JSON.stringify(directionAlerts);
+    statusLine.dataset[[ALERT_TEXT]] = JSON.stringify(directionAlerts);
+    statusLineWithAlertMessage.appendChild(statusLine);
+    
 
     // leave it blank and insert it last
     // text will be inserted dynamically based on JavaScript from the data.alertText object
     const alertMessage = createDivOfClasses([ALERT_MESSAGE]);
     alertMessage.innerText = JSON.stringify(directionAlerts);
-    enclosingBox.appendChild(alertMessage); 
+    statusLineWithAlertMessage.appendChild(alertMessage); 
 
-    return enclosingBox;
+    return statusLineWithAlertMessage;
 
 }
 
