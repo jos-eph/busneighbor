@@ -140,3 +140,13 @@ a:hover {
     border-style: dashed;
     border-spacing: 10px;
 } 
+
+/* Colorize based on seats */
+
+.yesSeats {
+    background-color: lightgreen;
+}
+
+.someSeats {
+    background-color: lightyellow;
+}

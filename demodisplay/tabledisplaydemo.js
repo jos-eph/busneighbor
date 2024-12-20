@@ -10,7 +10,7 @@ import { DirectionLocations } from '../model/directionLocations.js'
 function createFakeDirectionLocation(direction) {
     return new DirectionLocations(
         direction,
-        ["Eeny", "Meeny", "Miny"],
+        {"Eeny": "YES_SEATS", "Meeny": "SOME_SEATS", "Miny": "SOME_SEATS"},
         direction + "aLeRt!!!!"
     );
 }

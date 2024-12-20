@@ -1,5 +1,6 @@
 import {  INFO_BOX, INFO_TEXT, ROUTE_GROUP, SINGLE_ROUTE_STATUS, VEHICLE_POSITIONS, BUS_NUMBER,
-    INDIVIDUAL_DIRECTION, DIRECTION_HEADER, STATUS_HOLDER, STREET_POSITION, ALERT_MESSAGE } from './tabledisplayconstants.js'
+    INDIVIDUAL_DIRECTION, DIRECTION_HEADER, STATUS_HOLDER, STREET_POSITION, ALERT_MESSAGE,
+SOME_SEATS_CSS, YES_SEATS_CSS } from './tabledisplayconstants.js'
 
 import { DirectionLocations } from '../../model/directionLocations.js';
 
@@ -35,23 +36,24 @@ function createRouteNumber(busNumber) {
  * List positions for a bus in a single direction
  *
  * @param {string} direction
- * @param {Array[string]} streets
+ * @param {Array[string]} streetFullnesses
  * @returns {HTMLElement}
  */
-function createBusSingleDirectionPosition(direction, streets) {
+function createBusSingleDirectionPosition(direction, streetFullnesses) {
     const busDirectionBox = createDivOfClasses([INDIVIDUAL_DIRECTION]);
     
     const directionHeader = createDivOfClasses([DIRECTION_HEADER], direction);
     busDirectionBox.appendChild(directionHeader);
 
     const statusHolder = createDivOfClasses([STATUS_HOLDER]);
-    streets.forEach(street => {
-        const streetPosition = createDivOfClasses([INFO_TEXT, STREET_POSITION]);
-        streetPosition.innerText = street;
+    for (const street in streetFullnesses) {
+        const availabilityClass = (streetFullnesses[[street]] === "YES_SEATS") 
+                                   ? YES_SEATS_CSS : SOME_SEATS_CSS;
+        const streetPosition = createDivOfClasses([INFO_TEXT, STREET_POSITION, availabilityClass]);
+        streetPosition.innerText =  street;
         statusHolder.appendChild(streetPosition);
-    });
+    }
     busDirectionBox.appendChild(statusHolder);
-
     return busDirectionBox;
 
 }
