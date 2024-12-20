@@ -25,6 +25,6 @@ function showText() {
 }
 
 // Initial display and cycling
-showText();
+showText(); // replace with show visual...
 setInterval(cycleRefresh, 5000);
 setInterval(showText, 3000);
