@@ -36,7 +36,7 @@ function createRouteNumber(busNumber) {
  * List positions for a bus in a single direction
  *
  * @param {string} direction
- * @param {Array[string]} streetFullnesses
+ * @param { Object } streetFullnesses
  * @returns {HTMLElement}
  */
 function createBusSingleDirectionPosition(direction, streetFullnesses) {
@@ -62,7 +62,7 @@ function createBusSingleDirectionPosition(direction, streetFullnesses) {
  * List positions for a bus in a single direction
  *
  * @param {string} route
- * @param {Array[DirectionLocations]} directionsInfo
+ * @param {Array[DirectionLocations]} directionsInfo array of {"direction": string, "locations": Object, "alert": string}
  * @returns {HTMLElement}
  */
 function createStatusLineWithAlertMessage(route, directionsInfo) {
@@ -81,9 +81,10 @@ function createStatusLineWithAlertMessage(route, directionsInfo) {
 
         if (directionInfo.alert !== undefined) {
             directionAlerts[[directionInfo.direction]] = directionInfo.alert;
+            statusLine.dataset[[direction]] = directionInfo.alert;
         }
     });
-    statusLine.dataset[[ALERT_TEXT]] = JSON.stringify(directionAlerts);
+    statusLine.dataset[[ALERT_TEXT]] = JSON.stringify(directionAlerts); // this is just for testing and should be broken down by direction
     statusLineWithAlertMessage.appendChild(statusLine);
     
 

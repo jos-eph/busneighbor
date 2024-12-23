@@ -3,15 +3,12 @@ import { Indenter } from "../../common/indenter.js";
 import { simpleTextAlert, simpleTextLocation } from "../processors/demonstration_processors.js";
 import { LOCATIONS, ALERTS, NO_DIRECTION } from "../processors/indexed_processors.js";
 
-
-// buggy - figure out why buggy
-
 /**
- * Description placeholder
+ * Flatten a processed store into readable text
  *
- * @param {*} route
- * @param {Array} locationData
- * @param {Array} alertData
+ * @param {string} route
+ * @param {Object} locationData
+ * @param {Object} alertData
  */
 function oneRoute(route, locationData, alertData) {
     const indenter = new Indenter(4, " ");
