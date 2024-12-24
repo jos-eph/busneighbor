@@ -18,12 +18,17 @@ function flattenToDirectionLocations(direction, processedRouteLocations, process
     const streets = [];
     let directionAlerts = "";
 
+    console.log("Processed route alerts: ", processedRouteAlerts, direction);
+
     for (const individualLocation of processedRouteLocations[[direction]]) {
         streets.push(individualLocation.nextStopName);
     }
 
-    for (const individualAlert of processedRouteAlerts[[direction]]) {
-        directionAlerts += directionAlerts + " -- " + individualAlert.message;
+    if (direction in processedRouteAlerts) {
+        for (const individualAlert of processedRouteAlerts[[direction]]) {
+            console.log("One loop iteration");
+            directionAlerts += directionAlerts + " -- " + individualAlert.message;
+        }    
     }
 
     return new DirectionLocations(direction, streets, directionAlerts);

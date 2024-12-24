@@ -81,7 +81,7 @@ function createStatusLineWithAlertMessage(route, directionsInfo) {
 
         if (directionInfo.alert !== undefined) {
             directionAlerts[[directionInfo.direction]] = directionInfo.alert;
-            statusLine.dataset[[direction]] = directionInfo.alert;
+            statusLine.dataset[[directionInfo.direction]] = directionInfo.alert;
         }
     });
     statusLine.dataset[[ALERT_TEXT]] = JSON.stringify(directionAlerts); // this is just for testing and should be broken down by direction
