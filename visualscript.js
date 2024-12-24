@@ -27,4 +27,4 @@ function showTables() {
 // Initial display and cycling
 showTables();
 setInterval(cycleRefresh, 5000);
-setInterval(showTables, 300000);
+// setInterval(showTables, 300000);

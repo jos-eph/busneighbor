@@ -93,7 +93,7 @@ a:hover {
 .statusLine {
     display: grid;
     gap: 20px;
-    grid-template-columns: min-content min-content min-content;
+    grid-template-columns: min-content min-content min-content;;
     min-width: fit-content;
     max-width: 80vw;
     grid-template-rows: min-content;
@@ -106,7 +106,7 @@ a:hover {
     display: grid;
     gap: 1em;
     grid-template-columns: min-content;
-    grid-template-rows: min-content 1fr;
+    grid-template-rows: min-content 1fr;   
     min-height: fit-content;
     width: fit-content;
 }

@@ -21,6 +21,7 @@ function flattenToDirectionLocations(direction, processedRouteLocations, process
     console.log("Processed route alerts: ", processedRouteAlerts, direction);
 
     for (const individualLocation of processedRouteLocations[[direction]]) {
+        console.log("Individual location: ", individualLocation);
         streets.push(individualLocation.nextStopName);
     }
 
@@ -30,6 +31,8 @@ function flattenToDirectionLocations(direction, processedRouteLocations, process
             directionAlerts += directionAlerts + " -- " + individualAlert.message;
         }    
     }
+
+    console.log("Streets: ", streets);
 
     return new DirectionLocations(direction, streets, directionAlerts);
 }
@@ -45,6 +48,7 @@ function flattenToDirectionLocations(direction, processedRouteLocations, process
  */
 function oneRoute(route, processedRouteLocations, processedRouteAlerts) {
     const directionsInfo = [];
+    console.log("Processed route locations: ", processedRouteLocations);
     for (const direction in processedRouteLocations) {
         directionsInfo.push(flattenToDirectionLocations(direction, processedRouteLocations, processedRouteAlerts));
     }
@@ -57,6 +61,7 @@ function oneRoute(route, processedRouteLocations, processedRouteAlerts) {
     }
     const noDirectionAggregate = aggregatedNoDirectionAlerts.join(" -- ");
 
+    console.log("Directions info: ", directionsInfo);
     const routeAlertBox = createStatusLineWithAlertMessage(route, directionsInfo);
     routeAlertBox.dataset[[NO_DIRECTION]] = noDirectionAggregate;
 

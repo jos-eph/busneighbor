@@ -45,6 +45,7 @@ function createBusSingleDirectionPosition(direction, streetFullnesses) {
     const directionHeader = createDivOfClasses([DIRECTION_HEADER], direction);
     busDirectionBox.appendChild(directionHeader);
 
+    console.log("Street fullnesses: ", streetFullnesses);
     const statusHolder = createDivOfClasses([STATUS_HOLDER]);
     for (const street in streetFullnesses) {
         const availabilityClass = (streetFullnesses[[street]] === "YES_SEATS") 
@@ -74,7 +75,7 @@ function createStatusLineWithAlertMessage(route, directionsInfo) {
 
     const directionAlerts = {};
     directionsInfo.forEach(directionInfo => {
-        console.log(directionInfo);
+        console.log("Direction info for HTML appending: ", directionInfo);
         statusLine.appendChild(
             createBusSingleDirectionPosition(directionInfo.direction, directionInfo.locations)
         );
