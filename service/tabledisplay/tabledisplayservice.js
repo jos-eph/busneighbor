@@ -63,10 +63,10 @@ function createBusSingleDirectionPosition(direction, streetFullnesses) {
  * List positions for a bus in a single direction
  *
  * @param {string} route
- * @param {Array[DirectionLocations]} directionsInfo array of {"direction": string, "locations": Object, "alert": string}
+ * @param {Object} directionLocationAlerts {<<direction>>: {locations: DirectionLocations, alert: string}}
  * @returns {HTMLElement}
  */
-function createStatusLineWithAlertMessage(route, directionsInfo) {
+function createStatusLineWithAlertMessage(route, directionLocationAlerts) {
     const statusLineWithAlertMessage = createDivOfClasses([SINGLE_ROUTE_STATUS]);
     
     const statusLine = createDivOfClasses([VEHICLE_POSITIONS])
@@ -74,10 +74,9 @@ function createStatusLineWithAlertMessage(route, directionsInfo) {
     statusLine.appendChild(busNumber);
 
     const directionAlerts = {};
-    directionsInfo.forEach(directionInfo => {
-        console.log("Direction info for HTML appending: ", directionInfo);
-        statusLine.appendChild(
-            createBusSingleDirectionPosition(directionInfo.direction, directionInfo.locations)
+    Object.keys(directionLocationAlerts).forEach(direction => {
+        // refactor below method to incorporate fullness directly...
+        createBusSingleDirectionPosition(directionInfo.direction, directionInfo.locations)
         );
 
         if (directionInfo.alert !== undefined) {
