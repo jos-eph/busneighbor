@@ -3,7 +3,7 @@ import { DirectionLocations } from "../../model/directionLocations.js";
 import { ProcessedAlertV2 } from "../../model/processed_alert.js";
 import { LOCATIONS, ALERTS, NO_DIRECTION } from "../processors/indexed_processors.js";
 import { createStatusLineWithAlertMessage } from "../tabledisplay/tabledisplayservice.js";
-
+import { LOCATIONS_PARAMETER, ALERTS_PARAMETER } from "../tabledisplay/tabledisplayservice.js";
 
 // not yet tested!!
 
@@ -39,23 +39,22 @@ function oneRoute(route, processedRouteLocations, processedRouteAlerts) {
     let noDirectionAggregate = undefined;
 
     if (processedRouteAlerts.hasOwnProperty(NO_DIRECTION) && processedRouteAlerts[NO_DIRECTION].size > 0) {
-        noDirectionAlerts = flattenAlerts(processedRouteAlerts[NO_DIRECTION]);
+        noDirectionAggregate = flattenAlerts(processedRouteAlerts[NO_DIRECTION]);
     }
     
     const directionLocationAlerts = {};
     for (const direction in processedRouteLocations) {
         const locations = processedRouteLocations[direction];
         const alerts = processedRouteAlerts[direction];
-        directionLocationAlerts[[direction]] = {"locations": locations, "alerts": flattenAlerts(alerts)};
+        directionLocationAlerts[[direction]] = {[LOCATIONS_PARAMETER]: locations, [ALERTS_PARAMETER]: flattenAlerts(alerts)};
     }
 
     const routeAlertBox = createStatusLineWithAlertMessage(route, directionLocationAlerts)
     routeAlertBox.dataset[[NO_DIRECTION]] = noDirectionAggregate;
     
-        return routeAlertBox;
+    return routeAlertBox;
     
-
-    }
+}
 
 /**
  * Convert a store to a useful tabular representation
