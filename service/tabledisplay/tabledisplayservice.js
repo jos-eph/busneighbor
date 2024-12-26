@@ -49,7 +49,8 @@ function createBusSingleDirectionPosition(direction, directionLocations) {
     busDirectionBox.appendChild(directionHeader);
 
     const statusHolder = createDivOfClasses([STATUS_HOLDER]);
-    for (const location in directionLocations) {
+    console.log("directionLocations: ", directionLocations);
+    for (const location of directionLocations) {
         const availabilityClass = (location.seatAvailability === "YES_SEATS") 
                                    ? YES_SEATS_CSS : SOME_SEATS_CSS;
         const streetPosition = createDivOfClasses([INFO_TEXT, STREET_POSITION, availabilityClass]);
