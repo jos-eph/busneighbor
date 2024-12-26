@@ -3,9 +3,12 @@ import {  INFO_BOX, INFO_TEXT, ROUTE_GROUP, SINGLE_ROUTE_STATUS, VEHICLE_POSITIO
 SOME_SEATS_CSS, YES_SEATS_CSS } from './tabledisplayconstants.js'
 
 import { DirectionLocations } from '../../model/directionLocations.js';
+import { ProcessedLocationV2 } from '../../model/processed_location.js';
 
 const ALERT_TEXT = "directionAlertText";
 const newDiv = () => document.createElement('div');
+const LOCATIONS_PARAMETER = "locations";
+const ALERTS_PARAMETER = "alerts";
 
 function createDivOfClasses(classes, textContent) {
     let newElement = newDiv();
@@ -36,22 +39,22 @@ function createRouteNumber(busNumber) {
  * List positions for a bus in a single direction
  *
  * @param {string} direction
- * @param { Object } streetFullnesses
+ * @param { Array[ProcessedLocationV2] } directionLocations
  * @returns {HTMLElement}
  */
-function createBusSingleDirectionPosition(direction, streetFullnesses) {
+function createBusSingleDirectionPosition(direction, directionLocations) {
     const busDirectionBox = createDivOfClasses([INDIVIDUAL_DIRECTION]);
     
     const directionHeader = createDivOfClasses([DIRECTION_HEADER], direction);
     busDirectionBox.appendChild(directionHeader);
 
-    console.log("Street fullnesses: ", streetFullnesses);
     const statusHolder = createDivOfClasses([STATUS_HOLDER]);
-    for (const street in streetFullnesses) {
-        const availabilityClass = (streetFullnesses[[street]] === "YES_SEATS") 
+    console.log("directionLocations: ", directionLocations);
+    for (const location of directionLocations) {
+        const availabilityClass = (location.seatAvailability === "YES_SEATS") 
                                    ? YES_SEATS_CSS : SOME_SEATS_CSS;
         const streetPosition = createDivOfClasses([INFO_TEXT, STREET_POSITION, availabilityClass]);
-        streetPosition.innerText =  street;
+        streetPosition.innerText =  location.nextStopName;
         statusHolder.appendChild(streetPosition);
     }
     busDirectionBox.appendChild(statusHolder);
@@ -63,10 +66,10 @@ function createBusSingleDirectionPosition(direction, streetFullnesses) {
  * List positions for a bus in a single direction
  *
  * @param {string} route
- * @param {Array[DirectionLocations]} directionsInfo array of {"direction": string, "locations": Object, "alert": string}
+ * @param {Object} directionLocationAlerts {<<direction>>: {locations: Array[processedLocationV2], alert: string}}
  * @returns {HTMLElement}
  */
-function createStatusLineWithAlertMessage(route, directionsInfo) {
+function createStatusLineWithAlertMessage(route, directionLocationAlerts) {
     const statusLineWithAlertMessage = createDivOfClasses([SINGLE_ROUTE_STATUS]);
     
     const statusLine = createDivOfClasses([VEHICLE_POSITIONS])
@@ -74,17 +77,16 @@ function createStatusLineWithAlertMessage(route, directionsInfo) {
     statusLine.appendChild(busNumber);
 
     const directionAlerts = {};
-    directionsInfo.forEach(directionInfo => {
-        console.log("Direction info for HTML appending: ", directionInfo);
-        statusLine.appendChild(
-            createBusSingleDirectionPosition(directionInfo.direction, directionInfo.locations)
-        );
-
-        if (directionInfo.alert !== undefined) {
-            directionAlerts[[directionInfo.direction]] = directionInfo.alert;
-            statusLine.dataset[[directionInfo.direction]] = directionInfo.alert;
+    Object.keys(directionLocationAlerts).forEach(direction => {
+        const oneDirection = createBusSingleDirectionPosition(direction, directionLocationAlerts[[direction]][[LOCATIONS_PARAMETER]]);
+        statusLine.appendChild(oneDirection);
+        statusLine.dataset[[direction]] = directionLocationAlerts[[direction]][[ALERTS_PARAMETER]];
+        directionAlerts[[direction]] = directionLocationAlerts[[direction]][[ALERTS_PARAMETER]];
         }
-    });
+    );
+
+
+
     statusLine.dataset[[ALERT_TEXT]] = JSON.stringify(directionAlerts); // this is just for testing and should be broken down by direction
     statusLineWithAlertMessage.appendChild(statusLine);
     
@@ -104,4 +106,4 @@ function createStatusLineWithAlertMessage(route, directionsInfo) {
 // encapsulate the message in a constructor function
 // element.dataset.<<property>> = to set
 
-export { createDivOfClasses, createRouteNumber, createStatusLineWithAlertMessage };
+export { createDivOfClasses, createRouteNumber, createStatusLineWithAlertMessage, LOCATIONS_PARAMETER, ALERTS_PARAMETER};

@@ -1,40 +1,29 @@
 import { Store } from "../../flowcontrol/store.js";
 import { DirectionLocations } from "../../model/directionLocations.js";
+import { ProcessedAlertV2 } from "../../model/processed_alert.js";
 import { LOCATIONS, ALERTS, NO_DIRECTION } from "../processors/indexed_processors.js";
 import { createStatusLineWithAlertMessage } from "../tabledisplay/tabledisplayservice.js";
-
+import { LOCATIONS_PARAMETER, ALERTS_PARAMETER } from "../tabledisplay/tabledisplayservice.js";
 
 // not yet tested!!
 
+
+
 /**
- * Convert information to relevant text for display
+ * Flatten alerts to single string
  *
- * @param {string} direction
- * @param { Object } processedRouteLocations
- * @param { Object } processedRouteAlerts
- * @returns {DirectionLocations}
+ * @param {Array[ProcessedAlertV2]} alerts
+ * @returns {string}
  */
-function flattenToDirectionLocations(direction, processedRouteLocations, processedRouteAlerts) {
-    const streets = [];
-    let directionAlerts = "";
+function flattenAlerts(alerts) {
+    if (alerts == undefined) { return undefined; }
+    
+    const messages = [];
+    alerts.forEach(alert => {
+        messages.push(alert.message);
+    });
 
-    console.log("Processed route alerts: ", processedRouteAlerts, direction);
-
-    for (const individualLocation of processedRouteLocations[[direction]]) {
-        console.log("Individual location: ", individualLocation);
-        streets.push(individualLocation.nextStopName);
-    }
-
-    if (direction in processedRouteAlerts) {
-        for (const individualAlert of processedRouteAlerts[[direction]]) {
-            console.log("One loop iteration");
-            directionAlerts += directionAlerts + " -- " + individualAlert.message;
-        }    
-    }
-
-    console.log("Streets: ", streets);
-
-    return new DirectionLocations(direction, streets, directionAlerts);
+    return messages.join(" -- ");
 }
 
 
@@ -47,25 +36,24 @@ function flattenToDirectionLocations(direction, processedRouteLocations, process
  * @returns {HTMLElement}
  */
 function oneRoute(route, processedRouteLocations, processedRouteAlerts) {
-    const directionsInfo = [];
-    console.log("Processed route locations: ", processedRouteLocations);
-    for (const direction in processedRouteLocations) {
-        directionsInfo.push(flattenToDirectionLocations(direction, processedRouteLocations, processedRouteAlerts));
-    }
+    let noDirectionAggregate = undefined;
 
-    const aggregatedNoDirectionAlerts = [];
     if (processedRouteAlerts.hasOwnProperty(NO_DIRECTION) && processedRouteAlerts[NO_DIRECTION].size > 0) {
-        for (const individualAlert of processedRouteAlerts[NO_DIRECTION]) {
-            aggregatedNoDirectionAlerts.push(individualAlert.message);
-        }
+        noDirectionAggregate = flattenAlerts(processedRouteAlerts[NO_DIRECTION]);
     }
-    const noDirectionAggregate = aggregatedNoDirectionAlerts.join(" -- ");
+    
+    const directionLocationAlerts = {};
+    for (const direction in processedRouteLocations) {
+        const locations = processedRouteLocations[direction];
+        const alerts = processedRouteAlerts[direction];
+        directionLocationAlerts[[direction]] = {[LOCATIONS_PARAMETER]: locations, [ALERTS_PARAMETER]: flattenAlerts(alerts)};
+    }
 
-    console.log("Directions info: ", directionsInfo);
-    const routeAlertBox = createStatusLineWithAlertMessage(route, directionsInfo);
+    const routeAlertBox = createStatusLineWithAlertMessage(route, directionLocationAlerts)
     routeAlertBox.dataset[[NO_DIRECTION]] = noDirectionAggregate;
-
+    
     return routeAlertBox;
+    
 }
 
 /**
