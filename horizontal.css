@@ -56,8 +56,9 @@ a:hover {
     }
 
     .streetPosition {
-        font-size: 1.7em;
+        font-size: 1.2em;
         font-weight: normal;
+        word-wrap: break-word;
     }
 
 /* Multi-bus Display With Direction */
@@ -69,6 +70,7 @@ a:hover {
     row-gap: 0;
     gap: 0;
     width: min-content;
+    word-wrap:break-word;
     max-height: 50vh;
     align-self: start;
     justify-items: left;
@@ -95,7 +97,7 @@ a:hover {
     gap: 20px;
     grid-template-columns: min-content min-content min-content;;
     min-width: fit-content;
-    max-width: 80vw;
+    max-width: 10vw;
     grid-template-rows: min-content;
 }
 
@@ -108,6 +110,8 @@ a:hover {
     grid-template-columns: min-content;
     grid-template-rows: min-content 1fr;   
     min-height: fit-content;
+    min-width: fit-content;
+    max-width: 30vw;
     width: fit-content;
 }
 
@@ -122,7 +126,8 @@ a:hover {
     }
 
     .statusLineWithAlertMessage .statusLine {
-        display: flex; 
+        display: flex;
+        min-width: 30vw;
       }
     
 /* Stack multiple status boxes */
@@ -144,9 +149,9 @@ a:hover {
 /* Colorize based on seats */
 
 .yesSeats {
-    background-color: lightgreen;
+    color: green;
 }
 
 .someSeats {
-    background-color: lightyellow;
+    /* background-color: lightyellow; */
 }
