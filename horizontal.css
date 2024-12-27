@@ -127,7 +127,7 @@ a:hover {
 
     .statusLineWithAlertMessage .statusLine {
         display: flex;
-        min-width: 30vw;
+        min-width: max(min-content, 300px);
       }
     
 /* Stack multiple status boxes */
@@ -135,11 +135,12 @@ a:hover {
 .statusLineWithMessageGroups {
     display: flex;
     gap: 2em 2em;
-    max-width: 80vw;
     flex-wrap: wrap;
+    flex: 1 0 auto;
 }
 
 .statusLineWithMessageGroups .statusLineWithAlertMessage {
+    flex: 1 0 auto;
     border: 1px dotted blue;
     padding: 1em;
     border-style: dashed;
