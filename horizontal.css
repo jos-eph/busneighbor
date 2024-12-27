@@ -65,13 +65,12 @@ a:hover {
 
 .busSingleDirectionPosition {
     display: grid;
-    max-width: 50vw;
+    max-width: 95%;
     grid-template-rows: min-content min-content;
     row-gap: 0;
     gap: 0;
     width: min-content;
     word-wrap:break-word;
-    max-height: 50vh;
     align-self: start;
     justify-items: left;
 
@@ -98,7 +97,7 @@ a:hover {
     gap: 20px;
     grid-template-columns: min-content min-content min-content;;
     min-width: fit-content;
-    max-width: 10vw;
+    max-width: 90%;
     grid-template-rows: min-content;
 }
 
@@ -112,7 +111,7 @@ a:hover {
     grid-template-rows: min-content 1fr;   
     min-height: fit-content;
     min-width: fit-content;
-    max-width: 90vw;
+    max-width: 100%;
     width: fit-content;
 }
 
@@ -120,7 +119,7 @@ a:hover {
         font-family: "Atkinson Hyperlegible", Courier, 'Courier New', monospace;
         font-size: 0.9em;
         line-height: 1;
-        max-width: 90vw;
+        max-width: 100%;
         box-sizing: border-box;
         hyphens: auto;
     }
