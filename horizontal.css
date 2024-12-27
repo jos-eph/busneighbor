@@ -56,7 +56,7 @@ a:hover {
     }
 
     .streetPosition {
-        font-size: 14pt;
+        font-size: 1em;
         font-weight: normal;
         word-wrap: break-word;
     }
@@ -74,6 +74,7 @@ a:hover {
     max-height: 50vh;
     align-self: start;
     justify-items: left;
+
 }
 
 .directionHeader {
@@ -111,23 +112,21 @@ a:hover {
     grid-template-rows: min-content 1fr;   
     min-height: fit-content;
     min-width: fit-content;
-    max-width: 30vw;
+    max-width: 90vw;
     width: fit-content;
 }
 
     .alertMessage {
         font-family: "Atkinson Hyperlegible", Courier, 'Courier New', monospace;
-        font-size: 12pt;
+        font-size: 0.9em;
         line-height: 1;
-        word-wrap: break-word;
-        overflow: scroll;
+        max-width: 90vw;
         box-sizing: border-box;
         hyphens: auto;
     }
 
     .statusLineWithAlertMessage .statusLine {
         display: flex;
-        min-width: max(min-content, 300px);
       }
     
 /* Stack multiple status boxes */
