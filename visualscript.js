@@ -1,5 +1,5 @@
 import { Store } from './flowcontrol/store.js';
-import { getTextStore } from './service/displayers/text_only_displayer.js';
+import { getTabulizedStore } from './service/displayers/tabular_displayer.js';
 
 // Define routes
 const routes = ["45", "29", "47", "4", "40"]
@@ -15,16 +15,16 @@ async function cycleRefresh() {
     store.indexLocations();
 }
 
-function showText() {
+function showTables() {
     // create the text
-    const displayText = getTextStore(store);
-    console.log(displayText);
+    const displayTables = getTabulizedStore(store);
+    console.log(displayTables);
     // populate the DOM
-    const paragraph = document.getElementById("change-text");
-    paragraph.textContent = displayText;
+    const groupHolder = document.getElementById("demoArea");
+    groupHolder.replaceChildren(...displayTables);
 }
 
 // Initial display and cycling
-showText();
+showTables();
 setInterval(cycleRefresh, 5000);
-setInterval(showText, 3000);
+setInterval(showTables, 3000);
