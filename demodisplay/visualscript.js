@@ -1,5 +1,5 @@
-import { Store } from './flowcontrol/store.js';
-import { getTabulizedStore } from './service/displayers/tabular_displayer.js';
+import { Store } from '../flowcontrol/store.js';
+import { getTabulizedStore } from '../service/displayers/tabular_displayer.js';
 
 // Define routes
 const routes = ["45", "29", "47", "4", "40"]
