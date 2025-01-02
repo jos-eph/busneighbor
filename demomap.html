@@ -8,8 +8,13 @@
  .label-style {
   background-color: transparent; /* Make the background transparent */
   border: none;                /* Remove the default border */
-  font-weight: bold;           /* Make the text bold (optional) */
-}
+  font-weight: bolder;           /* Make the text bold (optional) */
+  color: black !important;     /* Make the text black */
+  opacity: 1.0;
+  box-shadow: none;
+  font-family: Fira Code, monospace;
+  font-size: 1.5em;
+ }
   </style>
 </head>
 <body>
@@ -19,6 +24,7 @@
   <script>
     // Initialize the map
     const map = L.map('map').setView([39.9526, -75.1652], 14); // Centered on Philadelphia
+    const testIcon = L.icon({iconUrl: 'Compass2.png', iconSize: [30, 30]});
 
     // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -28,18 +34,19 @@
     // Define marker locations and labels
     const locations = [
       { name: "Building 1", coords: [39.9547, -75.1443] }, // 1010 McKean St
-      { name: "Building 2", coords: [39.9526, -75.1652] }, // City Hall
+      { name: "45", coords: [39.9526, -75.1652] }, // City Hall
       { name: "Building 3", coords: [39.9653, -75.1800] }  // Art Museum
     ];
 
     // Add markers with labels
     locations.forEach(location => {
-    L.marker(location.coords)
+    L.marker(location.coords, {icon: testIcon})
     .addTo(map)
-    .bindPopup(location.name)  // Keep the popup for clicking
+   // .bindPopup(location.name)  // Keep the popup for clicking
     .bindTooltip(location.name, {
       permanent: true,         // Always show the label
       direction: 'top',       // Position the label above the marker
+      opacity: 1.0,
       className: 'label-style' // Add a CSS class for styling
     });
 });

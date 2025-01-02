@@ -2,7 +2,7 @@ import { Store } from './flowcontrol/store.js';
 import { getTextStore } from './service/displayers/text_only_displayer.js';
 
 // Define routes
-const routes = ["45", "29", "47", "4", "40"]
+const routes = ["45", "33", "29", "47", "4", "40"]
 
 // Create the stores
 const store = new Store(routes);
