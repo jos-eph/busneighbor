@@ -4,7 +4,7 @@
   <title>Leaflet Map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
-    #map { height: 400px; }
+    #mapnew { height: 400px; }
  .label-style {
   background-color: transparent; /* Make the background transparent */
   border: none;                /* Remove the default border */
@@ -25,12 +25,12 @@
   </style>
 </head>
 <body>
-  <div id="map"></div>
+  <div id="mapnew"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     // Initialize the map
-    const map = L.map('map').setView([39.9526, -75.1652], 14); // Centered on Philadelphia
+    const map = L.map('mapnew').setView([39.9526, -75.1652], 14); // Centered on Philadelphia
     const testIcon = L.icon({iconUrl: '../mapgraphics/CompassW.svg', iconSize: [35, 35]});
 
     // Add OpenStreetMap tiles
