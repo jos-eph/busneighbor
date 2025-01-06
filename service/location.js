@@ -146,9 +146,35 @@ function perpendicularDegreeDistance(userPosition, vehiclePosition, vehicleDirec
 }
 
 
+
+/**
+ * Take a list of locations and return the extremes of those locations
+ * Math.min(), Math.max()
+ * @param {LatitudeLongitude[]} positions
+ * @returns {Object}
+ */
+function getExtremePositions(positions) {
+    const latitudes = positions.map(position => position.latitude);
+    const longitudes = positions.map(position => position.longitude);
+    
+    return {
+        latitude: {
+            min: Math.min(...latitudes),
+            max: Math.max(...latitudes)
+        },
+        
+        longitude: {
+            min: Math.min(...longitudes),
+            max: Math.max(...longitudes)
+        }
+    };
+}
+
+
 export { getCurrentCoordinatesPromise, isApproachingMe, 
     isLatitudeApproaching,
     isLongitudeApproaching,
     LatitudeLongitude, NORTH, SOUTH, EAST, WEST,
-    perpendicularDegreeDistance 
+    perpendicularDegreeDistance,
+    getExtremePositions
 }

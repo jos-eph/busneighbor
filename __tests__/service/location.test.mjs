@@ -1,7 +1,5 @@
-// Buggy - last test won't run
-
 import { getCurrentCoordinatesPromise, isApproachingMe, isLatitudeApproaching, isLongitudeApproaching,
-     LatitudeLongitude, perpendicularDegreeDistance } from "../../service/location";
+     LatitudeLongitude, perpendicularDegreeDistance, getExtremePositions } from "../../service/location";
 
 class TestCase {
   constructor (userCoordinates, vehicleCoordinates, vehicleDirection) {
@@ -132,9 +130,35 @@ const EXPECTED_FAKE_VEHICLE_SCORE_AND_APPROACHING = [
 ]
 
 console.log(`Expected fake vehicle: ${EXPECTED_FAKE_VEHICLE_SCORE_AND_APPROACHING}`);
-// need to test above and confirm that these calculations are correct
 
+// need to test above and confirm that these calculations are correct
 test.each(FAKE_VEHICLE_LOCATION_AND_DIRECTION)
 ('%p - Expect correct perpendicular distance for route %p going %p coordinates %p', (testCaseNumber, route, direction, vehicleLocation) => {
   expect(perpendicularDegreeDistance(MOCK_USER_LOCATION, vehicleLocation, direction)).toBe(EXPECTED_FAKE_VEHICLE_SCORE_AND_APPROACHING[testCaseNumber][0])
+});
+
+
+const FAKE_LOCATIONS = [
+  new LatitudeLongitude(-89, 170),
+  new LatitudeLongitude(-90, -134),
+  new LatitudeLongitude(-20, 179.9),
+  new LatitudeLongitude(70, 178),
+  new LatitudeLongitude(65, -179),
+  new LatitudeLongitude(90, 31),
+  new LatitudeLongitude(70, 22)
+]
+
+const EXPECTED_LOCATION_EXTREMES = {
+    latitude: {
+        min: -90,
+        max: 90
+    },
+    longitude: {
+        min: -179,
+        max: 179.9
+    }
+}
+
+test('We find correct maximum and minimum location', () => {
+    expect(getExtremePositions(FAKE_LOCATIONS)).toMatchObject(EXPECTED_LOCATION_EXTREMES);
 });
