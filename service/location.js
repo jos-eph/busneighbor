@@ -37,7 +37,7 @@ const LATITUDE_DIRECTIONS = new Set([NORTH, SOUTH]);
  *
  * @param {number} userLongitude
  * @param {number} vehicleLongitude
- * @param {WEST, EAST} vehicleDirection
+ * @param {[WEST, EAST]} vehicleDirection
  * @returns {boolean}
  */
 function isLongitudeApproaching(userLongitude, vehicleLongitude, vehicleDirection) {
@@ -58,7 +58,7 @@ function isLongitudeApproaching(userLongitude, vehicleLongitude, vehicleDirectio
  *
  * @param {number} userLatitude
  * @param {number} vehicleLatitude
- * @param {NORTH, SOUTH} vehicleDirection
+ * @param {string} vehicleDirection
  * @returns {boolean}
  */
 function isLatitudeApproaching(userLatitude, vehicleLatitude, vehicleDirection) {
@@ -87,7 +87,7 @@ class LatitudeLongitude {
  *
  * @param {LatitudeLongitude} userLocation
  * @param {LatitudeLongitude} vehicleLocation
- * @param {NORTH, SOUTH, WEST, EAST} vehicleDirection
+ * @param {[NORTH, SOUTH, WEST, EAST]} vehicleDirection
  */
 function isApproachingMe(userLocation, vehicleLocation, vehicleDirection) {
     const direction = vehicleDirection.slice(0, 1).toUpperCase();
