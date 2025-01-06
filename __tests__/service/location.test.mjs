@@ -1,5 +1,5 @@
 import { getCurrentCoordinatesPromise, isApproachingMe, isLatitudeApproaching, isLongitudeApproaching,
-     LatitudeLongitude, perpendicularDegreeDistance, getExtremePositions } from "../../service/location";
+     LatitudeLongitude, perpendicularDegreeDistance, getExtremePositions, getMinimumEnclosingRectangle } from "../../service/location";
 
 class TestCase {
   constructor (userCoordinates, vehicleCoordinates, vehicleDirection) {
@@ -159,6 +159,15 @@ const EXPECTED_LOCATION_EXTREMES = {
     }
 }
 
+const EXPECTED_ENCLOSING_RECTANGLE = [
+    [90, -179],
+    [-90, 179.9]
+];
+
 test('We find correct maximum and minimum location', () => {
     expect(getExtremePositions(FAKE_LOCATIONS)).toMatchObject(EXPECTED_LOCATION_EXTREMES);
+});
+
+test('We enclose a set of points correctly', () => {
+    expect(getMinimumEnclosingRectangle(FAKE_LOCATIONS)).toMatchObject(EXPECTED_ENCLOSING_RECTANGLE);
 });

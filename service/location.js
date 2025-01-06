@@ -170,11 +170,22 @@ function getExtremePositions(positions) {
     };
 }
 
+function getMinimumEnclosingRectangle(positions) {
+    const extremes = getExtremePositions(positions);
+    const [latitudes, longitudes] = [extremes.latitude, extremes.longitude];
+    
+    const upperLeft = [latitudes.max, longitudes.min];
+    const lowerRight = [latitudes.min, longitudes.max];
+    
+    return [upperLeft, lowerRight];
+}
+
 
 export { getCurrentCoordinatesPromise, isApproachingMe, 
     isLatitudeApproaching,
     isLongitudeApproaching,
     LatitudeLongitude, NORTH, SOUTH, EAST, WEST,
     perpendicularDegreeDistance,
-    getExtremePositions
+    getExtremePositions,
+    getMinimumEnclosingRectangle
 }
