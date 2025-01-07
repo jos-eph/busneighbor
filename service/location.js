@@ -1,3 +1,5 @@
+import { LatitudeLongitude } from '../model/latitudeLongitude.js';
+
 function getCurrentCoordinatesPromise() {
     return new Promise((resolve, reject) => {
         if ("geolocation" in navigator) {
@@ -71,14 +73,6 @@ function isLatitudeApproaching(userLatitude, vehicleLatitude, vehicleDirection) 
         return userLatitude > vehicleLatitude ? true : false;
     } else if (vehicleDirectionStandard == SOUTH) {
         return userLatitude < vehicleLatitude ? true: false;
-    }
-}
-
-
-class LatitudeLongitude {
-    constructor(latitude, longitude) {
-        this.latitude = parseFloat(latitude);
-        this.longitude = parseFloat(longitude);
     }
 }
 
@@ -184,7 +178,7 @@ function getMinimumEnclosingRectangle(positions) {
 export { getCurrentCoordinatesPromise, isApproachingMe, 
     isLatitudeApproaching,
     isLongitudeApproaching,
-    LatitudeLongitude, NORTH, SOUTH, EAST, WEST,
+    NORTH, SOUTH, EAST, WEST,
     perpendicularDegreeDistance,
     getExtremePositions,
     getMinimumEnclosingRectangle

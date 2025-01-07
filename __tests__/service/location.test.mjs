@@ -1,5 +1,7 @@
+import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
+
 import { getCurrentCoordinatesPromise, isApproachingMe, isLatitudeApproaching, isLongitudeApproaching,
-     LatitudeLongitude, perpendicularDegreeDistance, getExtremePositions, getMinimumEnclosingRectangle } from "../../service/location";
+     perpendicularDegreeDistance, getExtremePositions, getMinimumEnclosingRectangle } from "../../service/location";
 
 class TestCase {
   constructor (userCoordinates, vehicleCoordinates, vehicleDirection) {
