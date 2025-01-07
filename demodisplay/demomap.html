@@ -48,7 +48,7 @@
     // Add markers with labels
     locations.forEach(location => {
     L.marker(location.coords, {icon: testIcon})
-    .addTo(map)
+    .addTo(map) 
    // .bindPopup(location.name)  // Keep the popup for clicking
     .bindTooltip(location.name, {
       permanent: true,         // Always show the label
