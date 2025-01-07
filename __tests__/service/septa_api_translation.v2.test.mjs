@@ -1,7 +1,6 @@
 import { ALERT_STUB, ALERT_SB_DISCONTINUED_ONE_ALERT,
     LOCATION_STUB, EARLY_BUS_12TH_BAINBRIDGE, MAGIC_VALUE_LOCATION
   } from "../stubs/septa_api_v2_samples";
-import { DirectionsImpacted } from "../../model/directions_impacted.js";
 import { ProcessedAlertV2, 
     createProcessedAlertV2, createProcessedLocationV2, 
     determineDirectionsImpacted, translateSeatClassification, 

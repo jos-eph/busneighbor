@@ -5,4 +5,4 @@ class LatitudeLongitude {
     }
 }
 
-export { LatitudeLongitude}
+export { LatitudeLongitude };
