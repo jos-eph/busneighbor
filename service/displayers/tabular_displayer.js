@@ -5,9 +5,6 @@ import { LOCATIONS, ALERTS, NO_DIRECTION } from "../processors/indexed_processor
 import { createStatusLineWithAlertMessage } from "../tabledisplay/tabledisplayservice.js";
 import { LOCATIONS_PARAMETER, ALERTS_PARAMETER } from "../tabledisplay/tabledisplayservice.js";
 
-// not yet tested!!
-
-
 
 /**
  * Flatten alerts to single string
