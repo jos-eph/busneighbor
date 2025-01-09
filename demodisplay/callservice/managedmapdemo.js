@@ -5,6 +5,7 @@ import { Directions } from "../../model/directions_impacted.js";
 
 console.log("Loading demo...");
 const mapElement = document.getElementById("mapdemo");
+console.log(mapElement);
 
 /* Utility function for test only */
 function sleepSync(ms) {

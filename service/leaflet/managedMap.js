@@ -19,11 +19,11 @@ const ICON_SMILEY = L.icon({iconUrl: `${ICON_PATH}Smiley.svg`, iconSize: ICON_SI
 
 
 const ICON_MAPPINGS = new Map();
-    ICON_MAPPINGS.set([Directions.NORTH], ICON_NORTH);
-    ICON_MAPPINGS.set([Directions.SOUTH], ICON_SOUTH);
-    ICON_MAPPINGS.set([Directions.WEST], ICON_WEST);
-    ICON_MAPPINGS.set([Directions.EAST], ICON_EAST);
-    ICON_MAPPINGS.set([Directions.STATIONARY], ICON_SMILEY);
+    ICON_MAPPINGS.set(Directions.NORTH, ICON_NORTH);
+    ICON_MAPPINGS.set(Directions.SOUTH, ICON_SOUTH);
+    ICON_MAPPINGS.set(Directions.WEST, ICON_WEST);
+    ICON_MAPPINGS.set(Directions.EAST, ICON_EAST);
+    ICON_MAPPINGS.set(Directions.STATIONARY, ICON_SMILEY);
 
 
 
@@ -35,9 +35,7 @@ const ICON_MAPPINGS = new Map();
  */
 function getIconForDirection(direction) {
     // for some reason, cannot retrieve data from this map using this GET call
-    console.log(ICON_MAPPINGS);
-    console.log(`Direction for icon mapping: ${direction}`);
-    const icon = ICON_MAPPINGS.get([direction]);
+    const icon = ICON_MAPPINGS.get(direction);
     if (icon === undefined) {
         throw new Error("Missing icon mapping!");
     }
