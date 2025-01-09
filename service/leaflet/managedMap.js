@@ -64,7 +64,7 @@ class ManagedMap {
     }
 
     initialize() {
-        this.leafletMap = L.map(this.element);
+        this.leafletMap = L.map(this.element).setView([39, -75], 14);
        // Add OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
            {
@@ -84,7 +84,8 @@ class ManagedMap {
         this.clearPushpins();
         for (const pushpinRequest of pushpinRequests) {
             const icon = getIconForDirection(pushpinRequest.direction);
-            const newPushpin = L.marker(location.coords, {icon: icon});
+            const newPushpin = L.marker([pushpinRequest.latitude, pushpinRequest.longitude], {icon: icon});
+            console.log(this.leafletMap);
             newPushpin
                 .addTo(this.leafletMap)
                 .bindTooltip(pushpinRequest.name, {
