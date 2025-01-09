@@ -1,0 +1,18 @@
+.managed-map { height: 400px; }
+.map-pushpin-style {
+ background-color: transparent;
+ border: none;                /* Remove the default border */
+ font-weight: bold;           
+color: black;
+ opacity: 1.0;
+ box-shadow: none;
+ font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ font-size: 1.5em;
+}
+
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+  border: none !important; 
+}

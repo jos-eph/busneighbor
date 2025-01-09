@@ -34,7 +34,10 @@ const ICON_MAPPINGS = new Map();
  * @returns {L.Icon}
  */
 function getIconForDirection(direction) {
-    const icon = ICON_MAPPINGS.get(direction);
+    // for some reason, cannot retrieve data from this map using this GET call
+    console.log(ICON_MAPPINGS);
+    console.log(`Direction for icon mapping: ${direction}`);
+    const icon = ICON_MAPPINGS.get([direction]);
     if (icon === undefined) {
         throw new Error("Missing icon mapping!");
     }
@@ -63,12 +66,12 @@ class ManagedMap {
     }
 
     initialize() {
-        this.leafletMap = L.map(element);
+        this.leafletMap = L.map(this.element);
        // Add OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
            {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-           }).addTo(map);
+           }).addTo(this.leafletMap);
     }
 
 
