@@ -1,7 +1,7 @@
 /* Depends on leaflet ~= 1.9.4 */
 
 import { DirectedPushpin } from "../../model/directedPushpin.js";
-
+import { getMinimumEnclosingRectangle } from "../location.js";
 import { Directions } from "../../model/directions_impacted.js";
 
 // Define constants
@@ -9,7 +9,7 @@ import { Directions } from "../../model/directions_impacted.js";
 const PUSHPIN_CLASS = "map-pushpin-style"
 
 const ICON_PATH = '../../mapgraphics/';
-const ICON_SIZE = [35, 35];
+const ICON_SIZE = [20, 20];
 
 const ICON_NORTH = L.icon({iconUrl: `${ICON_PATH}CompassN.svg`, iconSize: ICON_SIZE});
 const ICON_SOUTH = L.icon({iconUrl: `${ICON_PATH}CompassS.svg`, iconSize: ICON_SIZE});
@@ -96,7 +96,9 @@ class ManagedMap {
                   className: 'map-pushpin-style' // Add a CSS class for styling
                 });
             this.pushpinData.set(pushpinRequest, newPushpin);
+            this.leafletMap.flyToBounds(getMinimumEnclosingRectangle(pushpinRequests));
         }
+
     }
 
     clearPushpins() {
