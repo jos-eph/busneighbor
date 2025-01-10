@@ -9,13 +9,22 @@ import { Directions } from "../../model/directions_impacted.js";
 const PUSHPIN_CLASS = "map-pushpin-style"
 
 const ICON_PATH = '../../mapgraphics/';
-const ICON_SIZE = [20, 20];
 
-const ICON_NORTH = L.icon({iconUrl: `${ICON_PATH}CompassN.svg`, iconSize: ICON_SIZE});
-const ICON_SOUTH = L.icon({iconUrl: `${ICON_PATH}CompassS.svg`, iconSize: ICON_SIZE});
-const ICON_EAST = L.icon({iconUrl: `${ICON_PATH}CompassE.svg`, iconSize: ICON_SIZE});
-const ICON_WEST = L.icon({iconUrl: `${ICON_PATH}CompassW.svg`, iconSize: ICON_SIZE});
-const ICON_SMILEY = L.icon({iconUrl: `${ICON_PATH}Smiley.svg`, iconSize: [20, 20]});
+
+function centeredIconProperties(iconX, iconY) {
+    return {
+        iconSize: [iconX, iconY],
+        tooltipAnchor: [Math.floor(iconX / 2) - 9, Math.floor(iconY / 2) - 5] 
+     };
+}
+     
+const ICON_SIZE = [20, 20];       
+
+const ICON_NORTH = L.icon({iconUrl: `${ICON_PATH}CompassN.svg`, ...centeredIconProperties(...ICON_SIZE)});
+const ICON_SOUTH = L.icon({iconUrl: `${ICON_PATH}CompassS.svg`, ...centeredIconProperties(...ICON_SIZE)})
+const ICON_EAST = L.icon({iconUrl: `${ICON_PATH}CompassE.svg`, ...centeredIconProperties(...ICON_SIZE)})
+const ICON_WEST = L.icon({iconUrl: `${ICON_PATH}CompassW.svg`,...centeredIconProperties(...ICON_SIZE)})
+const ICON_SMILEY = L.icon({iconUrl: `${ICON_PATH}Smiley.svg`, ...centeredIconProperties(...ICON_SIZE)});
 
 
 const ICON_MAPPINGS = new Map();
@@ -88,10 +97,10 @@ class ManagedMap {
             console.log(this.leafletMap);
             newPushpin
                 .addTo(this.leafletMap)
-                .bindTooltip(pushpinRequest.name, {
-                  offset: L.point(0, -5),
+   //             .bindTooltip(pushpinRequest.name, {
+                  .bindTooltip("45", {
                   permanent: true,         // Always show the label
-                  direction: 'top',       // Position the label above the marker
+                  direction: 'top',
                   opacity: 1.0,
                   className: 'map-pushpin-style' // Add a CSS class for styling
                 });
