@@ -1,5 +1,6 @@
+import { LatitudeLongitude } from "../model/latitudeLongitude.js";
 import { includesAsWord, concatenateStrings, stalenessSeconds } from "../common/utilities.js";
-import { LatitudeLongitude, perpendicularDegreeDistance } from "./location.js";
+import { perpendicularDegreeDistance } from "./location.js";
 import { Directions } from "../model/directions_impacted.js";
 import { ProcessedAlertV2 } from "../model/processed_alert.js";
 import { ProcessedLocationV2 } from "../model/processed_location.js";

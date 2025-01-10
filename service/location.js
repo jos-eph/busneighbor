@@ -1,3 +1,5 @@
+import { LatitudeLongitude } from '../model/latitudeLongitude.js';
+
 function getCurrentCoordinatesPromise() {
     return new Promise((resolve, reject) => {
         if ("geolocation" in navigator) {
@@ -37,7 +39,7 @@ const LATITUDE_DIRECTIONS = new Set([NORTH, SOUTH]);
  *
  * @param {number} userLongitude
  * @param {number} vehicleLongitude
- * @param {WEST, EAST} vehicleDirection
+ * @param {[WEST, EAST]} vehicleDirection
  * @returns {boolean}
  */
 function isLongitudeApproaching(userLongitude, vehicleLongitude, vehicleDirection) {
@@ -58,7 +60,7 @@ function isLongitudeApproaching(userLongitude, vehicleLongitude, vehicleDirectio
  *
  * @param {number} userLatitude
  * @param {number} vehicleLatitude
- * @param {NORTH, SOUTH} vehicleDirection
+ * @param {string} vehicleDirection
  * @returns {boolean}
  */
 function isLatitudeApproaching(userLatitude, vehicleLatitude, vehicleDirection) {
@@ -74,20 +76,12 @@ function isLatitudeApproaching(userLatitude, vehicleLatitude, vehicleDirection) 
     }
 }
 
-
-class LatitudeLongitude {
-    constructor(latitude, longitude) {
-        this.latitude = parseFloat(latitude);
-        this.longitude = parseFloat(longitude);
-    }
-}
-
 /**
  * Compare two locations given the direction of the vehicle
  *
  * @param {LatitudeLongitude} userLocation
  * @param {LatitudeLongitude} vehicleLocation
- * @param {NORTH, SOUTH, WEST, EAST} vehicleDirection
+ * @param {[NORTH, SOUTH, WEST, EAST]} vehicleDirection
  */
 function isApproachingMe(userLocation, vehicleLocation, vehicleDirection) {
     const direction = vehicleDirection.slice(0, 1).toUpperCase();
@@ -146,9 +140,46 @@ function perpendicularDegreeDistance(userPosition, vehiclePosition, vehicleDirec
 }
 
 
+
+/**
+ * Take a list of locations and return the extremes of those locations
+ * Math.min(), Math.max()
+ * @param {LatitudeLongitude[]} positions
+ * @returns {Object}
+ */
+function getExtremePositions(positions) {
+    const latitudes = positions.map(position => position.latitude);
+    const longitudes = positions.map(position => position.longitude);
+    
+    return {
+        latitude: {
+            min: Math.min(...latitudes),
+            max: Math.max(...latitudes)
+        },
+        
+        longitude: {
+            min: Math.min(...longitudes),
+            max: Math.max(...longitudes)
+        }
+    };
+}
+
+function getMinimumEnclosingRectangle(positions) {
+    const extremes = getExtremePositions(positions);
+    const [latitudes, longitudes] = [extremes.latitude, extremes.longitude];
+    
+    const upperLeft = [latitudes.max, longitudes.min];
+    const lowerRight = [latitudes.min, longitudes.max];
+    
+    return [upperLeft, lowerRight];
+}
+
+
 export { getCurrentCoordinatesPromise, isApproachingMe, 
     isLatitudeApproaching,
     isLongitudeApproaching,
-    LatitudeLongitude, NORTH, SOUTH, EAST, WEST,
-    perpendicularDegreeDistance 
+    NORTH, SOUTH, EAST, WEST,
+    perpendicularDegreeDistance,
+    getExtremePositions,
+    getMinimumEnclosingRectangle
 }
