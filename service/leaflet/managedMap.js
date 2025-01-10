@@ -97,8 +97,7 @@ class ManagedMap {
             console.log(this.leafletMap);
             newPushpin
                 .addTo(this.leafletMap)
-   //             .bindTooltip(pushpinRequest.name, {
-                  .bindTooltip("45", {
+                .bindTooltip(pushpinRequest.name, {
                   permanent: true,         // Always show the label
                   direction: 'top',
                   opacity: 1.0,
