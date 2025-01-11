@@ -20,7 +20,7 @@ async function populateLocationsStore(routes, locationsStore) {
     return processRouteGets(routes, getLocationDataV2,
         createProcessedLocation, locationsStore, locationFilter, locationSorter
         );
-}
+}  
 
 async function populateAlertsStore(routes, alertsStore) {
     return processRouteGets(routes, getRouteAlertsV2,

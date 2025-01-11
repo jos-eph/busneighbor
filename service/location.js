@@ -132,9 +132,11 @@ const vehicleDirectionDistanceParams = {
  * @returns {number} distance
  */
 function perpendicularDegreeDistance(userPosition, vehiclePosition, vehicleDirection) {
+    console.log(`VehicleDirection looked up: ${vehicleDirection}`)
     const settings = vehicleDirectionDistanceParams[vehicleDirection];
     const dimension = settings[COMPARE_TO]
     const multiplier = settings[INVERT_DIFFERENCE] ? -1 : 1;
+    console.log(`Looked up multiplier: ${multiplier}`);
 
     return (userPosition[dimension] - vehiclePosition[dimension]) * multiplier;
 }
