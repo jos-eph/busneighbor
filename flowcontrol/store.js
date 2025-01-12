@@ -11,6 +11,7 @@ class Store {
         this.alertsStore = {};
         this.sortedAlerts = {};
         this.sortedLocations = {};
+        this.distancesFromOrigin = new Map();
     }
 
     async initialize() {
@@ -34,7 +35,7 @@ class Store {
 
     // Locations
     async requestLocationsRefresh() {
-        return populateLocationsStore(this.routes, this.locationsStore);
+        return populateLocationsStore(this.routes, this.locationsStore, this.distancesFromOrigin);
     }
 
     indexLocations() {

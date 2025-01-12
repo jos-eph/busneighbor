@@ -1,4 +1,5 @@
 import { LatitudeLongitude } from '../model/latitudeLongitude.js';
+import startStop from '../startStop.json' with {type: 'json'};
 
 function getCurrentCoordinatesPromise() {
     return new Promise((resolve, reject) => {
@@ -132,11 +133,9 @@ const vehicleDirectionDistanceParams = {
  * @returns {number} distance
  */
 function perpendicularDegreeDistance(userPosition, vehiclePosition, vehicleDirection) {
-    console.log(`VehicleDirection looked up: ${vehicleDirection}`)
     const settings = vehicleDirectionDistanceParams[vehicleDirection];
     const dimension = settings[COMPARE_TO]
     const multiplier = settings[INVERT_DIFFERENCE] ? -1 : 1;
-    console.log(`Looked up multiplier: ${multiplier}`);
 
     return (userPosition[dimension] - vehiclePosition[dimension]) * multiplier;
 }

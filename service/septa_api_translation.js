@@ -74,6 +74,7 @@ function determineDirectionsImpacted(text) {
     let directionsBound = new Set();
     for (const direction in Directions) {
         const directionBound = `${Directions[direction]}B`; // abbreviation for northbound, southbound
+        // TODO: add an "or" to translate occasional nonstandard "Northbound", "Southbound", etc.
         if (includesAsWord(text, directionBound)) {
             directionsBound.add(Directions[direction]);
         }
