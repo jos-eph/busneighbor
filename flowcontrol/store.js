@@ -11,7 +11,7 @@ class Store {
         this.alertsStore = {};
         this.sortedAlerts = {};
         this.sortedLocations = {};
-        this.distancesFromOrigin = new Map();
+        this.distancesFromOrigin = {};
     }
 
     async initialize() {
