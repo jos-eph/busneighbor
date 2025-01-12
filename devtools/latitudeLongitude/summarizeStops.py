@@ -138,5 +138,5 @@ js_app_reference = {key: js_app_reference.get(key) for key in sorted_routes}
 
 # output to JSON
 
-json_output = json.dumps(js_app_reference, indent=3)
+json_output = json.dumps(js_app_reference, indent=1)
 print(json_output)
