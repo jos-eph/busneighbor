@@ -116,12 +116,16 @@ LONG_FORM_TO_DIRECTION_CODE = {
     "Southbound": "S",
     "Westbound": "W",
     "Eastbound": "E",
-    "Loop": "Loop"
+    "Loop": "Loop",
+    "Inbound": "S",      # This is a workaround and may not be accurate in all cases
+    "Outbound": "N"      # This is a workaround and may not be accurate in all cases
 }
 
 js_app_reference = defaultdict(dict_defaultdict_factory)
 for route in route_directions:
     for direction in route_directions[route]:
+        if direction in ('Loop'):
+            continue
         for begins_or_terminates in route_direction_terminations[route][direction]:
             stop_properties = route_direction_terminations[route][direction][begins_or_terminates]
             js_app_reference[route][LONG_FORM_TO_DIRECTION_CODE.get(direction)][begins_or_terminates] = {

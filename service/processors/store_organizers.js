@@ -3,7 +3,7 @@ import { createProcessedAlertV2, createProcessedLocationFactoryV2, PERPENDICULAR
 import { processRouteGets } from "./processor_aggregators.js";
 import { getCurrentCoordinatesPromise, perpendicularDegreeDistance } from "../location.js";
 import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
-// import startStop from '../../startStop.json' with {type: 'json'}
+import { startStop } from '../../startStop.js'
 
 const POPULATED_LOCATIONS = "populatedLocations";
 const POPULATED_ALERTS = "populatedAlerts";
@@ -37,18 +37,19 @@ async function populateLocationsStore(routes, locationsStore, distancesFromOrigi
      "S": <<number>> }} etc.
  */
 async function populateDistancesFromOrigin(currentLocation, routes, distancesFromOrigin) {
-    // for (const route of Object.keys(startStop)) {
-    //     for (const direction of Object.keys(startStop[route])) {
-    //         const routeOriginPosition = startStop?.[direction]?.["begins"];
-    //         if (routeOriginPosition !== undefined) {
-    //             const perpendicularDistance = 
-    //             perpendicularDegreeDistance(currentLocation, routeOriginPosition, direction);
-    //             distancesFromOrigin[route] = distancesFromOrigin[route] || {}
-    //             distancesFromOrigin[route][direction] = perpendicularDistance;
-    //         }
-    //     }
-    // }
-    // console.log(distancesFromOrigin);
+    for (const route of Object.keys(startStop)) {
+        for (const direction of Object.keys(startStop[route])) {
+            const routeOriginPosition = startStop?.[route]?.[direction]?.begins;
+            if (routeOriginPosition !== undefined) {
+                const perpendicularDistance = 
+                perpendicularDegreeDistance(currentLocation, routeOriginPosition, direction);
+                distancesFromOrigin[route] = distancesFromOrigin[route] || {}
+                distancesFromOrigin[route][direction] = perpendicularDistance;
+            }
+        }
+    }
+    console.log("Distances from origin!!!!");
+    console.log(distancesFromOrigin);
 }
 
 async function populateAlertsStore(routes, alertsStore) {

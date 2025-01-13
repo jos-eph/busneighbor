@@ -1199,22 +1199,6 @@
    }
   }
  },
- "35": {
-  "Loop": {
-   "begins": {
-    "stopId": 907,
-    "name": "Ridge Av & Domino Ln - FS",
-    "latitude": 40.045088,
-    "longitude": -75.231693
-   },
-   "terminates": {
-    "stopId": 907,
-    "name": "Ridge Av & Domino Ln - FS",
-    "latitude": 40.045088,
-    "longitude": -75.231693
-   }
-  }
- },
  "36": {
   "E": {
    "begins": {
@@ -3825,38 +3809,6 @@
    }
   }
  },
- "310": {
-  "Loop": {
-   "begins": {
-    "stopId": 20503,
-    "name": "Willow Grove Station",
-    "latitude": 40.143831,
-    "longitude": -75.114103
-   },
-   "terminates": {
-    "stopId": 20503,
-    "name": "Willow Grove Station",
-    "latitude": 40.143831,
-    "longitude": -75.114103
-   }
-  }
- },
- "311": {
-  "Loop": {
-   "begins": {
-    "stopId": 20503,
-    "name": "Willow Grove Station",
-    "latitude": 40.143831,
-    "longitude": -75.114103
-   },
-   "terminates": {
-    "stopId": 20503,
-    "name": "Willow Grove Station",
-    "latitude": 40.143831,
-    "longitude": -75.114103
-   }
-  }
- },
  "312": {
   "N": {
    "begins": {
@@ -3884,22 +3836,6 @@
     "name": "Cornwells Heights Station",
     "latitude": 40.072006,
     "longitude": -74.952222
-   }
-  }
- },
- "316": {
-  "Loop": {
-   "begins": {
-    "stopId": 28325,
-    "name": "JFK Blvd & 30th St",
-    "latitude": 39.955796,
-    "longitude": -75.183284
-   },
-   "terminates": {
-    "stopId": 28325,
-    "name": "JFK Blvd & 30th St",
-    "latitude": 39.955796,
-    "longitude": -75.183284
    }
   }
  },
@@ -3934,7 +3870,7 @@
   }
  },
  "406": {
-  "null": {
+  "S": {
    "begins": {
     "stopId": 6250,
     "name": "City Av & Cardinal Av",
@@ -3950,7 +3886,7 @@
   }
  },
  "409": {
-  "null": {
+  "S": {
    "begins": {
     "stopId": 31761,
     "name": "59th St & Baltimore Av - FS school trip",
@@ -3966,7 +3902,7 @@
   }
  },
  "411": {
-  "null": {
+  "S": {
    "begins": {
     "stopId": 19567,
     "name": "Elmwood Av & 74th St",
@@ -3982,7 +3918,7 @@
   }
  },
  "415": {
-  "null": {
+  "N": {
    "begins": {
     "stopId": 30941,
     "name": "46th St & Ludlow St",
@@ -3998,7 +3934,21 @@
   }
  },
  "426": {
-  "null": {
+  "N": {
+   "begins": {
+    "stopId": 1246,
+    "name": "Bridge St & Torresdale Av",
+    "latitude": 40.013099,
+    "longitude": -75.070357
+   },
+   "terminates": {
+    "stopId": 1249,
+    "name": "Lycoming St & 10th St",
+    "latitude": 40.013492,
+    "longitude": -75.143362
+   }
+  },
+  "S": {
    "begins": {
     "stopId": 1249,
     "name": "Lycoming St & 10th St",
@@ -4014,7 +3964,21 @@
   }
  },
  "428": {
-  "null": {
+  "N": {
+   "begins": {
+    "stopId": 1250,
+    "name": "Richmond St & Venango St",
+    "latitude": 39.987883,
+    "longitude": -75.092069
+   },
+   "terminates": {
+    "stopId": 1249,
+    "name": "Lycoming St & 10th St",
+    "latitude": 40.013492,
+    "longitude": -75.143362
+   }
+  },
+  "S": {
    "begins": {
     "stopId": 1249,
     "name": "Lycoming St & 10th St",
@@ -4030,7 +3994,21 @@
   }
  },
  "433": {
-  "null": {
+  "N": {
+   "begins": {
+    "stopId": 888,
+    "name": "Alma Loop",
+    "latitude": 40.052724,
+    "longitude": -75.066256
+   },
+   "terminates": {
+    "stopId": 1249,
+    "name": "Lycoming St & 10th St",
+    "latitude": 40.013492,
+    "longitude": -75.143362
+   }
+  },
+  "S": {
    "begins": {
     "stopId": 1249,
     "name": "Lycoming St & 10th St",
@@ -4046,7 +4024,21 @@
   }
  },
  "438": {
-  "null": {
+  "N": {
+   "begins": {
+    "stopId": 8517,
+    "name": "Henry Av & Cinnaminson St",
+    "latitude": 40.049076,
+    "longitude": -75.219904
+   },
+   "terminates": {
+    "stopId": 5805,
+    "name": "Chelten Av & Germantown Av - FS",
+    "latitude": 40.035445,
+    "longitude": -75.175231
+   }
+  },
+  "S": {
    "begins": {
     "stopId": 5805,
     "name": "Chelten Av & Germantown Av - FS",
@@ -4062,7 +4054,21 @@
   }
  },
  "439": {
-  "null": {
+  "N": {
+   "begins": {
+    "stopId": 19477,
+    "name": "Fountain St & Ridge Av - MBNS",
+    "latitude": 40.037898,
+    "longitude": -75.223153
+   },
+   "terminates": {
+    "stopId": 5805,
+    "name": "Chelten Av & Germantown Av - FS",
+    "latitude": 40.035445,
+    "longitude": -75.175231
+   }
+  },
+  "S": {
    "begins": {
     "stopId": 5805,
     "name": "Chelten Av & Germantown Av - FS",
@@ -4078,7 +4084,21 @@
   }
  },
  "441": {
-  "null": {
+  "N": {
+   "begins": {
+    "stopId": 121,
+    "name": "Wissahickon Av & Cathedral Rd - FS",
+    "latitude": 40.067132,
+    "longitude": -75.23097
+   },
+   "terminates": {
+    "stopId": 1321,
+    "name": "Vine St & 19th St",
+    "latitude": 39.959126,
+    "longitude": -75.170246
+   }
+  },
+  "S": {
    "begins": {
     "stopId": 31123,
     "name": "Broad St & Vine St",
@@ -4094,7 +4114,7 @@
   }
  },
  "442": {
-  "null": {
+  "S": {
    "begins": {
     "stopId": 25819,
     "name": "Roberts Av & Henry Av",
@@ -4110,7 +4130,7 @@
   }
  },
  "445": {
-  "null": {
+  "N": {
    "begins": {
     "stopId": 19477,
     "name": "Fountain St & Ridge Av - MBNS",
@@ -4126,7 +4146,21 @@
   }
  },
  "446": {
-  "null": {
+  "N": {
+   "begins": {
+    "stopId": 8517,
+    "name": "Henry Av & Cinnaminson St",
+    "latitude": 40.049076,
+    "longitude": -75.219904
+   },
+   "terminates": {
+    "stopId": 261,
+    "name": "29th St & Allegheny Av",
+    "latitude": 40.004746,
+    "longitude": -75.176983
+   }
+  },
+  "S": {
    "begins": {
     "stopId": 20968,
     "name": "Juniper St & Commerce St",
@@ -4142,7 +4176,21 @@
   }
  },
  "447": {
-  "null": {
+  "N": {
+   "begins": {
+    "stopId": 8517,
+    "name": "Henry Av & Cinnaminson St",
+    "latitude": 40.049076,
+    "longitude": -75.219904
+   },
+   "terminates": {
+    "stopId": 111,
+    "name": "Frankford Transportation Center - Rts 8 &",
+    "latitude": 40.022966,
+    "longitude": -75.078298
+   }
+  },
+  "S": {
    "begins": {
     "stopId": 21965,
     "name": "Frankford Transportation Center - Rt R",
@@ -4158,7 +4206,7 @@
   }
  },
  "448": {
-  "null": {
+  "S": {
    "begins": {
     "stopId": 31123,
     "name": "Broad St & Vine St",
@@ -4174,7 +4222,21 @@
   }
  },
  "450": {
-  "null": {
+  "S": {
+   "begins": {
+    "stopId": 954,
+    "name": "City Line Loop",
+    "latitude": 40.064401,
+    "longitude": -74.981369
+   },
+   "terminates": {
+    "stopId": 982,
+    "name": "Bustleton Av & Verree Rd",
+    "latitude": 40.107851,
+    "longitude": -75.026377
+   }
+  },
+  "N": {
    "begins": {
     "stopId": 31363,
     "name": "Northeast Av & Gorman St",
@@ -4190,7 +4252,21 @@
   }
  },
  "452": {
-  "null": {
+  "S": {
+   "begins": {
+    "stopId": 22660,
+    "name": "Academy Rd & Medford Rd",
+    "latitude": 40.096308,
+    "longitude": -74.975845
+   },
+   "terminates": {
+    "stopId": 32403,
+    "name": "Northeast Av & Gorman St - school stop",
+    "latitude": 40.104045,
+    "longitude": -75.02525
+   }
+  },
+  "N": {
    "begins": {
     "stopId": 982,
     "name": "Bustleton Av & Verree Rd",
@@ -4206,7 +4282,21 @@
   }
  },
  "461": {
-  "null": {
+  "S": {
+   "begins": {
+    "stopId": 31588,
+    "name": "Bustleton Av & Verree Rd - MBNS",
+    "latitude": 40.106621,
+    "longitude": -75.026916
+   },
+   "terminates": {
+    "stopId": 23903,
+    "name": "Academy Rd & Chalfont Dr - MBNS",
+    "latitude": 40.085338,
+    "longitude": -74.988218
+   }
+  },
+  "N": {
    "begins": {
     "stopId": 23720,
     "name": "Academy Rd & Ryan High School South Entran",
@@ -4222,7 +4312,21 @@
   }
  },
  "462": {
-  "null": {
+  "S": {
+   "begins": {
+    "stopId": 1461,
+    "name": "Welsh Rd & Bridle Rd",
+    "latitude": 40.100324,
+    "longitude": -75.048205
+   },
+   "terminates": {
+    "stopId": 23720,
+    "name": "Academy Rd & Ryan High School South Entran",
+    "latitude": 40.084866,
+    "longitude": -74.988434
+   }
+  },
+  "N": {
    "begins": {
     "stopId": 23903,
     "name": "Academy Rd & Chalfont Dr - MBNS",
@@ -4238,7 +4342,21 @@
   }
  },
  "475": {
-  "null": {
+  "S": {
+   "begins": {
+    "stopId": 1097,
+    "name": "County Line Rd & Bustleton Av - FS",
+    "latitude": 40.134851,
+    "longitude": -75.009792
+   },
+   "terminates": {
+    "stopId": 31361,
+    "name": "Verree Rd & Dogwood Ln",
+    "latitude": 40.09276,
+    "longitude": -75.052753
+   }
+  },
+  "N": {
    "begins": {
     "stopId": 31362,
     "name": "Verree Rd & Marchman Rd - 2 MBFS",
@@ -4254,7 +4372,21 @@
   }
  },
  "476": {
-  "null": {
+  "N": {
+   "begins": {
+    "stopId": 31362,
+    "name": "Verree Rd & Marchman Rd - 2 MBFS",
+    "latitude": 40.091746,
+    "longitude": -75.053906
+   },
+   "terminates": {
+    "stopId": 1099,
+    "name": "Southampton Rd & Roosevelt Blvd",
+    "latitude": 40.114722,
+    "longitude": -74.988641
+   }
+  },
+  "S": {
    "begins": {
     "stopId": 1487,
     "name": "Southampton Rd & Carter Rd",
@@ -4270,7 +4402,21 @@
   }
  },
  "477": {
-  "null": {
+  "S": {
+   "begins": {
+    "stopId": 22893,
+    "name": "Comly Rd & Norcom Rd",
+    "latitude": 40.099162,
+    "longitude": -74.99534
+   },
+   "terminates": {
+    "stopId": 31361,
+    "name": "Verree Rd & Dogwood Ln",
+    "latitude": 40.09276,
+    "longitude": -75.052753
+   }
+  },
+  "N": {
    "begins": {
     "stopId": 31362,
     "name": "Verree Rd & Marchman Rd - 2 MBFS",
@@ -4286,7 +4432,21 @@
   }
  },
  "478": {
-  "null": {
+  "S": {
+   "begins": {
+    "stopId": 19279,
+    "name": "Welsh Rd & Roosevelt Blvd - MBNS",
+    "latitude": 40.073691,
+    "longitude": -75.034187
+   },
+   "terminates": {
+    "stopId": 31361,
+    "name": "Verree Rd & Dogwood Ln",
+    "latitude": 40.09276,
+    "longitude": -75.052753
+   }
+  },
+  "N": {
    "begins": {
     "stopId": 31362,
     "name": "Verree Rd & Marchman Rd - 2 MBFS",
@@ -4332,7 +4492,21 @@
   }
  },
  "484": {
-  "null": {
+  "S": {
+   "begins": {
+    "stopId": 1117,
+    "name": "Huntingdon Pk & Holy Redeemer Hosp - FS",
+    "latitude": 40.10903,
+    "longitude": -75.080408
+   },
+   "terminates": {
+    "stopId": 1104,
+    "name": "Torresdale Av & Cottman Av",
+    "latitude": 40.030264,
+    "longitude": -75.035065
+   }
+  },
+  "N": {
    "begins": {
     "stopId": 1021,
     "name": "Cottman Av & Ditman St",
@@ -4348,7 +4522,21 @@
   }
  },
  "490": {
-  "null": {
+  "S": {
+   "begins": {
+    "stopId": 20851,
+    "name": "Fox Chase Loop",
+    "latitude": 40.076654,
+    "longitude": -75.085523
+   },
+   "terminates": {
+    "stopId": 31361,
+    "name": "Verree Rd & Dogwood Ln",
+    "latitude": 40.09276,
+    "longitude": -75.052753
+   }
+  },
+  "N": {
    "begins": {
     "stopId": 31362,
     "name": "Verree Rd & Marchman Rd - 2 MBFS",
@@ -4364,7 +4552,21 @@
   }
  },
  "492": {
-  "null": {
+  "S": {
+   "begins": {
+    "stopId": 26138,
+    "name": "Bustleton Av & Red Lion Rd",
+    "latitude": 40.102254,
+    "longitude": -75.028763
+   },
+   "terminates": {
+    "stopId": 31361,
+    "name": "Verree Rd & Dogwood Ln",
+    "latitude": 40.09276,
+    "longitude": -75.052753
+   }
+  },
+  "N": {
    "begins": {
     "stopId": 31362,
     "name": "Verree Rd & Marchman Rd - 2 MBFS",
@@ -4380,7 +4582,21 @@
   }
  },
  "495": {
-  "null": {
+  "N": {
+   "begins": {
+    "stopId": 20375,
+    "name": "Worthington Rd & Southampton Rd - FS",
+    "latitude": 40.123872,
+    "longitude": -75.001913
+   },
+   "terminates": {
+    "stopId": 1249,
+    "name": "Lycoming St & 10th St",
+    "latitude": 40.013492,
+    "longitude": -75.143362
+   }
+  },
+  "S": {
    "begins": {
     "stopId": 1249,
     "name": "Lycoming St & 10th St",
@@ -4396,7 +4612,21 @@
   }
  },
  "88S": {
-  "null": {
+  "S": {
+   "begins": {
+    "stopId": 1117,
+    "name": "Huntingdon Pk & Holy Redeemer Hosp - FS",
+    "latitude": 40.10903,
+    "longitude": -75.080408
+   },
+   "terminates": {
+    "stopId": 1104,
+    "name": "Torresdale Av & Cottman Av",
+    "latitude": 40.030264,
+    "longitude": -75.035065
+   }
+  },
+  "N": {
    "begins": {
     "stopId": 1021,
     "name": "Cottman Av & Ditman St",
@@ -4412,7 +4642,21 @@
   }
  },
  "AFG": {
-  "null": {
+  "N": {
+   "begins": {
+    "stopId": 1246,
+    "name": "Bridge St & Torresdale Av",
+    "latitude": 40.013099,
+    "longitude": -75.070357
+   },
+   "terminates": {
+    "stopId": 1249,
+    "name": "Lycoming St & 10th St",
+    "latitude": 40.013492,
+    "longitude": -75.143362
+   }
+  },
+  "S": {
    "begins": {
     "stopId": 1249,
     "name": "Lycoming St & 10th St",
@@ -4428,7 +4672,21 @@
   }
  },
  "AFL": {
-  "null": {
+  "S": {
+   "begins": {
+    "stopId": 1249,
+    "name": "Lycoming St & 10th St",
+    "latitude": 40.013492,
+    "longitude": -75.143362
+   },
+   "terminates": {
+    "stopId": 20398,
+    "name": "Worthington Rd & Southampton Rd",
+    "latitude": 40.123758,
+    "longitude": -75.001806
+   }
+  },
+  "N": {
    "begins": {
     "stopId": 20375,
     "name": "Worthington Rd & Southampton Rd - FS",
@@ -4504,7 +4762,21 @@
   }
  },
  "HRS": {
-  "null": {
+  "N": {
+   "begins": {
+    "stopId": 121,
+    "name": "Wissahickon Av & Cathedral Rd - FS",
+    "latitude": 40.067132,
+    "longitude": -75.23097
+   },
+   "terminates": {
+    "stopId": 1321,
+    "name": "Vine St & 19th St",
+    "latitude": 39.959126,
+    "longitude": -75.170246
+   }
+  },
+  "S": {
    "begins": {
     "stopId": 21965,
     "name": "Frankford Transportation Center - Rt R",
@@ -4580,7 +4852,21 @@
   }
  },
  "WCS": {
-  "null": {
+  "N": {
+   "begins": {
+    "stopId": 30941,
+    "name": "46th St & Ludlow St",
+    "latitude": 39.95769,
+    "longitude": -75.213192
+   },
+   "terminates": {
+    "stopId": 20919,
+    "name": "Elmwood Av & Island Av",
+    "latitude": 39.913284,
+    "longitude": -75.243092
+   }
+  },
+  "S": {
    "begins": {
     "stopId": 19567,
     "name": "Elmwood Av & 74th St",
@@ -4596,7 +4882,7 @@
   }
  },
  "WPS": {
-  "null": {
+  "S": {
    "begins": {
     "stopId": 6250,
     "name": "City Av & Cardinal Av",
@@ -4698,38 +4984,6 @@
     "name": "Frankford Transportation Center - Main Dro",
     "latitude": 40.023294,
     "longitude": -75.077481
-   }
-  }
- },
- "LUCYGO": {
-  "Loop": {
-   "begins": {
-    "stopId": 28325,
-    "name": "JFK Blvd & 30th St",
-    "latitude": 39.955796,
-    "longitude": -75.183284
-   },
-   "terminates": {
-    "stopId": 28325,
-    "name": "JFK Blvd & 30th St",
-    "latitude": 39.955796,
-    "longitude": -75.183284
-   }
-  }
- },
- "LUCYGR": {
-  "Loop": {
-   "begins": {
-    "stopId": 28325,
-    "name": "JFK Blvd & 30th St",
-    "latitude": 39.955796,
-    "longitude": -75.183284
-   },
-   "terminates": {
-    "stopId": 28325,
-    "name": "JFK Blvd & 30th St",
-    "latitude": 39.955796,
-    "longitude": -75.183284
    }
   }
  },
