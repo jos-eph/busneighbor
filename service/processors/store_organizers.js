@@ -23,7 +23,7 @@ async function populateLocationsStore(routes, locationsStore, distancesFromOrigi
         );
 }
 
-async function populationDistancesFromOrigin(routes, distancesFromOrigin) {
+async function populateDistancesFromOrigin(routes, distancesFromOrigin) {
     // for all relevant routes, for all relevant directions, calculate perpendicular distance
     // to route origin using stopStart.json
     // if we are before the route start, use the route origin to calculate distances
