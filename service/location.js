@@ -1,5 +1,4 @@
 import { LatitudeLongitude } from '../model/latitudeLongitude.js';
-import startStop from '../startStop.json' with {type: 'json'};
 
 function getCurrentCoordinatesPromise() {
     return new Promise((resolve, reject) => {
