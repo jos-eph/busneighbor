@@ -18,8 +18,10 @@ function locationSorter(location1, location2) {
 
 async function populateLocationsStore(routes, locationsStore, distancesFromOrigin) {
     const currentLocation = await getCurrentCoordinatesPromise();
-    await populateDistancesFromOrigin(currentLocation, routes, distancesFromOrigin);
-    const createProcessedLocation = createProcessedLocationFactoryV2(currentLocation);
+    console.log("Logging startStop at pLs...");
+    console.log(startStop);
+    await populateDistancesFromOrigin(currentLocation, routes, distancesFromOrigin, startStop);
+    const createProcessedLocation = createProcessedLocationFactoryV2(currentLocation, distancesFromOrigin, startStop);
     return processRouteGets(routes, getLocationDataV2,
         createProcessedLocation, locationsStore, locationFilter, locationSorter
         );
@@ -41,15 +43,12 @@ async function populateDistancesFromOrigin(currentLocation, routes, distancesFro
         for (const direction of Object.keys(startStop[route])) {
             const routeOriginPosition = startStop?.[route]?.[direction]?.begins;
             if (routeOriginPosition !== undefined) {
-                const perpendicularDistance = 
-                perpendicularDegreeDistance(currentLocation, routeOriginPosition, direction);
+                const perpendicularDistance = perpendicularDegreeDistance(currentLocation, routeOriginPosition, direction);
                 distancesFromOrigin[route] = distancesFromOrigin[route] || {}
                 distancesFromOrigin[route][direction] = perpendicularDistance;
             }
         }
     }
-    console.log("Distances from origin!!!!");
-    console.log(distancesFromOrigin);
 }
 
 async function populateAlertsStore(routes, alertsStore) {

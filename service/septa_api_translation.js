@@ -62,13 +62,38 @@ function createProcessedLocationV2(locationJsonV2) {
 
 const PERPENDICULAR_DISTANCE = "perpendicularDistance";
 
-function createProcessedLocationFactoryV2(currentLocation) {
-    return (locationJsonV2) => {
+
+/**
+ * Description placeholder
+ *
+ * @param {LatitudeLongitude} userLocation 
+ * @param {ProcessedLocationV2} processedLocation 
+ * @param {Object} distancesFromOrigin 
+ * @param {Object} startStop 
+ */
+function routeAwarePerpendicularDistance(userLocation, processedLocation, distancesFromOrigin, startStop) {
+    const [route, direction, vehicleLocation] = [processedLocation.routeIdentifier, processedLocation.direction, processedLocation.vehicleLocation];
+    const userToRouteBeginDistance = distancesFromOrigin?.[route]?.[direction];
+    const routeBeginningLocation = startStop?.[route]?.[direction]?.begins;
+    let referenceLocation;
+    if (userToRouteBeginDistance === undefined || userToRouteBeginDistance > 0 || routeBeginningLocation === undefined) {
+        referenceLocation = userLocation;
+    } else {
+        referenceLocation = routeBeginningLocation;
+    }
+    console.log(`${route} ${direction} - ${userToRouteBeginDistance} ${JSON.stringify(routeBeginningLocation)}`);
+    return perpendicularDegreeDistance(referenceLocation, vehicleLocation, direction);
+}
+
+function createProcessedLocationFactoryV2(currentLocation, distancesFromOrigin, startStop) {
+    return function (locationJsonV2) {
         const processedLocation = createProcessedLocationV2(locationJsonV2);
-        processedLocation[PERPENDICULAR_DISTANCE] = perpendicularDegreeDistance(currentLocation, processedLocation.vehicleLocation,  processedLocation.direction);
+        processedLocation[PERPENDICULAR_DISTANCE] = routeAwarePerpendicularDistance(currentLocation, processedLocation, distancesFromOrigin, startStop);
         return processedLocation;
     };
 }
+
+
 
 function determineDirectionsImpacted(text) {
     let directionsBound = new Set();
