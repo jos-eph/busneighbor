@@ -1,7 +1,9 @@
 import { getLocationDataV2, getRouteAlertsV2 } from "../septa_api.js";
 import { createProcessedAlertV2, createProcessedLocationFactoryV2, PERPENDICULAR_DISTANCE } from "../septa_api_translation.js";
 import { processRouteGets } from "./processor_aggregators.js";
-import { getCurrentCoordinatesPromise } from "../location.js";
+import { getCurrentCoordinatesPromise, perpendicularDegreeDistance } from "../location.js";
+import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
+import startStop from '../../startStop.json' with {type: 'json'}
 
 const POPULATED_LOCATIONS = "populatedLocations";
 const POPULATED_ALERTS = "populatedAlerts";
@@ -16,17 +18,37 @@ function locationSorter(location1, location2) {
 
 async function populateLocationsStore(routes, locationsStore, distancesFromOrigin) {
     const currentLocation = await getCurrentCoordinatesPromise();
-    await populateDistancesFromOrigin(routes, distancesFromOrigin);
+    await populateDistancesFromOrigin(currentLocation, routes, distancesFromOrigin);
     const createProcessedLocation = createProcessedLocationFactoryV2(currentLocation);
     return processRouteGets(routes, getLocationDataV2,
         createProcessedLocation, locationsStore, locationFilter, locationSorter
         );
 }
 
-async function populateDistancesFromOrigin(routes, distancesFromOrigin) {
-    // for all relevant routes, for all relevant directions, calculate perpendicular distance
-    // to route origin using stopStart.json
-    // if we are before the route start, use the route origin to calculate distances
+
+/**
+ * Populate `directionsFromOrigin` with a list of all route-directions 
+ * origins' distance from the current position
+ *
+ * @async
+ * @param {LatitudeLongitude} currentLocation User's location 
+ * @param {Array<string>} routes 
+ * @param {object} distancesFromOrigin Object of the form { "1": {"N": <<number>>,
+     "S": <<number>> }} etc.
+ */
+async function populateDistancesFromOrigin(currentLocation, routes, distancesFromOrigin) {
+    for (const route of Object.keys(startStop)) {
+        for (const direction of Object.keys(startStop[route])) {
+            const routeOriginPosition = startStop?.[direction]?.["begins"];
+            if (routeOriginPosition !== undefined) {
+                const perpendicularDistance = 
+                perpendicularDegreeDistance(currentLocation, routeOriginPosition, direction);
+                distancesFromOrigin[route] = distancesFromOrigin[route] || {}
+                distancesFromOrigin[route][direction] = perpendicularDistance;
+            }
+        }
+    }
+    console.log(distancesFromOrigin);
 }
 
 async function populateAlertsStore(routes, alertsStore) {
