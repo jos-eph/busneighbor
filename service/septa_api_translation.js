@@ -13,7 +13,7 @@ const RouteTypes = {
 
 const SeatsAvailable = {
     YES_SEATS: new Set(["MANY_SEATS_AVAILABLE","EMPTY"]),
-    SOME_SEATS: new Set(["FEW_SEATS_AVAILABLE", "STANDING_ROOM_ONLY", "NOT_AVAILABLE"]),
+    SOME_SEATS: new Set(["TBD", "FEW_SEATS_AVAILABLE", "STANDING_ROOM_ONLY", "NOT_AVAILABLE"]),
     NO_SEATS: new Set(["CRUSHED_STANDING_ROOM_ONLY", "FULL"])
 };
 
