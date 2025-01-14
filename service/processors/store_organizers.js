@@ -20,7 +20,7 @@ async function populateLocationsStore(routes, locationsStore, distancesFromOrigi
     const currentLocation = await getCurrentCoordinatesPromise();
     console.log("Logging startStop at pLs...");
     console.log(startStop);
-    await populateDistancesFromOrigin(currentLocation, routes, distancesFromOrigin, startStop);
+    populateDistancesFromOrigin(currentLocation, routes, distancesFromOrigin, startStop);
     const createProcessedLocation = createProcessedLocationFactoryV2(currentLocation, distancesFromOrigin, startStop);
     return processRouteGets(routes, getLocationDataV2,
         createProcessedLocation, locationsStore, locationFilter, locationSorter
@@ -38,7 +38,7 @@ async function populateLocationsStore(routes, locationsStore, distancesFromOrigi
  * @param {object} distancesFromOrigin Object of the form { "1": {"N": <<number>>,
      "S": <<number>> }} etc.
  */
-async function populateDistancesFromOrigin(currentLocation, routes, distancesFromOrigin) {
+function populateDistancesFromOrigin(currentLocation, routes, distancesFromOrigin) {
     for (const route of Object.keys(startStop)) {
         for (const direction of Object.keys(startStop[route])) {
             const routeOriginPosition = startStop?.[route]?.[direction]?.begins;
@@ -56,5 +56,5 @@ async function populateAlertsStore(routes, alertsStore) {
         createProcessedAlertV2, alertsStore);
 }
 
-export { populateAlertsStore, populateLocationsStore, 
+export { populateAlertsStore, populateLocationsStore, populateDistancesFromOrigin,
     POPULATED_ALERTS, POPULATED_LOCATIONS };

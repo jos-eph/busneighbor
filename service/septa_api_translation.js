@@ -4,6 +4,7 @@ import { perpendicularDegreeDistance } from "./location.js";
 import { Directions } from "../model/directions_impacted.js";
 import { ProcessedAlertV2 } from "../model/processed_alert.js";
 import { ProcessedLocationV2 } from "../model/processed_location.js";
+import { populateDistancesFromOrigin } from "./processors/store_organizers.js";
 
 const RouteTypes = {
     BUS: "bus",
