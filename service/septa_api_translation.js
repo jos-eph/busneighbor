@@ -1,10 +1,10 @@
 import { LatitudeLongitude } from "../model/latitudeLongitude.js";
-import { includesAsWord, concatenateStrings, stalenessSeconds } from "../common/utilities.js";
+import { includesAsWord, stalenessSeconds } from "../common/utilities.js";
 import { perpendicularDegreeDistance } from "./location.js";
 import { Directions } from "../model/directions_impacted.js";
 import { ProcessedAlertV2 } from "../model/processed_alert.js";
 import { ProcessedLocationV2 } from "../model/processed_location.js";
-import { populateDistancesFromOrigin } from "./processors/store_organizers.js";
+import { startStop } from '../startStop.js'
 
 const RouteTypes = {
     BUS: "bus",
@@ -70,10 +70,9 @@ const PERPENDICULAR_DISTANCE = "perpendicularDistance";
  * @param {LatitudeLongitude} userLocation 
  * @param {ProcessedLocationV2} processedLocation 
  * @param {Object} distancesFromOrigin 
- * @param {Object} startStop
  * @returns {number} 
  */
-function routeAwarePerpendicularDistance(userLocation, processedLocation, distancesFromOrigin, startStop) {
+function routeAwarePerpendicularDistance(userLocation, processedLocation, distancesFromOrigin) {
     const [route, direction, vehicleLocation] = [processedLocation.routeIdentifier, processedLocation.direction, processedLocation.vehicleLocation];
     const userToRouteBeginDistance = distancesFromOrigin?.[route]?.[direction];
     const routeBeginningLocation = startStop?.[route]?.[direction]?.begins;
@@ -90,7 +89,7 @@ function routeAwarePerpendicularDistance(userLocation, processedLocation, distan
 function createProcessedLocationFactoryV2(currentLocation, distancesFromOrigin, startStop) {
     return function (locationJsonV2) {
         const processedLocation = createProcessedLocationV2(locationJsonV2);
-        processedLocation[PERPENDICULAR_DISTANCE] = routeAwarePerpendicularDistance(currentLocation, processedLocation, distancesFromOrigin, startStop);
+        processedLocation[PERPENDICULAR_DISTANCE] = routeAwarePerpendicularDistance(currentLocation, processedLocation, distancesFromOrigin);
         return processedLocation;
     };
 }

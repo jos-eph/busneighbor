@@ -6,6 +6,7 @@ import {
     routeAwarePerpendicularDistance } from "../../service/septa_api_translation.js";
 import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
 import { ProcessedLocationV2 } from "../../model/processed_location.js";
+import { populateDistancesFromOrigin } from "../../service/processors/store_organizers.js";
 
 const EXPECTED_PROCESSED_LOCATION = { // No staleness; staleness is dynamic
   "routeIdentifier": "45",
@@ -224,9 +225,13 @@ test.each(PERPENDICULAR_DISTANCE_TEST_CASES)('Route %s %s vehicle at %j user at 
   (route, direction, vehiclePosition, userPosition) => {
     console.log("In the test perp distance function!");
     const vehicleLocation = new ProcessedLocationV2(route, vehiclePosition, direction);
-   // const computedDistance = routeAwarePerpendicularDistance(userPosition, vehicleLocation, undefined, startStop);
-    // must get distancesFromOrigin
+    
+    const distancesFromOrigin = {};
+    populateDistancesFromOrigin(userPosition, [route], distancesFromOrigin);
+    const computedDistance = routeAwarePerpendicularDistance(userPosition, vehicleLocation, distancesFromOrigin);
+
     console.log(JSON.stringify(vehiclePosition));
+    console.log(computedDistance);
     expect(dummy()).toBe("A");
 });
 
