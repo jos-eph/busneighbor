@@ -120,7 +120,10 @@ function createProcessedAlertV2(alertJsonV2) {
     );
 }
 
+
 export { RouteTypes,
     determineDirectionsImpacted, translateSeatClassification,
 translateDirectionLongForm, createProcessedAlertV2,
-createProcessedLocationV2, createProcessedLocationFactoryV2, MAGIC_TIMESTAMP_FOR_STOPPED_BUS, PERPENDICULAR_DISTANCE, SeatsAvailable };
+createProcessedLocationV2, createProcessedLocationFactoryV2, 
+MAGIC_TIMESTAMP_FOR_STOPPED_BUS, PERPENDICULAR_DISTANCE, SeatsAvailable,
+routeAwarePerpendicularDistance };
