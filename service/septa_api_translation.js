@@ -69,7 +69,8 @@ const PERPENDICULAR_DISTANCE = "perpendicularDistance";
  * @param {LatitudeLongitude} userLocation 
  * @param {ProcessedLocationV2} processedLocation 
  * @param {Object} distancesFromOrigin 
- * @param {Object} startStop 
+ * @param {Object} startStop
+ * @returns {number} 
  */
 function routeAwarePerpendicularDistance(userLocation, processedLocation, distancesFromOrigin, startStop) {
     const [route, direction, vehicleLocation] = [processedLocation.routeIdentifier, processedLocation.direction, processedLocation.vehicleLocation];
