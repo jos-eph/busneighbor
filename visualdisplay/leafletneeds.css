@@ -1,0 +1,18 @@
+.managed-map { height: 400px; }
+.map-pushpin-style {
+ background-color: transparent;
+ border: none;                /* Remove the default border */
+ font-weight: bold;           
+color: black;
+ opacity: 1.0;
+ box-shadow: none;
+ font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+ font-size: small;
+}
+
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+  border: none !important; 
+}
