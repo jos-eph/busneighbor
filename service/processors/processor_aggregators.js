@@ -16,16 +16,21 @@ async function processRouteGets(routes, restGetter, individualProcessor, targetS
     const allNewData = [];
     for (const route of routes) {
         const dataArray = await restGetter(route);
+        //
         let newData = [];
         for (const individualData of dataArray) {
             const processedData = individualProcessor(individualData);
             newData.push(processedData);
         }
+        console.log("Logging data prior to filtering...");
+        console.log(newData);
         
         newData = (arrayFilter) ? newData.filter(arrayFilter) : newData;
         newData = (arraySorter) ? newData.toSorted(arraySorter) : newData;
         targetStore[route] = newData;
         allNewData.push(newData);
+        console.log("Logging data post filtering...");
+        console.log(newData);
     }
     return allNewData;
 }

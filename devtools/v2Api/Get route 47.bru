@@ -1,0 +1,15 @@
+meta {
+  name: Get route 47
+  type: http
+  seq: 5
+}
+
+get {
+  url: https://www3.septa.org/api/v2/trips/?route_id=47
+  body: none
+  auth: awsv4
+}
+
+params:query {
+  route_id: 47
+}

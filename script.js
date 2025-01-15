@@ -18,7 +18,7 @@ async function cycleRefresh() {
 function showText() {
     // create the text
     const displayText = getTextStore(store);
-    console.log(displayText);
+    // console.log(displayText);
     // populate the DOM
     const paragraph = document.getElementById("change-text");
     paragraph.textContent = displayText;

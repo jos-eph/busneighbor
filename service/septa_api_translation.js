@@ -1,9 +1,10 @@
 import { LatitudeLongitude } from "../model/latitudeLongitude.js";
-import { includesAsWord, concatenateStrings, stalenessSeconds } from "../common/utilities.js";
+import { includesAsWord, stalenessSeconds } from "../common/utilities.js";
 import { perpendicularDegreeDistance } from "./location.js";
 import { Directions } from "../model/directions_impacted.js";
 import { ProcessedAlertV2 } from "../model/processed_alert.js";
 import { ProcessedLocationV2 } from "../model/processed_location.js";
+import { startStop } from '../startStop.js'
 
 const RouteTypes = {
     BUS: "bus",
@@ -13,7 +14,7 @@ const RouteTypes = {
 
 const SeatsAvailable = {
     YES_SEATS: new Set(["MANY_SEATS_AVAILABLE","EMPTY"]),
-    SOME_SEATS: new Set(["FEW_SEATS_AVAILABLE", "STANDING_ROOM_ONLY", "NOT_AVAILABLE"]),
+    SOME_SEATS: new Set(["TBD", "FEW_SEATS_AVAILABLE", "STANDING_ROOM_ONLY", "NOT_AVAILABLE"]),
     NO_SEATS: new Set(["CRUSHED_STANDING_ROOM_ONLY", "FULL"])
 };
 
@@ -62,18 +63,45 @@ function createProcessedLocationV2(locationJsonV2) {
 
 const PERPENDICULAR_DISTANCE = "perpendicularDistance";
 
-function createProcessedLocationFactoryV2(currentLocation) {
-    return (locationJsonV2) => {
+
+/**
+ * Description placeholder
+ *
+ * @param {LatitudeLongitude} userLocation 
+ * @param {ProcessedLocationV2} processedLocation 
+ * @param {Object} distancesFromOrigin 
+ * @returns {number} 
+ */
+function routeAwarePerpendicularDistance(userLocation, processedLocation, distancesFromOrigin) {
+    const [route, direction, vehicleLocation] = [processedLocation.routeIdentifier, processedLocation.direction, processedLocation.vehicleLocation];
+    const userToRouteBeginDistance = distancesFromOrigin?.[route]?.[direction];
+    const routeBeginningLocation = startStop?.[route]?.[direction]?.begins;
+    let referenceLocation;
+    console.log(`distance test ${route}${direction} - userLocation ${JSON.stringify(userLocation)} \n routeBeginningLocation ${JSON.stringify(routeBeginningLocation)} \n userToRoute ${JSON.stringify(userToRouteBeginDistance)} `);
+    if (userToRouteBeginDistance === undefined || userToRouteBeginDistance > 0 || routeBeginningLocation === undefined) {
+        referenceLocation = userLocation;
+    } else {
+        referenceLocation = routeBeginningLocation;
+    }
+//    console.log(`${route} ${direction} - ${userToRouteBeginDistance} ${JSON.stringify(routeBeginningLocation)}`);
+    return perpendicularDegreeDistance(referenceLocation, vehicleLocation, direction);
+}
+
+function createProcessedLocationFactoryV2(currentLocation, distancesFromOrigin, startStop) {
+    return function (locationJsonV2) {
         const processedLocation = createProcessedLocationV2(locationJsonV2);
-        processedLocation[PERPENDICULAR_DISTANCE] = perpendicularDegreeDistance(currentLocation, processedLocation.vehicleLocation,  processedLocation.direction);
+        processedLocation[PERPENDICULAR_DISTANCE] = routeAwarePerpendicularDistance(currentLocation, processedLocation, distancesFromOrigin);
         return processedLocation;
     };
 }
+
+
 
 function determineDirectionsImpacted(text) {
     let directionsBound = new Set();
     for (const direction in Directions) {
         const directionBound = `${Directions[direction]}B`; // abbreviation for northbound, southbound
+        // TODO: add an "or" to translate occasional nonstandard "Northbound", "Southbound", etc.
         if (includesAsWord(text, directionBound)) {
             directionsBound.add(Directions[direction]);
         }
@@ -93,7 +121,10 @@ function createProcessedAlertV2(alertJsonV2) {
     );
 }
 
+
 export { RouteTypes,
     determineDirectionsImpacted, translateSeatClassification,
 translateDirectionLongForm, createProcessedAlertV2,
-createProcessedLocationV2, createProcessedLocationFactoryV2, MAGIC_TIMESTAMP_FOR_STOPPED_BUS, PERPENDICULAR_DISTANCE, SeatsAvailable };
+createProcessedLocationV2, createProcessedLocationFactoryV2, 
+MAGIC_TIMESTAMP_FOR_STOPPED_BUS, PERPENDICULAR_DISTANCE, SeatsAvailable,
+routeAwarePerpendicularDistance };
