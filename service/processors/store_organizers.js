@@ -32,7 +32,6 @@ async function populateLocationsStore(routes, locationsStore, distancesFromOrigi
  * Populate `directionsFromOrigin` with a list of all route-directions 
  * origins' distance from the current position
  *
- * @async
  * @param {LatitudeLongitude} currentLocation User's location 
  * @param {Array<string>} routes 
  * @param {object} distancesFromOrigin Object of the form { "1": {"N": <<number>>,

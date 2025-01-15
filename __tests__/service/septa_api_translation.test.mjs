@@ -7,6 +7,7 @@ import {
 import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
 import { ProcessedLocationV2 } from "../../model/processed_location.js";
 import { populateDistancesFromOrigin } from "../../service/processors/store_organizers.js";
+import { perpendicularDegreeDistance } from "../../service/location.js";
 
 const EXPECTED_PROCESSED_LOCATION = { // No staleness; staleness is dynamic
   "routeIdentifier": "45",
@@ -174,64 +175,52 @@ const TEST_START_STOP = {
   }        
 }
 
-//// TEST CONSTANTS
-// Use route starts:
 
+
+// Routes that start away from the user where the user will have to travel to route origin
 // Pick an east-west route and a point of origin that is extreme from it - 3
-//     Mount Pleasant Mansion - West of it - 39.9841537,-75.1991966
-// 	Campbell Square - 39.9999113,-75.1032321 - (East of It)
+//     Mount Pleasant Mansion - 39.9841537,-75.1991966 - West of it
+// 	   Campbell Square - 39.9999113,-75.1032321 - East of it
 // Pick a north-south route and a point of origin that is extreme from it - 33
-// 	Barnes & Noble Center City Philly - 39.951721, -75.163444 (South of it)
-// 	Klein Law Building Center City Philly - 40.005939, -75.127292 (North of it)
-	
-	
-// 45 - 
-//     City Hall - near the line - 39.979523, -75.164133
-//     Acme 10th & South - 39.9504795, -75.1546198
+// 	Barnes & Noble Center City Philly - 39.951721, -75.163444 - South of it
+// 	Klein Law Building Center City Philly - 40.005939, -75.127292 - North of it
 
-// Test user start positions
 const MOUNT_PLEASANT_MANSION = new LatitudeLongitude(39.9841537,-75.1991966);
 const CAMPBELL_SQUARE = new LatitudeLongitude(39.9999113,-75.1032321);
 const BARNES_NOBLE_CC = new LatitudeLongitude(39.951721, -75.163444);
 const KLEIN_LAW_CC = new LatitudeLongitude(40.005939, -75.127292);
+
+// 45 positions which the user can reach without traveling to route origin
+const TWELFTH_LOCUST = new LatitudeLongitude(39.947843, -75.160852);
+const ELEVENTH_MOYAMENSING = new LatitudeLongitude(39.919338, -75.165314);
 const CITY_HALL = new LatitudeLongitude(39.979523, -75.164133);
 const ACME_SOUTH = new LatitudeLongitude(39.9504795, -75.1546198);
 
-// 45 positions which the user can reach
-const TWELFTH_LOCUST = new LatitudeLongitude(39.947843, -75.160852);
-const ELEVENTH_MOYAMENSING = new LatitudeLongitude(39.919338, -75.165314);
-
-// 3 E, W
-// 33, N, S
-// 45 N, S
-
-// [processedLocation.routeIdentifier, processedLocation.direction, processedLocation.vehicleLocation, userLocation, expectedPerpDistance]
+// [processedLocation.routeIdentifier, processedLocation.direction, processedLocation.vehicleLocation, userLocation, expectedAdjustedPerpDistance, equalsRegularPerpDistance ]
 
 const xxx="FILL_IN_EXPECTED_VALUE!!!";
 
 // can use ProcessedLocationV2 constructor to make PL objects
 const PERPENDICULAR_DISTANCE_TEST_CASES = [
-  ["3", "W", new LatitudeLongitude(39.986605, -75.131602), CAMPBELL_SQUARE, xxx],
-  ["3", "E", new LatitudeLongitude(39.98939, -75.12641), MOUNT_PLEASANT_MANSION, xxx],
-  ["33", "N", new LatitudeLongitude(39.970677, -75.169441), BARNES_NOBLE_CC, xxx],
-  ["33", "S", new LatitudeLongitude(39.973684, -75.167448), KLEIN_LAW_CC, xxx],
-  ["45", "S", TWELFTH_LOCUST, ACME_SOUTH, xxx], // 
-  ["45", "N", ELEVENTH_MOYAMENSING, CITY_HALL, xxx]
+  ["3", "W", new LatitudeLongitude(39.986605, -75.131602), CAMPBELL_SQUARE, xxx, false],
+  ["3", "E", new LatitudeLongitude(39.98939, -75.12641), MOUNT_PLEASANT_MANSION, xxx, false],
+  ["33", "N", new LatitudeLongitude(39.970677, -75.169441), BARNES_NOBLE_CC, xxx, false],
+  ["33", "S", new LatitudeLongitude(39.973684, -75.167448), KLEIN_LAW_CC, xxx, false],
+  ["45", "S", TWELFTH_LOCUST, ACME_SOUTH, xxx, true], // 
+  ["45", "N", ELEVENTH_MOYAMENSING, CITY_HALL, xxx, true]
 ]
 
 const dummy = () => "A";
 
-test.each(PERPENDICULAR_DISTANCE_TEST_CASES)('Route %s %s vehicle at %j user at %j expected %j', 
-  (route, direction, vehiclePosition, userPosition) => {
-    console.log("In the test perp distance function!");
+test.each(PERPENDICULAR_DISTANCE_TEST_CASES)('Route %s %s vehicle at %j user at %j expected %j, should equal regular perpendicular distance: %s', 
+  (route, direction, vehiclePosition, userPosition, adjustmentEqualsRegular) => {
     const vehicleLocation = new ProcessedLocationV2(route, vehiclePosition, direction);
-    
     const distancesFromOrigin = {};
     populateDistancesFromOrigin(userPosition, [route], distancesFromOrigin);
+    console.log(JSON.stringify(distancesFromOrigin));
     const computedDistance = routeAwarePerpendicularDistance(userPosition, vehicleLocation, distancesFromOrigin);
-
-    console.log(JSON.stringify(vehiclePosition));
-    console.log(computedDistance);
+    const nonAdjustedDistance = perpendicularDegreeDistance(userPosition, vehiclePosition, direction);
+    console.log(`${computedDistance}\t${nonAdjustedDistance}\t${computedDistance == nonAdjustedDistance}`);
     expect(dummy()).toBe("A");
 });
 

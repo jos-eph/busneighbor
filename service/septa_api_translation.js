@@ -78,11 +78,12 @@ function routeAwarePerpendicularDistance(userLocation, processedLocation, distan
     const routeBeginningLocation = startStop?.[route]?.[direction]?.begins;
     let referenceLocation;
     if (userToRouteBeginDistance === undefined || userToRouteBeginDistance > 0 || routeBeginningLocation === undefined) {
+        console.log(`distance test ${route}${direction} - userToRoute ${JSON.stringify(userToRouteBeginDistance)} routeBeginningLocation ${JSON.stringify(routeBeginningLocation)}`);
         referenceLocation = userLocation;
     } else {
         referenceLocation = routeBeginningLocation;
     }
-    console.log(`${route} ${direction} - ${userToRouteBeginDistance} ${JSON.stringify(routeBeginningLocation)}`);
+//    console.log(`${route} ${direction} - ${userToRouteBeginDistance} ${JSON.stringify(routeBeginningLocation)}`);
     return perpendicularDegreeDistance(referenceLocation, vehicleLocation, direction);
 }
 
