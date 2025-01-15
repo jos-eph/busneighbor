@@ -80,8 +80,7 @@ test('Alerts are processed correctly', () => {
   expect(createProcessedAlertV2(ALERT_SB_DISCONTINUED_ONE_ALERT)).toMatchObject(EXPECTED_PROCESSED_ALERT);
 });
 
-/////
-/////////////////////////////////////////////////
+
 const TEST_START_STOP = {
   "3": {
    "W": {
@@ -189,8 +188,6 @@ const ACME_SOUTH = new LatitudeLongitude(39.9504795, -75.1546198);
 
 // [processedLocation.routeIdentifier, processedLocation.direction, processedLocation.vehicleLocation, userLocation, expectedAdjustedPerpDistance, equalsRegularPerpDistance ]
 
-const xxx="FILL_IN_EXPECTED_VALUE!!!";
-
 // can use ProcessedLocationV2 constructor to make PL objects
 const PERPENDICULAR_DISTANCE_TEST_CASES = [
   ["3", "W", new LatitudeLongitude(39.986605, -75.131602), WISSINOMING_PARK, -0.053488000000001534, false],
@@ -201,18 +198,14 @@ const PERPENDICULAR_DISTANCE_TEST_CASES = [
   ["45", "N", ELEVENTH_MOYAMENSING, CITY_HALL, 0.060184999999997046, true]
 ]
 
-const dummy = () => "A";
-
 test.each(PERPENDICULAR_DISTANCE_TEST_CASES)('Route %s %s vehicle at %j user at %j expected %j, should equal regular perpendicular distance: %s', 
   (route, direction, vehiclePosition, userPosition, expectedComputedDistance, adjustmentEqualsRegular) => {
     const vehicleLocation = new ProcessedLocationV2(route, vehiclePosition, direction);
     const distancesFromOrigin = {};
     populateDistancesFromOrigin(userPosition, [route], distancesFromOrigin);
-    // console.log(JSON.stringify(distancesFromOrigin));
     const computedDistance = routeAwarePerpendicularDistance(userPosition, vehicleLocation, distancesFromOrigin);
     const nonAdjustedDistance = perpendicularDegreeDistance(userPosition, vehiclePosition, direction);
     const hasEqualValues = (computedDistance == nonAdjustedDistance);
-    console.log(`${computedDistance}\t${nonAdjustedDistance}\t${hasEqualValues}`);
     expect(computedDistance).toBe(expectedComputedDistance);
     expect(hasEqualValues).toBe(adjustmentEqualsRegular);
     
