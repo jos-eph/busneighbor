@@ -9,7 +9,7 @@ import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
 
 const PUSHPIN_CLASS = "map-pushpin-style"
 
-const ICON_PATH = '../../mapgraphics/';
+const ICON_PATH = '../mapgraphics/';
 
 
 function centeredIconProperties(iconX, iconY) {
