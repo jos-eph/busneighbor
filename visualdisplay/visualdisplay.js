@@ -15,7 +15,8 @@ await store.initialize();
 
 function paintMap() {
   map.clearPushpins();
-  map.populate(getPushpins(store));
+  map.populate(getPushpins(store), store.userLocation);
+  console.log("userLocation for painting: ", store.userLocation);
 }
 
 // Main body functions

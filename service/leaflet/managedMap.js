@@ -3,6 +3,7 @@
 import { DirectedPushpin } from "../../model/directedPushpin.js";
 import { getMinimumEnclosingRectangle } from "../location.js";
 import { Directions } from "../../model/directions_impacted.js";
+import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
 
 // Define constants
 
@@ -73,6 +74,7 @@ class ManagedMap {
         }
     }
 
+
     initialize() {
         this.leafletMap = L.map(this.element).setView([39.9453, -75.1418], 14);
        // Add OpenStreetMap tiles
@@ -82,32 +84,63 @@ class ManagedMap {
            }).addTo(this.leafletMap);
     }
 
+    /**
+     * Zoom to the rectangle that encloses given locations
+     *
+     * @param {Array<LatitudeLongitude>} locations 
+     */
+    zoomToLocations(locations) {
+        this.leafletMap.flyToBounds(getMinimumEnclosingRectangle(locations));
+    }
+    
+    
+    /**
+     * Zoom in to a location (such as "you are here")
+     *
+     * @param {LatitudeLongitude} location 
+     */
+    zoomAroundLocation(location) {
+        this.leafletMap.flyTo([location.latitude, location.longitude], 15);
+    }
 
-// need to test this
+    
+    /**
+     * Draw a pushpin
+     *
+     * @param {DirectedPushpin} pushpinRequest
+     * @returns {L.marker} 
+     */
+    _drawPushpin(pushpinRequest) {
+        const icon = getIconForDirection(pushpinRequest.direction);
+        const newPushpin = L.marker([pushpinRequest.latitude, pushpinRequest.longitude], {icon: icon});
+        newPushpin
+            .addTo(this.leafletMap)
+            .bindTooltip(pushpinRequest.name, {
+              permanent: true,         // Always show the label
+              direction: 'top',
+              opacity: 1.0,
+              className: 'map-pushpin-style' // Add a CSS class for styling
+            });
+        this.pushpinData.set(pushpinRequest, newPushpin);
+        return newPushpin;
+    }
 
     /**
      * Adds pushpins to the map
      *
      * @param {Array<DirectedPushpin>} pushpinRequests
+     * @param {LatitudeLongitude} userLocation
      */
-    populate(pushpinRequests) {
+    populate(pushpinRequests, userLocation) {
         this.clearPushpins();
         for (const pushpinRequest of pushpinRequests) {
-            const icon = getIconForDirection(pushpinRequest.direction);
-            const newPushpin = L.marker([pushpinRequest.latitude, pushpinRequest.longitude], {icon: icon});
-            console.log(this.leafletMap);
-            newPushpin
-                .addTo(this.leafletMap)
-                .bindTooltip(pushpinRequest.name, {
-                  permanent: true,         // Always show the label
-                  direction: 'top',
-                  opacity: 1.0,
-                  className: 'map-pushpin-style' // Add a CSS class for styling
-                });
-            this.pushpinData.set(pushpinRequest, newPushpin);
+            this._drawPushpin(pushpinRequest);
         }
-        if (this.populateRequests === 0) {
-            this.leafletMap.flyToBounds(getMinimumEnclosingRectangle(pushpinRequests));
+        if (location !== undefined) {
+            this._drawPushpin(new DirectedPushpin(
+                userLocation.latitude, userLocation.longitude, "You!", Directions.STATIONARY
+            ));
+            this.zoomAroundLocation(userLocation);
         }
         this.populateRequests += 1;
 
