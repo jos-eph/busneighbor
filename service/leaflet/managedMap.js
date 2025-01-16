@@ -18,7 +18,7 @@ function centeredIconProperties(iconX, iconY) {
      };
 }
      
-const ICON_SIZE = [20, 20];       
+const ICON_SIZE = [16, 16];       
 
 const ICON_NORTH = L.icon({iconUrl: `${ICON_PATH}CompassN.svg`, ...centeredIconProperties(...ICON_SIZE)});
 const ICON_SOUTH = L.icon({iconUrl: `${ICON_PATH}CompassS.svg`, ...centeredIconProperties(...ICON_SIZE)})
@@ -63,6 +63,7 @@ class ManagedMap {
      * @param {Array<DirectedPushpin>} pushpinRequests
      */
     constructor(element, pushpinRequests) {
+        this.populateRequests = 0;
         this.pushpinData = new Map();
         this.leafletMap = null;
         this.element = element;
@@ -104,8 +105,11 @@ class ManagedMap {
                   className: 'map-pushpin-style' // Add a CSS class for styling
                 });
             this.pushpinData.set(pushpinRequest, newPushpin);
+        }
+        if (this.populateRequests === 0) {
             this.leafletMap.flyToBounds(getMinimumEnclosingRectangle(pushpinRequests));
         }
+        this.populateRequests += 1;
 
     }
 
