@@ -21,6 +21,7 @@ function centeredIconProperties(iconX, iconY) {
      
 const ICON_SIZE = [16, 16];       
 
+console.log("About to make icons...");
 const ICON_NORTH = L.icon({iconUrl: `${ICON_PATH}CompassN.svg`, ...centeredIconProperties(...ICON_SIZE)});
 const ICON_SOUTH = L.icon({iconUrl: `${ICON_PATH}CompassS.svg`, ...centeredIconProperties(...ICON_SIZE)})
 const ICON_EAST = L.icon({iconUrl: `${ICON_PATH}CompassE.svg`, ...centeredIconProperties(...ICON_SIZE)})
