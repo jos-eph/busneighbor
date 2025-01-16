@@ -10,4 +10,3 @@ To run unit tests, configure by running `npm install --save-dev @babel/core @bab
 # License
 TBD, but your first clue is that I don't mind the source being public :-)
 
- 
