@@ -8,7 +8,7 @@ console.log("Loading demo map painting...");
 const routes = ["45", "33", "38", "29", "47", "4", "40"]
 
 const mapElement = document.getElementById("simplemap");
-const map = new ManagedMap(mapElement);
+const map = new ManagedMap(mapElement, "..");
 
 const store = new Store(routes);
 await store.initialize();
