@@ -48,6 +48,7 @@ class ManagedMap {
         }
     }
 
+
     /**
      * Map direction strings to icons
      *
