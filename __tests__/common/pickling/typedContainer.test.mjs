@@ -39,6 +39,12 @@ test('Roundtrip JSON serialization with a TypedContainer works', () => {
     expect(jsonParsed).toMatchObject(EXPECTED_SERIALIZATION);
 });
 
+test('TypedContainer get works', () => {
+    const container = getTestContainer();
+
+    expect(container.get("hello")).toMatchObject(["abc123",null,false]);
+});
+
 test('typedContainer with created with a Map throws a TypeError', () => {
     expect( () => {
         const testContainer = new TypedContainer();

@@ -11,7 +11,6 @@ function setPickleable(obj) {
 }
 
 function isPickleable(obj) {
-    console.log("Testing this obj", obj);
     if (obj === null) {
         return true;
     }
