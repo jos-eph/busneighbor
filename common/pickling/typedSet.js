@@ -5,11 +5,12 @@ class TypedSet extends Set {
         if (initialSet === null || initialSet === undefined)  {
             super(initialSet);
         } else {
+            console.log("Else statement; initialSet was ", initialSet);
             for (const item of initialSet) {
                 testPickleable(item);
             }
             console.log("Calling Set constructor on ...", initialSet);
-            super(initialSet);    
+            super(initialSet);    // is this the problem line? can we just add the items individually???
         }
     }
 
