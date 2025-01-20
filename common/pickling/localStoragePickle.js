@@ -13,6 +13,8 @@ class LocalStoragePickle {
     }
 
     deserialize(value) {
+        const deserialized = JSON.parse(value);
+        console.log("Deserialized: ", deserialized);
         return JSON.parse(value);
     }
 
@@ -22,6 +24,7 @@ class LocalStoragePickle {
 
     get (key) {
         const retrieved = localStorage.getItem(key);
+        console.log(`Retrieved for key ${key}`, retrieved);
         return this.deserialize(retrieved);
     }
 
@@ -37,6 +40,7 @@ class LocalStoragePickle {
     retrieveSet(key) {
         const setKey = `${this.setPrefix}${key}`;
         const retrieved = this.get(setKey);
+        console.log("retrieved in retrieveSet: ", retrieved);
         return new TypedSet(retrieved);
     }
     

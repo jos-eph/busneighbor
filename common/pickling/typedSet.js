@@ -1,11 +1,16 @@
-import { testPickleable } from "./utils";
+import { testPickleable } from "./utils.js";
 
 class TypedSet extends Set {
     constructor(initialSet) {
-        for (const item of initialSet) {
-            testPickleable(item);
+        if (initialSet === null || initialSet === undefined)  {
+            super(initialSet);
+        } else {
+            for (const item of initialSet) {
+                testPickleable(item);
+            }
+            console.log("Calling Set constructor on ...", initialSet);
+            super(initialSet);    
         }
-        super(initialSet);
     }
 
     add(item) {
