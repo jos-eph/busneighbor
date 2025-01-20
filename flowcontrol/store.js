@@ -3,6 +3,7 @@ import { POPULATED_ALERTS, POPULATED_LOCATIONS } from '../service/processors/sto
 import { populateAlertsStore, populateLocationsStore } from '../service/processors/store_organizers.js';
 import { indexAlert, indexLocation } from '../service/processors/indexed_processors.js';
 import { processStore } from '../service/processors/processor_aggregators.js';
+import { getCurrentCoordinatesPromise } from '../service/location.js';
 
 class Store {
     constructor(routes) {
@@ -12,9 +13,11 @@ class Store {
         this.sortedAlerts = {};
         this.sortedLocations = {};
         this.distancesFromOrigin = {};
+        this.userLocation = undefined;
     }
 
     async initialize() {
+        this.userLocation = await getCurrentCoordinatesPromise();
         await this.requestAlertsRefresh();
         await this.requestLocationsRefresh();
         this.indexAlerts();
@@ -35,7 +38,7 @@ class Store {
 
     // Locations
     async requestLocationsRefresh() {
-        return populateLocationsStore(this.routes, this.locationsStore, this.distancesFromOrigin);
+        return populateLocationsStore(this.routes, this.locationsStore, this.distancesFromOrigin, this.userLocation);
     }
 
     indexLocations() {

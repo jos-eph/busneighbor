@@ -9,7 +9,7 @@ import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
 
 const PUSHPIN_CLASS = "map-pushpin-style"
 
-const ICON_PATH = '../../mapgraphics/';
+const ICON_PATH = '../mapgraphics/';
 
 
 function centeredIconProperties(iconX, iconY) {
@@ -20,40 +20,11 @@ function centeredIconProperties(iconX, iconY) {
 }
      
 const ICON_SIZE = [16, 16];       
-
-console.log("About to make icons...");
-const ICON_NORTH = L.icon({iconUrl: `${ICON_PATH}CompassN.svg`, ...centeredIconProperties(...ICON_SIZE)});
-const ICON_SOUTH = L.icon({iconUrl: `${ICON_PATH}CompassS.svg`, ...centeredIconProperties(...ICON_SIZE)})
-const ICON_EAST = L.icon({iconUrl: `${ICON_PATH}CompassE.svg`, ...centeredIconProperties(...ICON_SIZE)})
-const ICON_WEST = L.icon({iconUrl: `${ICON_PATH}CompassW.svg`,...centeredIconProperties(...ICON_SIZE)})
-const ICON_SMILEY = L.icon({iconUrl: `${ICON_PATH}Smiley.svg`, ...centeredIconProperties(...ICON_SIZE)});
-
-
-const ICON_MAPPINGS = new Map();
-    ICON_MAPPINGS.set(Directions.NORTH, ICON_NORTH);
-    ICON_MAPPINGS.set(Directions.SOUTH, ICON_SOUTH);
-    ICON_MAPPINGS.set(Directions.WEST, ICON_WEST);
-    ICON_MAPPINGS.set(Directions.EAST, ICON_EAST);
-    ICON_MAPPINGS.set(Directions.STATIONARY, ICON_SMILEY);
-
-
-
-/**
- * Get icon mapping for a direction
- *
- * @param {string} direction
- * @returns {L.Icon}
- */
-function getIconForDirection(direction) {
-    // for some reason, cannot retrieve data from this map using this GET call
-    const icon = ICON_MAPPINGS.get(direction);
-    if (icon === undefined) {
-        throw new Error("Missing icon mapping!");
-    }
-    return icon;
-}
+const MAP_GRAPHIC_DIRECTORY_AFTER_ROOT = "/mapgraphics";
 
 // Core map class
+
+// http://127.0.0.1:5500/visualdisplay/undefined/mapgraphics/CompassS.svg
 
 class ManagedMap {
     
@@ -63,10 +34,12 @@ class ManagedMap {
      * @constructor
      * @param {HTMLElement} element
      * @param {Array<DirectedPushpin>} pushpinRequests
+     * @param {string} pathToRepoRoot Path to repo root for the file where the map is imported
      */
-    constructor(element, pushpinRequests) {
+    constructor(element, pathToRepoRoot, pushpinRequests) {
         this.populateRequests = 0;
         this.pushpinData = new Map();
+        this.iconMappings = this.getDirectionIconMap(pathToRepoRoot);
         this.leafletMap = null;
         this.element = element;
         this.initialize();
@@ -75,6 +48,47 @@ class ManagedMap {
         }
     }
 
+
+    /**
+     * Map direction strings to icons
+     *
+     * @param {string} repoRoot Path relative to root where managedMap is invoked
+     */
+    getDirectionIconMap(repoRoot) {
+        const iconPath = `${repoRoot}${MAP_GRAPHIC_DIRECTORY_AFTER_ROOT}`;
+
+        console.log("About to make icons...");
+        const iconNorth = L.icon({iconUrl: `${iconPath}/CompassN.svg`, ...centeredIconProperties(...ICON_SIZE)});
+        const iconSouth = L.icon({iconUrl: `${iconPath}/CompassS.svg`, ...centeredIconProperties(...ICON_SIZE)})
+        const iconEast = L.icon({iconUrl: `${iconPath}/CompassE.svg`, ...centeredIconProperties(...ICON_SIZE)})
+        const iconWest = L.icon({iconUrl: `${iconPath}/CompassW.svg`,...centeredIconProperties(...ICON_SIZE)})
+        const iconSmiley = L.icon({iconUrl: `${iconPath}/Smiley.svg`, ...centeredIconProperties(...ICON_SIZE)});
+
+
+        const iconMappings = new Map();
+            iconMappings.set(Directions.NORTH, iconNorth);
+            iconMappings.set(Directions.SOUTH, iconSouth);
+            iconMappings.set(Directions.WEST, iconWest);
+            iconMappings.set(Directions.EAST, iconEast);
+            iconMappings.set(Directions.STATIONARY, iconSmiley);
+
+        return iconMappings;
+    }
+
+    /**
+     * Get icon mapping for a direction
+     *
+     * @param {string} direction
+     * @returns {L.Icon}
+     */
+    getIconForDirection(direction) {
+        // for some reason, cannot retrieve data from this map using this GET call
+        const icon = this.iconMappings.get(direction);
+        if (icon === undefined) {
+            throw new Error(`Missing icon mapping for ${direction}!`);
+        }
+        return icon;
+    }
 
     initialize() {
         this.leafletMap = L.map(this.element).setView([39.9453, -75.1418], 14);
@@ -112,7 +126,7 @@ class ManagedMap {
      * @returns {L.marker} 
      */
     _drawPushpin(pushpinRequest) {
-        const icon = getIconForDirection(pushpinRequest.direction);
+        const icon = this.getIconForDirection(pushpinRequest.direction);
         const newPushpin = L.marker([pushpinRequest.latitude, pushpinRequest.longitude], {icon: icon});
         newPushpin
             .addTo(this.leafletMap)

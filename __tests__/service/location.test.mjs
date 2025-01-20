@@ -131,9 +131,6 @@ const EXPECTED_FAKE_VEHICLE_SCORE_AND_APPROACHING = [
   [MOCK_USER_LOCATION.latitude - FAKE_VEHICLE_LOCATION_AND_DIRECTION[5][3].latitude, false]
 ]
 
-console.log(`Expected fake vehicle: ${EXPECTED_FAKE_VEHICLE_SCORE_AND_APPROACHING}`);
-
-// need to test above and confirm that these calculations are correct
 test.each(FAKE_VEHICLE_LOCATION_AND_DIRECTION)
 ('%p - Expect correct perpendicular distance for route %p going %p coordinates %p', (testCaseNumber, route, direction, vehicleLocation) => {
   expect(perpendicularDegreeDistance(MOCK_USER_LOCATION, vehicleLocation, direction)).toBe(EXPECTED_FAKE_VEHICLE_SCORE_AND_APPROACHING[testCaseNumber][0])

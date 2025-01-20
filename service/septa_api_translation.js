@@ -77,7 +77,6 @@ function routeAwarePerpendicularDistance(userLocation, processedLocation, distan
     const userToRouteBeginDistance = distancesFromOrigin?.[route]?.[direction];
     const routeBeginningLocation = startStop?.[route]?.[direction]?.begins;
     let referenceLocation;
-    console.log(`distance test ${route}${direction} - userLocation ${JSON.stringify(userLocation)} \n routeBeginningLocation ${JSON.stringify(routeBeginningLocation)} \n userToRoute ${JSON.stringify(userToRouteBeginDistance)} `);
     if (userToRouteBeginDistance === undefined || userToRouteBeginDistance > 0 || routeBeginningLocation === undefined) {
         referenceLocation = userLocation;
     } else {

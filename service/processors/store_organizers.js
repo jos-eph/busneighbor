@@ -16,12 +16,11 @@ function locationSorter(location1, location2) {
     return location1[PERPENDICULAR_DISTANCE] - location2[PERPENDICULAR_DISTANCE];
 }
 
-async function populateLocationsStore(routes, locationsStore, distancesFromOrigin) {
-    const currentLocation = await getCurrentCoordinatesPromise();
+async function populateLocationsStore(routes, locationsStore, distancesFromOrigin, userLocation) {
     console.log("Logging startStop at pLs...");
     console.log(startStop);
-    populateDistancesFromOrigin(currentLocation, routes, distancesFromOrigin, startStop);
-    const createProcessedLocation = createProcessedLocationFactoryV2(currentLocation, distancesFromOrigin, startStop);
+    populateDistancesFromOrigin(userLocation, routes, distancesFromOrigin, startStop);
+    const createProcessedLocation = createProcessedLocationFactoryV2(userLocation, distancesFromOrigin, startStop);
     return processRouteGets(routes, getLocationDataV2,
         createProcessedLocation, locationsStore, locationFilter, locationSorter
         );
