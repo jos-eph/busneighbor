@@ -11,6 +11,7 @@ function setPickleable(obj) {
 }
 
 function isPickleable(obj) {
+
     if (obj === null) {
         return true;
     }

@@ -4,21 +4,21 @@ import { TypedSet } from "../../common/pickling/typedSet.js";
 
 const pickle = new LocalStoragePickle();
 
-const setName = "mySet";
-pickle.storeSet(setName, new TypedSet());
+// Setup
 pickle.set("Raul", "Lua R.");
 const element = document.getElementById("Whatever");
 element.innerText = pickle.get("Raul");
 const secondElement = document.getElementById("Whatever2");
 
+// Set property
+const setName = "mySet";
+
 
 function augment() {
     const mySet = pickle.retrieveSet(setName);
-    console.log("mySet: ",mySet,"mySet.size: ",`${mySet.size}`);
     if (mySet.size == 0) {
         mySet.add(1);
     } else {
-        console.log(mySet);
         const arr = Array.from(mySet);
         const last = arr.at(-1);
         mySet.add(last + 4);
@@ -34,7 +34,6 @@ function augment() {
 function refresher() {
     const newSet = augment();
     secondElement.innerText=newSet.toJsonString();
-    console.log(`Cycling, ${newSet.toJsonString()}...`);
     pickle.storeSet(setName, newSet);
 }
 
