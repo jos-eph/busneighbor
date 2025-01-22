@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile-Friendly List Picker</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .list-container {
+      flex-grow: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch; /* Important for smooth scrolling on iOS */
+    }
+
+    .list-item {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+      font-size: 18px;
+    }
+
+    .selected {
+      background-color: #f0f0f0; /* Highlight the selected item */
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="list-container" id="listContainer">
+    </div>
+</div>
+
+<script>
+  const listContainer = document.getElementById('listContainer');
+
+  // Generate list items (replace with your actual data)
+  for (let i = 1; i <= 100; i++) {
+    const listItem = document.createElement('div');
+    listItem.classList.add('list-item');
+    listItem.textContent = i;
+    listContainer.appendChild(listItem);
+  }
+
+  let selectedIndex = null; // Keep track of the selected item
+
+  listContainer.addEventListener('click', (event) => {
+    const listItem = event.target.closest('.list-item');
+    if (listItem) {
+      // Remove selection from previously selected item
+      if (selectedIndex !== null) {
+        listContainer.children[selectedIndex].classList.remove('selected');
+      }
+
+      // Add selection to the clicked item
+      selectedIndex = Array.from(listContainer.children).indexOf(listItem);
+      listItem.classList.add('selected');
+
+      // Get the selected value
+      const selectedValue = listItem.textContent;
+      console.log("Selected Value:", selectedValue);
+    }
+  });
+</script>
+
+</body>
+</html>
