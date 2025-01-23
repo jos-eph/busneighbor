@@ -12,6 +12,12 @@ const formElement = document.getElementById(ROUTE_SUBMISSION_FORM);
 const inputElement = document.getElementById(ROUTE_SUBMISSION_INPUT);
 const checkboxesElement = document.getElementById(CHECKBOXES_DIV);
 
+const PARENT_NAME_SUFFIX = "DivParentSuffix"
+const parentDivName = (childName) => `${childName}${PARENT_NAME_SUFFIX}`;
+
+// Organize globals
+const globalSet = new Set();
+
 // Create handlers
 function testEventOfType(event, type) {
     if (!(event instanceof Event)) {
@@ -22,6 +28,22 @@ function testEventOfType(event, type) {
         throw new Error(`Type was ${event.type}, not ${type} as expected!`);
     }
     
+    return true;
+}
+
+
+
+/**
+ * Confirm an element is of a particular tag
+ *
+ * @param {HTMLElement} element 
+ * @param {string} tag 
+ * @returns {boolean} 
+ */
+function testElementOfTag(element, tag) {
+    if (element.tagName.toLowerCase() !== tag.toLowerCase()) {
+        throw new Error(`Tag was ${element.tagName}, not ${tag} as expected!`);
+    }
     return true;
 }
 
@@ -49,7 +71,7 @@ function handleSubmitEvent(submitEvent) {
 }
 
 /**
- * React to change events
+ * React to change events, generic
  *
  * @param {Event} changeEvent 
  */
@@ -58,16 +80,48 @@ function handleChangeEvent(changeEvent) {
     alert(`Target ${changeEvent.target}, ${changeEvent.currentTarget}`);
 }
 
+/**
+ * React to change events, checkboxes
+ *
+ * @param {Event} changeEvent 
+ * @param {Function} uncheckedAction
+ */
+function checkboxRemovalFactory(uncheckedAction) {
+    return (event) => {
+        testEventOfType(event, CHANGE_EVENT);
+        const checkbox = event.target;
+        testElementOfTag(checkbox, "input");
+        if (uncheckedAction === undefined) {
+            throw new Error("No action assigned for checkbox unchecked!");
+        }
+        if (checkbox.checked === false) {
+            uncheckedAction(checkbox);
+        }
+    };
+}
+
+
 
 // Generate checkbox
+function removeCheckedCheckbox(checkbox) {
+    const name = checkbox.name;
+    globalSet.delete(name);
+    
+    const parentDiv = document.getElementById(parentDivName(name));
+    parentDiv.remove();
+}
+
+
 function generateCheckbox(checkboxText) {
     const newDiv = document.createElement("div");
+    newDiv.setAttribute("id", parentDivName(checkboxText));
 
     const newInput = document.createElement("input");
     newInput.setAttribute("type", "checkbox");
     newInput.setAttribute("id", checkboxText);
     newInput.setAttribute("name", checkboxText);
     newInput.checked = true;
+    newInput.addEventListener(CHANGE_EVENT, checkboxRemovalFactory(removeCheckedCheckbox)); //
 
     const newLabel = document.createElement("label");
     newLabel.setAttribute("for", checkboxText);
