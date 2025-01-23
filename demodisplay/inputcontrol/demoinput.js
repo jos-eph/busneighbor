@@ -2,6 +2,7 @@
 
 const ROUTE_SUBMISSION_FORM = "routeSubmissionForm";
 const ROUTE_SUBMISSION_INPUT = "busRouteInput";
+const SUBMIT_BUTTON = "submitButton";
 const CHECKBOXES_DIV = "checkboxes";
 const KEYUP_EVENT = "keyup";
 const SUBMIT_EVENT = "submit";
@@ -10,6 +11,7 @@ const ENTER_KEY = "Enter";
 
 const formElement = document.getElementById(ROUTE_SUBMISSION_FORM);
 const inputElement = document.getElementById(ROUTE_SUBMISSION_INPUT);
+const submitElement = document.getElementById(SUBMIT_BUTTON);
 const checkboxesElement = document.getElementById(CHECKBOXES_DIV);
 
 const PARENT_NAME_SUFFIX = "DivParentSuffix"
@@ -18,7 +20,22 @@ const parentDivName = (childName) => `${childName}${PARENT_NAME_SUFFIX}`;
 // Organize globals
 const globalSet = new Set();
 
-// Create handlers
+// Typing tests
+
+const TRYING_TO_SUBMIT_SET = new Set([inputElement, submitElement, formElement]);
+/**
+ * Description placeholder
+ *
+ * @param {Event} event 
+ */
+function testEventForInputBox(event) {
+    if (TRYING_TO_SUBMIT_SET.has(event.target)) {
+        console.log("Tested event is for box!");
+    } else {
+        console.log("Tested event is not for box!");        
+    }
+}
+
 function testEventOfType(event, type) {
     if (!(event instanceof Event)) {
         throw new TypeError("Not an event!");
@@ -30,8 +47,6 @@ function testEventOfType(event, type) {
     
     return true;
 }
-
-
 
 /**
  * Confirm an element is of a particular tag
@@ -47,6 +62,19 @@ function testElementOfTag(element, tag) {
     return true;
 }
 
+// Add checkbox, manage set
+function addCheckbox() {
+    const inputValue = inputElement.value;
+    if (inputValue && !globalSet.has(inputValue)) {
+        globalSet.add(inputValue);
+        checkboxesElement.appendChild(generateCheckbox(inputValue));
+    }
+    inputElement.value = "";
+}
+
+
+// Create handlers
+
 /**
  * React to keypresses
  *
@@ -54,20 +82,23 @@ function testElementOfTag(element, tag) {
  */
 function handleKeyPress(keyUpEvent) {
     testEventOfType(keyUpEvent, KEYUP_EVENT);
+    testEventForInputBox(keyUpEvent);
     if (keyUpEvent.key === ENTER_KEY) {
         alert("Triggering fake submit!");
     }
 }
 
-
 /**
  * Handle submit event
  *
- * @param {*} submitEvent 
+ * @param {Event} submitEvent 
  */
 function handleSubmitEvent(submitEvent) {
     testEventOfType(submitEvent, SUBMIT_EVENT);
+    testEventForInputBox(submitEvent);
+    submitEvent.preventDefault();
     alert("Submit event triggered!");
+    addCheckbox();
 }
 
 /**
@@ -77,7 +108,9 @@ function handleSubmitEvent(submitEvent) {
  */
 function handleChangeEvent(changeEvent) {
     testEventOfType(changeEvent, CHANGE_EVENT);
-    alert(`Target ${changeEvent.target}, ${changeEvent.currentTarget}`);
+    testEventForInputBox(changeEvent);
+    changeEvent.preventDefault();
+    addCheckbox();
 }
 
 /**
@@ -100,9 +133,7 @@ function checkboxRemovalFactory(uncheckedAction) {
     };
 }
 
-
-
-// Generate checkbox
+// Checkbox handling
 function removeCheckedCheckbox(checkbox) {
     const name = checkbox.name;
     globalSet.delete(name);
