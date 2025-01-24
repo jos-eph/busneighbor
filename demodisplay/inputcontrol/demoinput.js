@@ -70,6 +70,19 @@ function testElementOfTag(element, tag) {
 // Multi-element functions
 function textInputToCheckbox() {
     const inputValue = inputElement.value;
+    if (!VALID_ROUTES.has(inputValue)) {
+        inputElement.style.backgroundColor = INVALID_BUS_COLOR;
+        submitElement.style.backgroundColor = INVALID_BUS_COLOR;
+        setTimeout(
+            () => 
+                { 
+                    inputElement.style.backgroundColor = DEFAULT_INPUT_COLOR;
+                    submitElement.style.backgroundColor = DEFAULT_INPUT_COLOR;
+                },
+            2000
+        )
+        return;
+    }
     if (inputValue && !displayedBuses.has(inputValue)) {
         displayedBuses.add(inputValue);
         checkboxesElement.appendChild(generateCheckbox(inputValue));
