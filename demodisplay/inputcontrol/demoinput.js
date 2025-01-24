@@ -18,7 +18,13 @@ const PARENT_NAME_SUFFIX = "DivParentSuffix"
 const parentDivName = (childName) => `${childName}${PARENT_NAME_SUFFIX}`;
 
 // Organize globals
-const globalSet = new Set();
+const displayedBuses = new Set();
+const VALID_ROUTES = new Set(["1","2","3","5","8","13","21", "34"]);
+const BUS_EXISTS_COLOR = "lightgreen";
+const BUS_IN_SET_COLOR = "grey";
+const CANT_SUBMIT_COLOR = "grey";
+const INVALID_BUS_COLOR = "red";
+const DEFAULT_INPUT_COLOR = "";
 
 // Typing tests
 
@@ -30,9 +36,8 @@ const TRYING_TO_SUBMIT_SET = new Set([inputElement, submitElement, formElement])
  */
 function testEventForInputBox(event) {
     if (TRYING_TO_SUBMIT_SET.has(event.target)) {
-        console.log("Tested event is for box!");
     } else {
-        console.log("Tested event is not for box!");        
+        throw new Error("Tested event is not for box!");        
     }
 }
 
@@ -62,14 +67,32 @@ function testElementOfTag(element, tag) {
     return true;
 }
 
-// Add checkbox, manage set
-function addCheckbox() {
+// Multi-element functions
+function textInputToCheckbox() {
     const inputValue = inputElement.value;
-    if (inputValue && !globalSet.has(inputValue)) {
-        globalSet.add(inputValue);
+    if (inputValue && !displayedBuses.has(inputValue)) {
+        displayedBuses.add(inputValue);
         checkboxesElement.appendChild(generateCheckbox(inputValue));
     }
     inputElement.value = "";
+}
+
+function matchInputColor() {
+    const currentInput = inputElement.value;
+    console.log(currentInput, typeof currentInput);
+    if (VALID_ROUTES.has(currentInput)) {
+        if (displayedBuses.has(currentInput)) {
+            inputElement.style.backgroundColor = BUS_IN_SET_COLOR;
+            submitElement.style.backgroundColor = CANT_SUBMIT_COLOR;
+        }
+        else {
+            inputElement.style.backgroundColor = BUS_EXISTS_COLOR;
+            submitElement.style.backgroundColor = BUS_EXISTS_COLOR;
+        }
+    } else {
+        inputElement.style.backgroundColor = DEFAULT_INPUT_COLOR;
+        submitElement.style.backgroundColor = DEFAULT_INPUT_COLOR;
+    }
 }
 
 
@@ -80,12 +103,14 @@ function addCheckbox() {
  *
  * @param {Event} keyUpEvent 
  */
-function handleKeyPress(keyUpEvent) {
+function handleTextInputKeyPress(keyUpEvent) {
     testEventOfType(keyUpEvent, KEYUP_EVENT);
     testEventForInputBox(keyUpEvent);
+    keyUpEvent.preventDefault();
     if (keyUpEvent.key === ENTER_KEY) {
-        alert("Triggering fake submit!");
+        console.log("Enter key recognized!");
     }
+    matchInputColor();    
 }
 
 /**
@@ -93,12 +118,12 @@ function handleKeyPress(keyUpEvent) {
  *
  * @param {Event} submitEvent 
  */
-function handleSubmitEvent(submitEvent) {
+function handleTextInputSubmitEvent(submitEvent) {
     testEventOfType(submitEvent, SUBMIT_EVENT);
     testEventForInputBox(submitEvent);
     submitEvent.preventDefault();
-    alert("Submit event triggered!");
-    addCheckbox();
+    console.log("Input box submit event triggered!");
+    textInputToCheckbox();
 }
 
 /**
@@ -106,11 +131,10 @@ function handleSubmitEvent(submitEvent) {
  *
  * @param {Event} changeEvent 
  */
-function handleChangeEvent(changeEvent) {
+function handleTextInputChangeEvent(changeEvent) {
     testEventOfType(changeEvent, CHANGE_EVENT);
     testEventForInputBox(changeEvent);
-    changeEvent.preventDefault();
-    addCheckbox();
+    matchInputColor();
 }
 
 /**
@@ -136,7 +160,7 @@ function checkboxRemovalFactory(uncheckedAction) {
 // Checkbox handling
 function removeCheckedCheckbox(checkbox) {
     const name = checkbox.name;
-    globalSet.delete(name);
+    displayedBuses.delete(name);
     
     const parentDiv = document.getElementById(parentDivName(name));
     parentDiv.remove();
@@ -167,9 +191,9 @@ function generateCheckbox(checkboxText) {
 
 
 // Register listeners
-inputElement.addEventListener(KEYUP_EVENT, handleKeyPress);
-inputElement.addEventListener(CHANGE_EVENT, handleChangeEvent);
-formElement.addEventListener(SUBMIT_EVENT, handleSubmitEvent);
+inputElement.addEventListener(KEYUP_EVENT, handleTextInputKeyPress);
+inputElement.addEventListener(CHANGE_EVENT, handleTextInputChangeEvent);
+formElement.addEventListener(SUBMIT_EVENT, handleTextInputSubmitEvent);
 checkboxesElement.appendChild(generateCheckbox("A"));
 checkboxesElement.appendChild(generateCheckbox("Bee"));
 
