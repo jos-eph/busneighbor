@@ -30,7 +30,7 @@ const DEFAULT_INPUT_COLOR = "";
 
 const TRYING_TO_SUBMIT_SET = new Set([inputElement, submitElement, formElement]);
 /**
- * Description placeholder
+ * Confirm event applies to input box
  *
  * @param {Event} event 
  */
@@ -87,7 +87,7 @@ function textInputToCheckbox() {
         displayedBuses.add(inputValue);
         checkboxesElement.appendChild(generateCheckbox(inputValue));
     }
-    inputElement.value = "";
+    inputElement.value = ""; // generates its own change event
 }
 
 function matchInputColor() {

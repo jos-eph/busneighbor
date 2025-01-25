@@ -9,6 +9,7 @@ function paintMap() {
   console.log("userLocation for painting: ", store.userLocation);
 }
 
+
 async function refreshAndPaint() {
   console.log("Requesting location refresh");
   await store.requestLocationsRefresh();
