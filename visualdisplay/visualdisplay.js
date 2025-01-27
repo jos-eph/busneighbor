@@ -74,4 +74,4 @@ await store.initialize();
 paintMap();
 
 // Main loop
-setInterval(cycleRefresh, 5000);
+setInterval(cycleRefresh, 3000);
