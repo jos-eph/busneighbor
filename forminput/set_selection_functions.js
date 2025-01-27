@@ -1,6 +1,8 @@
 import { SetSelectionData } from "./set_selection_data.js"
 import { KEYUP_EVENT, SUBMIT_EVENT, CHANGE_EVENT, ENTER_KEY, PARENT_NAME_SUFFIX, parentDivName,
-    ITEM_EXISTS_COLOR, ITEM_IN_SET_COLOR, CANT_SUBMIT_COLOR, INVALID_ITEM_COLOR, DEFAULT_INPUT_COLOR } 
+    ITEM_EXISTS_COLOR, ITEM_IN_SET_COLOR, CANT_SUBMIT_COLOR, INVALID_ITEM_COLOR, DEFAULT_INPUT_COLOR,
+    CHECKBOX_DIV_CLASS
+ } 
     from "./set_selection_constants.js";
 import { assertEventOfType, assertElementOfTag } from "../common/interaction_utils.js";
 
@@ -69,6 +71,7 @@ const generateCheckbox = (setSelection, checkboxText) => {
     // debugger
     const newDiv = document.createElement("div");
     newDiv.setAttribute("id", parentDivName(checkboxText));
+    newDiv.classList.add(CHECKBOX_DIV_CLASS);
 
     const newInput = document.createElement("input");
     newInput.setAttribute("type", "checkbox");
@@ -97,6 +100,7 @@ const getHandleKeyPress = (setSelection) => {
         keyUpEvent.preventDefault();
         if (keyUpEvent.key === ENTER_KEY) {
             console.log("Enter key recognized!"); // swap out the input step? Form submit event is triggered anyway
+            return;
         }
         preSubmissionColor(setSelection);
     }
