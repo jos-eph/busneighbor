@@ -130,6 +130,7 @@ const textInputToCheckbox = (setSelection) => {
         setSelection.checkboxesElement.appendChild(generateCheckbox(setSelection, inputValue));
     }
     setSelection.textInputElement.value = ""; // generates its own change event
+    window.scrollTo(0,0);
     setTimeout( () => resetColors(setSelection), COLOR_BLINK_LENGTH );
 }
 
