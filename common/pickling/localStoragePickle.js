@@ -38,7 +38,11 @@ class LocalStoragePickle {
     retrieveSet(key) {
         const setKey = `${this.setPrefix}${key}`;
         const retrieved = this.deserialize(this.get(setKey));
-        return new TypedSet(retrieved);
+        if (retrieved) {
+            console.log(`Returning stored set ${JSON.stringify(retrieved)}`);
+            return new TypedSet(retrieved);
+        }
+        return null;
     }
     
 }

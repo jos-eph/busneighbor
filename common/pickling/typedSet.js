@@ -17,6 +17,10 @@ class TypedSet extends Set {
         super.add(item);
     }
 
+    toArray() {
+        return Array.from(this);
+    }
+
     toJsonString() {
         return JSON.stringify(Array.from(this));
     }
