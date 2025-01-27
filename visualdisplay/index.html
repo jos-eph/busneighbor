@@ -5,11 +5,24 @@
   <title>Live Pushpin Painting Functionality</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="./leafletneeds.css" />
+  <link rel="stylesheet" href="./visualstyling.css" />
   </style>
 </head>
 <body>
   Pushpin painting live demo.
   <div class="managed-map" id="simplemap"></div>
+  <div class="inputText" id="inputArea">
+    <form id="routeSubmissionForm">
+      <fieldset>
+        <label for="busRoute">Enter bus route:</label>
+        <input type="search" id="busRouteInput" name="busRoute" 
+        required minlength="1" maxlength="3" size="10" autofocus="true" 
+        autocapitalize="characters" autocomplete="false" style="width: 44px; height: 44px;"/>
+        <button type="submit" id="submitButton" style="width: 60px; height: 44px;">Submit</button>
+        <div class="checkbox-group" id="checkboxes"></div>
+      </fieldset>
+    </form>
+  </div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="./visualdisplay.js" type="module"></script>
 </body>

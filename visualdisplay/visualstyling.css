@@ -1,0 +1,9 @@
+.checkbox-group {
+    display: inline-flex;          /* Enable flexbox for better control */
+    flex-direction: row;   /* Stack checkboxes horizontally */    
+}
+
+.checkbox-container {
+    width:50px;
+
+}

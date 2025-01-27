@@ -64,8 +64,14 @@ function defineHiddenProperty(obj, propertyName) {
     });
 }
 
+function setIntersectionLegacy(setA, setB) {
+    const arrayA = Array.from(setA); // Convert setA to an array
+    return new Set(arrayA.filter(element => setB.has(element)));
+  }
+  
+
 export { includesAsWord, concatenateStrings, 
     stalenessSeconds, iterableToString, objectOfKeys, 
-    safeAddToKeyedSet, defineHiddenProperty
+    safeAddToKeyedSet, defineHiddenProperty, setIntersectionLegacy
  };
 
