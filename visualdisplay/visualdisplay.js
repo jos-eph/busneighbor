@@ -1,7 +1,7 @@
 import { Store } from '../flowcontrol/store.js';
 import { ManagedMap } from "../service/leaflet/managedMap.js";
 import { getPushpins } from '../service/displayers/pushpin_displayer.js';
-import { RouteSelectionInput } from '../forminput/route_selection_input.js';
+import { SetSelectionData, getResponsiveSetSelectionData } from '../forminput/set_selection_data.js';
 import { TypedSet } from '../common/pickling/typedSet.js';
 
 // Set Defaults
@@ -14,7 +14,7 @@ const inputElement = document.getElementById("busRouteInput");
 const submitElement = document.getElementById("submitButton");
 const checkboxesElement = document.getElementById("checkboxes");
 
-const routeSelectionInput = new RouteSelectionInput(DEFAULT_PERMITTED_ROUTES,
+const setSelectionInput = getResponsiveSetSelectionData(DEFAULT_PERMITTED_ROUTES,
   formElement, inputElement, submitElement, checkboxesElement);
 
 // Main body functions

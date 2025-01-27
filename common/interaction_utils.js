@@ -6,7 +6,7 @@
  * @param {string} type 
  * @returns {boolean} 
  */
-function testEventOfType(event, type) {
+function assertEventOfType(event, type) {
     if (!(event instanceof Event)) {
         throw new TypeError("Not an event!");
     }
@@ -25,11 +25,11 @@ function testEventOfType(event, type) {
  * @param {string} tag 
  * @returns {boolean} 
  */
-function testElementOfTag(element, tag) {
+function assertElementOfTag(element, tag) {
     if (element.tagName.toLowerCase() !== tag.toLowerCase()) {
         throw new Error(`Tag was ${element.tagName}, not ${tag} as expected!`);
     }
     return true;
 }
 
-export { testElementOfTag, testEventOfType };
+export { assertElementOfTag, assertEventOfType };
