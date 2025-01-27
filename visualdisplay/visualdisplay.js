@@ -15,7 +15,7 @@ const submitElement = document.getElementById("submitButton");
 const checkboxesElement = document.getElementById("checkboxes");
 
 const setSelectionInput = getResponsiveSetSelectionData(DEFAULT_PERMITTED_ROUTES,
-  formElement, inputElement, submitElement, checkboxesElement);
+  formElement, inputElement, submitElement, checkboxesElement, new TypedSet(["45"]));
 
 // Main body functions
 function paintMap() {
@@ -38,7 +38,7 @@ async function cycleRefresh() {
 
 
 // Define routes
-const routes = ["45", "33", "38", "29", "47", "4", "40"]
+const routes = ["45"]
 
 
 // Initialize map

@@ -66,6 +66,7 @@ const checkboxRemovalFactory = (setSelection, uncheckedAction) => {
 
 
 const generateCheckbox = (setSelection, checkboxText) => {
+    // debugger
     const newDiv = document.createElement("div");
     newDiv.setAttribute("id", parentDivName(checkboxText));
 
@@ -97,6 +98,7 @@ const getHandleKeyPress = (setSelection) => {
         if (keyUpEvent.key === ENTER_KEY) {
             console.log("Enter key recognized!"); // swap out the input step? Form submit event is triggered anyway
         }
+        preSubmissionColor(setSelection);
     }
 }
 
@@ -119,8 +121,9 @@ const textInputToCheckbox = (setSelection) => {
         return;
     }
     if (inputValue && !setSelection.selectedSet.has(inputValue)) {
+        // debugger;
         setSelection.selectedSet.add(inputValue);
-        setSelection.checkboxesElement.appendChild(generateCheckbox(inputValue));
+        setSelection.checkboxesElement.appendChild(generateCheckbox(setSelection, inputValue));
     }
     setSelection.textInputElement.value = ""; // generates its own change event
     setTimeout( () => resetColors(setSelection), COLOR_BLINK_LENGTH );
@@ -132,6 +135,7 @@ const getHandleTextSubmitEvent = (setSelection) => {
         assertEventOfType(submitEvent, SUBMIT_EVENT);
         assertEventForInputBox(setSelection, submitEvent);
         submitEvent.preventDefault();
+        // debugger;
         textInputToCheckbox(setSelection);
     }
 }
