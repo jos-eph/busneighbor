@@ -46,20 +46,7 @@ class Store {
         defineHiddenProperty(this.sortedLocations, POPULATED_LOCATIONS);
         processStore(this.locationsStore, indexLocation, this.sortedLocations);
     }
-
-    // Updates
-
-    async addRoute(route) {
-        console.log(`Route add ${route} triggered`);
-        // add them to the set
-        // await populateLocationsStore(routeIterable, this.locationsStore, this.distancesFromOrigin, this.userLocation);
-        // await populateAlertsStore(this.routeIterable, this.alertsStore);
-    }
-
-    async deleteRoute(route) {
-        console.log(`Route delete ${route} triggered`);
-        // delete them from the set
-    }
+    
 }
 
 export { Store }

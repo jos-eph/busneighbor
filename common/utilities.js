@@ -68,10 +68,15 @@ function setIntersectionLegacy(setA, setB) {
     const arrayA = Array.from(setA); // Convert setA to an array
     return new Set(arrayA.filter(element => setB.has(element)));
   }
+
+function setsIdentical(old, newer) {
+    const intersection = setIntersectionLegacy(old, newer);
+    return (intersection.size == old.size) && (intersection.size == newer.size);
+}
   
 
 export { includesAsWord, concatenateStrings, 
     stalenessSeconds, iterableToString, objectOfKeys, 
-    safeAddToKeyedSet, defineHiddenProperty, setIntersectionLegacy
+    safeAddToKeyedSet, defineHiddenProperty, setIntersectionLegacy, setsIdentical
  };
 

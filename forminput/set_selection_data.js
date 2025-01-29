@@ -26,6 +26,11 @@ class SetSelectionData {
         console.log(`SetSelectionInput initialized to ${this.selectedSet.toJsonString()}`);    
     }
 
+    viewSelection() {
+        return new TypedSet(this.selectedSet);
+    }
+
+
 }
 
 const getResponsiveSetSelectionData = (permitted, formElement, textInputElement,
