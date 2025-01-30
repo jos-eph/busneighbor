@@ -1,4 +1,5 @@
 # Purpose
+(New repo)
 
 * Build a project entirely in plain vanilla JavaScript, with no frameworks
 * Use the Jest unit testing framework
