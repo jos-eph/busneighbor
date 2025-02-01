@@ -73,7 +73,6 @@ function setsIdentical(old, newer) {
     const intersection = setIntersectionLegacy(old, newer);
     return (intersection.size == old.size) && (intersection.size == newer.size);
 }
-  
 
 export { includesAsWord, concatenateStrings, 
     stalenessSeconds, iterableToString, objectOfKeys, 
