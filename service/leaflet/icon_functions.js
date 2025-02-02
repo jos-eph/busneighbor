@@ -1,4 +1,5 @@
 /* Depends on leaflet ~= 1.9.4 */
+import { Directions } from "../constants/directions.js";
 
 function _centeredIconProperties(iconX, iconY) {
     return {
@@ -15,7 +16,7 @@ const MAP_GRAPHIC_DIRECTORY_AFTER_ROOT = "/mapgraphics";
  *
  * @param {string} repoRoot Path relative to root where managedMap is invoked
  */
-getDirectionIconMap(repoRoot) {
+function getDirectionIconMap(repoRoot) {
     const iconPath = `${repoRoot}${MAP_GRAPHIC_DIRECTORY_AFTER_ROOT}`;
 
     console.log("About to make icons...");

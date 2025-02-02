@@ -1,10 +1,11 @@
-import { getCurrentCoordinatesPromise } from "../service/location";
+import { getCurrentCoordinatesPromise } from "../service/location.js";
 
 class Store {
     constructor() {
-        this.userLocation = undefined;
-        this.routeLocations = {};
-        this.routeAlerts = {};
+        this.userLocation = undefined;         // updates independent of route updates
+        this.distancesFromOrigin = undefined;  // updates independent of route - but created if does not exist
+        this.routeLocations = {}; // updates in the background
+        this.routeAlerts = {};     // fetched once
     }
 
     async initialize() {
@@ -13,3 +14,5 @@ class Store {
         // this.populateRoutes(); // update continuously;
     }
 }
+
+export { Store }

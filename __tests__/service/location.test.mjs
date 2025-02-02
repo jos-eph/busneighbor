@@ -1,7 +1,7 @@
 import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
 
 import { getCurrentCoordinatesPromise, isApproachingMe, isLatitudeApproaching, isLongitudeApproaching,
-     perpendicularDegreeDistance, getExtremePositions, getMinimumEnclosingRectangle } from "../../service/location";
+     perpendicularDegreeDistance, getExtremePositions, getMinimumEnclosingRectangle } from "../../service/location.js";
 
 const CITY_HALL = new LatitudeLongitude(39.979523, -75.164133);
 

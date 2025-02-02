@@ -122,7 +122,7 @@ class ManagedMap {
 
     
     /**
-     * Description placeholder
+     * Add and track pushpins based on location
      *
      * @param {ProcessedLocationV2} location 
      */
