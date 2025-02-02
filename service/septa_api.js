@@ -58,6 +58,4 @@ async function getRouteAlertsV2(route_id) {
 }
 
 
-export { getLocationData, getRouteAlerts, raiseForStatus,
-  getLocationDataV2, getRouteAlertsV2
- }
+export { raiseForStatus, getLocationDataV2, getRouteAlertsV2 }
