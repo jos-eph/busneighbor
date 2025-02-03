@@ -1,9 +1,9 @@
-import { ManagedMap } from "../service/leaflet/managed_map.js";
-import { SetSelectionData, getResponsiveSetSelectionData } from '../forminput/set_selection_data.js';
-import { TypedSet } from '../common/pickling/typedSet.js';
-import { LocalStoragePickle } from '../common/pickling/localStoragePickle.js';
-import { Store } from "./store/store.js";
-import { updateRoutes } from "./service/map_updater/update_location.js";
+import { ManagedMap } from "/busneighbor/service/leaflet/managed_map.js";
+import { SetSelectionData, getResponsiveSetSelectionData } from '/busneighbor/forminput/set_selection_data.js';
+import { TypedSet } from '/busneighbor/common/pickling/typedSet.js';
+import { LocalStoragePickle } from '/busneighbor/common/pickling/localStoragePickle.js';
+import { Store } from "/busneighbor/store/store.js";
+import { updateRoutes } from "/busneighbor/service/map_updater/update_location.js";
 
 // Set constants
 const DEFAULT_PERMITTED_ROUTES = new TypedSet(["45", "33", "38", "29", "47", "4", "40"]);
@@ -17,7 +17,7 @@ console.log("displayed buses", displayedBuses);
 
 // Identify Elements
 const mapElement = document.getElementById("simplemap");
-const managedMap = new ManagedMap(mapElement, "..");
+const managedMap = new ManagedMap(mapElement);
 
 const removeRouteFromMap = (routeCheckbox) => {
   managedMap.clearRoute(routeCheckbox.name);

@@ -1,10 +1,9 @@
-import { SetSelectionData } from "./set_selection_data.js"
 import { KEYUP_EVENT, SUBMIT_EVENT, CHANGE_EVENT, ENTER_KEY, PARENT_NAME_SUFFIX, parentDivName,
     ITEM_EXISTS_COLOR, ITEM_IN_SET_COLOR, CANT_SUBMIT_COLOR, INVALID_ITEM_COLOR, DEFAULT_INPUT_COLOR,
     CHECKBOX_DIV_CLASS
  } 
-    from "./set_selection_constants.js";
-import { assertEventOfType, assertElementOfTag } from "../common/interaction_utils.js";
+    from "/busneighbor/forminput/set_selection_constants.js";
+import { assertEventOfType, assertElementOfTag } from "/busneighbor/common/interaction_utils.js";
 
 const COLOR_BLINK_LENGTH = 150;
 

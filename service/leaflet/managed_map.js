@@ -1,11 +1,11 @@
 /* Depends on leaflet ~= 1.9.4 */
 
-import { DirectedPushpin } from "../../model/directedPushpin.js";
-import { getMinimumEnclosingRectangle } from "../location.js";
-import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
-import { getDirectionIconMap } from "./icon_functions.js";
-import { ProcessedLocationV2 } from "../../model/processed_location.js";
-import { Directions } from "../constants/directions.js";
+import { DirectedPushpin } from "/busneighbor/model/directedPushpin.js";
+import { getMinimumEnclosingRectangle } from "/busneighbor/service/location.js";
+import { LatitudeLongitude } from "/busneighbor/model/latitudeLongitude.js";
+import { getDirectionIconMap } from "/busneighbor/service/leaflet/icon_functions.js";
+import { ProcessedLocationV2 } from "/busneighbor/model/processed_location.js";
+import { Directions } from "/busneighbor/service/constants/directions.js";
 
 const PUSHPIN_STYLE = "map-pushpin-style";
 const YOU_NAME = "You";
@@ -21,11 +21,11 @@ class ManagedMap {
      * @param {HTMLElement} element
      * @param {string} pathToRepoRoot Path to repo root for the file where the map is imported
      */
-    constructor(element, pathToRepoRoot) {
+    constructor(element) {
         this.populateRequests = 0;
         this.leafletMap = null;
         this.element = element;
-        this.iconMappings = getDirectionIconMap(pathToRepoRoot);
+        this.iconMappings = getDirectionIconMap("/busneighbor");
         this.initialize();
 
         this.vehicleIdLocations = new Map();

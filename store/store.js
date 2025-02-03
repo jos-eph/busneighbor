@@ -1,6 +1,5 @@
-import { Directions } from "../model/directions_impacted.js";
-import { getCurrentCoordinatesPromise } from "../service/location.js";
-import { populateDistancesFromOrigin } from "../service/septa_api_translation.js";
+import { getCurrentCoordinatesPromise } from "/busneighbor/service/location.js";
+import { populateDistancesFromOrigin } from "/busneighbor/service/septa_api_translation.js";
 
 class Store {
     constructor(managedMap, setSelectionInput) {

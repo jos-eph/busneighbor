@@ -1,4 +1,4 @@
-import { LatitudeLongitude } from '../model/latitudeLongitude.js';
+import { LatitudeLongitude } from '/busneighbor/model/latitudeLongitude.js';
 
 const CITY_HALL = new LatitudeLongitude(39.979523, -75.164133);
 
