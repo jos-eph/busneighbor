@@ -1,5 +1,5 @@
-import { Store } from '/flowcontrol/store.js';
-import { getTextStore } from '/service/displayers/text_only_displayer.js';
+import { Store } from '/busneighbor/flowcontrol/store.js';
+import { getTextStore } from '/busneighbor/service/displayers/text_only_displayer.js';
 
 // Define routes
 const routes = ["45", "33", "38", "29", "47", "4", "40"]

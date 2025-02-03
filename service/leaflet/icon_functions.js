@@ -1,5 +1,5 @@
 /* Depends on leaflet ~= 1.9.4 */
-import { Directions } from "/service/constants/directions.js";
+import { Directions } from "/busneighbor/service/constants/directions.js";
 
 function _centeredIconProperties(iconX, iconY) {
     return {

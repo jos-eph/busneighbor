@@ -1,11 +1,11 @@
 /* Depends on leaflet ~= 1.9.4 */
 
-import { DirectedPushpin } from "/model/directedPushpin.js";
-import { getMinimumEnclosingRectangle } from "/service/location.js";
-import { LatitudeLongitude } from "/model/latitudeLongitude.js";
-import { getDirectionIconMap } from "/service/leaflet/icon_functions.js";
-import { ProcessedLocationV2 } from "/model/processed_location.js";
-import { Directions } from "/service/constants/directions.js";
+import { DirectedPushpin } from "/busneighbor/model/directedPushpin.js";
+import { getMinimumEnclosingRectangle } from "/busneighbor/service/location.js";
+import { LatitudeLongitude } from "/busneighbor/model/latitudeLongitude.js";
+import { getDirectionIconMap } from "/busneighbor/service/leaflet/icon_functions.js";
+import { ProcessedLocationV2 } from "/busneighbor/model/processed_location.js";
+import { Directions } from "/busneighbor/service/constants/directions.js";
 
 const PUSHPIN_STYLE = "map-pushpin-style";
 const YOU_NAME = "You";

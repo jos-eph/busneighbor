@@ -1,4 +1,4 @@
-import { PROXY, LOCATION_URL, ROUTE_ALERTS, ALERTS_URL_V2, LOCATION_URL_V2 } from '/service/constants/septa_urls.js'
+import { PROXY, LOCATION_URL, ROUTE_ALERTS, ALERTS_URL_V2, LOCATION_URL_V2 } from '/busneighbor/service/constants/septa_urls.js'
 /**
  * Add Dev Proxy if needed
  *
