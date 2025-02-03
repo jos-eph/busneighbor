@@ -1,5 +1,7 @@
 import { LatitudeLongitude } from '../model/latitudeLongitude.js';
 
+const CITY_HALL = new LatitudeLongitude(39.979523, -75.164133);
+
 function getCurrentCoordinatesPromise() {
     return new Promise((resolve, reject) => {
         if ("geolocation" in navigator) {
@@ -8,7 +10,7 @@ function getCurrentCoordinatesPromise() {
                 (error) => reject(error)
             );
         } else {
-            reject(new Error("Geolocation not supported by this browser."));
+            resolve(CITY_HALL); // default if no navigator;
         }
     });
 }

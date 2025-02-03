@@ -1,6 +1,6 @@
 class ProcessedLocationV2 {
     constructor(processedRouteIdentifier, processedVehicleLocation, processedDirection, processedNextStopName, processedSeatAvailability, processedMinutesLate, processedStalenessSeconds, 
-        timestamp, rawLocation) {
+        timestamp, vehicleId, rawLocation) {
             this.routeIdentifier = processedRouteIdentifier,
             this.vehicleLocation = processedVehicleLocation;
             this.direction = processedDirection;
@@ -9,6 +9,7 @@ class ProcessedLocationV2 {
             this.minutesLate = processedMinutesLate;
             this.stalenessSeconds = processedStalenessSeconds;
             this.timestamp = timestamp;
+            this.vehicleId = vehicleId;
             this.rawLocation = rawLocation;
            }
 }

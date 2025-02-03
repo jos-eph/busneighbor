@@ -1,7 +1,9 @@
 import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
 
 import { getCurrentCoordinatesPromise, isApproachingMe, isLatitudeApproaching, isLongitudeApproaching,
-     perpendicularDegreeDistance, getExtremePositions, getMinimumEnclosingRectangle } from "../../service/location";
+     perpendicularDegreeDistance, getExtremePositions, getMinimumEnclosingRectangle } from "../../service/location.js";
+
+const CITY_HALL = new LatitudeLongitude(39.979523, -75.164133);
 
 class TestCase {
   constructor (userCoordinates, vehicleCoordinates, vehicleDirection) {
@@ -108,7 +110,7 @@ test('Unsupported geolocation capability detected', () => {
   if (global.navigator && ('geolocation' in navigator)) {
     delete navigator.geolocation;
   }
-  return expect(getCurrentCoordinatesPromise()).rejects.toThrow('Geolocation not supported by this browser.');
+  return expect(getCurrentCoordinatesPromise()).resolves.toMatchObject(CITY_HALL);
 })
 
 const FAKE_VEHICLE_LOCATION_AND_DIRECTION = [

@@ -6,7 +6,7 @@ import {
     routeAwarePerpendicularDistance } from "../../service/septa_api_translation.js";
 import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
 import { ProcessedLocationV2 } from "../../model/processed_location.js";
-import { populateDistancesFromOrigin } from "../../service/processors/store_organizers.js";
+import { populateDistancesFromOrigin } from "../../service/septa_api_translation.js";
 import { perpendicularDegreeDistance } from "../../service/location.js";
 
 const EXPECTED_PROCESSED_LOCATION = { // No staleness; staleness is dynamic

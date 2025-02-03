@@ -57,6 +57,7 @@ function createProcessedLocationV2(locationJsonV2) {
         locationJsonV2.delay,
         stalenessSeconds(Number(locationJsonV2.timestamp)),
         locationJsonV2.timestamp,
+        locationJsonV2.vehicle_id,
         locationJsonV2
     );
 }
@@ -65,7 +66,30 @@ const PERPENDICULAR_DISTANCE = "perpendicularDistance";
 
 
 /**
- * Description placeholder
+ * Populate `directionsFromOrigin` with a list of all route-directions 
+ * origins' distance from the current position
+ *
+ * @param {LatitudeLongitude} currentLocation User's location 
+ * @param {Array<string>} routes 
+ * @param {object} distancesFromOrigin Object of the form { "1": {"N": <<number>>,
+     "S": <<number>> }} etc.
+ */
+     function populateDistancesFromOrigin(currentLocation, routes, distancesFromOrigin) {
+        for (const route of Object.keys(startStop)) {
+            for (const direction of Object.keys(startStop[route])) {
+                const routeOriginPosition = startStop?.[route]?.[direction]?.begins;
+                if (routeOriginPosition !== undefined) {
+                    const perpendicularDistance = perpendicularDegreeDistance(currentLocation, routeOriginPosition, direction);
+                    distancesFromOrigin[route] = distancesFromOrigin[route] || {}
+                    distancesFromOrigin[route][direction] = perpendicularDistance;
+                }
+            }
+        }
+    }
+
+
+/**
+ * Provide a relative perpendicular distance -- from the start of the route, 
  *
  * @param {LatitudeLongitude} userLocation 
  * @param {ProcessedLocationV2} processedLocation 
@@ -126,4 +150,4 @@ export { RouteTypes,
 translateDirectionLongForm, createProcessedAlertV2,
 createProcessedLocationV2, createProcessedLocationFactoryV2, 
 MAGIC_TIMESTAMP_FOR_STOPPED_BUS, PERPENDICULAR_DISTANCE, SeatsAvailable,
-routeAwarePerpendicularDistance };
+routeAwarePerpendicularDistance, populateDistancesFromOrigin };

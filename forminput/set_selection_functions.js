@@ -55,6 +55,10 @@ const checkboxRemovalFactory = (setSelection, uncheckedAction) => {
         }
         if (checkbox.checked === false) {
             uncheckedAction(setSelection, checkbox);
+
+            if (setSelection.externalRemovalAction !== undefined) {
+                setSelection.externalRemovalAction(checkbox);
+            }
         }
     };
 }
