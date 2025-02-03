@@ -5,8 +5,10 @@ import { getMinimumEnclosingRectangle } from "../location.js";
 import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
 import { getDirectionIconMap } from "./icon_functions.js";
 import { ProcessedLocationV2 } from "../../model/processed_location.js";
+import { Directions } from "../constants/directions.js";
 
 const PUSHPIN_STYLE = "map-pushpin-style";
+const YOU_NAME = "You";
 
 // http://127.0.0.1:5500/visualdisplay/undefined/mapgraphics/CompassS.svg
 
@@ -30,6 +32,9 @@ class ManagedMap {
         this.pushpinLocations = new Map();
         this.vehicleIdPushpins = new Map();
         this.routePushpins = new Map();
+
+        this.youLocation = {};
+        this.youPushpin = {};
     }
 
     /**
@@ -72,7 +77,7 @@ class ManagedMap {
      * @param {LatitudeLongitude} location 
      */
     zoomAroundLocation(location) {
-        this.leafletMap.flyTo([location.latitude, location.longitude], 15);
+        this.leafletMap.flyTo([location.latitude, location.longitude]);
     }
 
     
@@ -85,7 +90,6 @@ class ManagedMap {
     _drawPushpin(pushpinRequest) {
         const icon = this._getIconForDirection(pushpinRequest.direction);
         // debugger;
-        console.log("pushpinRequest", pushpinRequest);
         const newPushpin = L.marker([pushpinRequest.latitude, pushpinRequest.longitude], {icon: icon});
         newPushpin
             .addTo(this.leafletMap)
@@ -99,7 +103,6 @@ class ManagedMap {
     }
 
     _clearPushpin(pushpin) {
-        console.log("Invoking clearPushpin with ", pushpin);
         const location = this.pushpinLocations.get(pushpin);
         const vehicleId = location.vehicleId;
         const route = location.routeIdentifier;
@@ -127,6 +130,7 @@ class ManagedMap {
     }
 
 
+
     
     /**
      * Add and track pushpins based on location
@@ -146,13 +150,25 @@ class ManagedMap {
         });
 
         const oldPushpin = this.vehicleIdPushpins.get(location.vehicleId);
-        console.log("oldPushpin, newPushpion, vehicleIdPushpins", oldPushpin, newPushpin, this.vehicleIdPushpins);
         if (oldPushpin !== undefined) {
             this._clearPushpin(oldPushpin);            
         }
 
         this._registerPushpin(newPushpin, location);
         return true;
+    }
+
+    placeYou(location) {
+        this.youLocation = location;
+        if (this.youPushpin !== undefined) {
+            this.leafletMap.removeLayer(this.youPushpin);
+        }
+        this.youPushpin = this._drawPushpin({
+            latitude: location.latitude,
+            longitude: location.longitude,
+            direction: Directions.STATIONARY,
+            name: YOU_NAME
+        });
     }
 
 

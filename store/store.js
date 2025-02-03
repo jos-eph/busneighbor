@@ -1,3 +1,4 @@
+import { Directions } from "../model/directions_impacted.js";
 import { getCurrentCoordinatesPromise } from "../service/location.js";
 import { populateDistancesFromOrigin } from "../service/septa_api_translation.js";
 
@@ -36,8 +37,11 @@ class Store {
     }
 
     async refreshUserInfo() {
+        console.log("refresh user info running...");
         await this.updateUserLocation();
         this._refreshDistancesFromOrigin();
+        this.managedMap.placeYou(this.getUserLocation());
+        this.managedMap.zoomAroundLocation(this.getUserLocation());
     }
 
 }

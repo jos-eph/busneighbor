@@ -35,6 +35,9 @@ console.log("Loading main loop...");
 const store = new Store(managedMap, setSelectionInput);
 await store.initialize();
 updateRoutes(store, managedMap, setSelectionInput);
-setInterval(() => {updateRoutes(store, managedMap, setSelectionInput)}, 3000);
+setInterval(() => {
+  updateRoutes(store, managedMap, setSelectionInput);
+  store.refreshUserInfo();
+}, 3000);
 
 // Main loop
