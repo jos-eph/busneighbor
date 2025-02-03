@@ -1,5 +1,5 @@
 import { ManagedMap } from "/busneighbor/service/leaflet/managed_map.js";
-import { SetSelectionData, getResponsiveSetSelectionData } from '/busneighbor/efforminput/set_selection_data.js';
+import { SetSelectionData, getResponsiveSetSelectionData } from '/busneighbor/forminput/set_selection_data.js';
 import { TypedSet } from '/busneighbor/common/pickling/typedSet.js';
 import { LocalStoragePickle } from '/busneighbor/common/pickling/localStoragePickle.js';
 import { Store } from "/busneighbor/store/store.js";
