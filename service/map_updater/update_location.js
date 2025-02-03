@@ -41,6 +41,7 @@ async function updateRouteLocations(route, store, managedMap) {
     const processedLocations = await getProcessedLocations(route, store.getUserLocation(), store.getDistancesFromOrigin());
     
     for (const processedLocation of processedLocations) {
+        // debugger;
         managedMap.addPushpin(processedLocation);
     }
 
@@ -57,7 +58,6 @@ async function updateRouteLocations(route, store, managedMap) {
  */
 function updateRoutes(store, managedMap, setSelection) {
     for (const route of setSelection.viewSelection()) {
-        debugger;
         updateRouteLocations(route, store, managedMap);
     }
 }

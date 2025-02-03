@@ -5,7 +5,6 @@ import { getMinimumEnclosingRectangle } from "../location.js";
 import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
 import { getDirectionIconMap } from "./icon_functions.js";
 import { ProcessedLocationV2 } from "../../model/processed_location.js";
-import { safeAddToKeyedSet } from "../../common/utilities.js";
 
 const PUSHPIN_STYLE = "map-pushpin-style";
 
@@ -85,6 +84,8 @@ class ManagedMap {
      */
     _drawPushpin(pushpinRequest) {
         const icon = this._getIconForDirection(pushpinRequest.direction);
+        // debugger;
+        console.log("pushpinRequest", pushpinRequest);
         const newPushpin = L.marker([pushpinRequest.latitude, pushpinRequest.longitude], {icon: icon});
         newPushpin
             .addTo(this.leafletMap)
@@ -98,6 +99,7 @@ class ManagedMap {
     }
 
     _clearPushpin(pushpin) {
+        console.log("Invoking clearPushpin with ", pushpin);
         const location = this.pushpinLocations.get(pushpin);
         const vehicleId = location.vehicleId;
         const route = location.routeIdentifier;
@@ -114,9 +116,14 @@ class ManagedMap {
         this.pushpinLocations.set(pushpin, location);
         this.vehicleIdLocations.set(location.vehicleId, location);
         this.vehicleIdPushpins.set(location.vehicleId, pushpin);
-        safeAddToKeyedSet(this.routePushpins, location.routeIdentifier,
-            pushpin
-        );
+
+        const route = location.routeIdentifier;
+
+        if (!this.routePushpins.has(route)) {
+            this.routePushpins.set(route, new Set());
+        }
+
+        this.routePushpins.get(route).add(pushpin);
     }
 
 
@@ -127,19 +134,25 @@ class ManagedMap {
      * @param {ProcessedLocationV2} location 
      */
     addPushpin(location) {
+        // these really should be filtered out at an earlier stage, but this is a quick fix
+        if (Number.isNaN(location.vehicleLocation.latitude) || location.vehicleLocation.latitude === null) {
+            return false;
+        }
         const newPushpin = this._drawPushpin({
             latitude: location.vehicleLocation.latitude,
             longitude: location.vehicleLocation.longitude,
-            name: location.vehicleLocation.routeIdentifier,
+            name: location.routeIdentifier,
             direction: location.direction
         });
 
         const oldPushpin = this.vehicleIdPushpins.get(location.vehicleId);
+        console.log("oldPushpin, newPushpion, vehicleIdPushpins", oldPushpin, newPushpin, this.vehicleIdPushpins);
         if (oldPushpin !== undefined) {
             this._clearPushpin(oldPushpin);            
         }
 
-        this._registerPushpin(location, pushpin);
+        this._registerPushpin(newPushpin, location);
+        return true;
     }
 
 

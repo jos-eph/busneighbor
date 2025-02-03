@@ -4,7 +4,7 @@ import { populateDistancesFromOrigin } from "../service/septa_api_translation.js
 class Store {
     constructor(managedMap, setSelectionInput) {
         this.userLocation = undefined;         // updates independent of route updates
-        this.distancesFromOrigin = undefined;  // updates independent of route - but created if does not exist
+        this.distancesFromOrigin = {};  // updates independent of route - but created if does not exist
         this.managedMap = managedMap;
         this.setSelectionInput = setSelectionInput;
         this.routeAlerts = {};     // fetched once
