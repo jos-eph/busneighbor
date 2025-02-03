@@ -45,7 +45,7 @@ const preSubmissionColor = (setSelection) => {
 }
 
 
-const checkboxRemovalFactory = (setSelection, uncheckedAction) => {
+const checkboxRemovalFactory = (setSelection, uncheckedAction, uncheckedActionExternal) => {
     return (event) => {
         assertEventOfType(event, CHANGE_EVENT);
         const checkbox = event.target;
@@ -55,6 +55,10 @@ const checkboxRemovalFactory = (setSelection, uncheckedAction) => {
         }
         if (checkbox.checked === false) {
             uncheckedAction(setSelection, checkbox);
+
+            if (uncheckedActionExternal !== undefined) { // need to flesh out
+                uncheckedActionExternal(checkbox);
+            }
         }
     };
 }
