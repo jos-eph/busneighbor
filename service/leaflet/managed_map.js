@@ -25,7 +25,7 @@ class ManagedMap {
         this.populateRequests = 0;
         this.leafletMap = null;
         this.element = element;
-        this.iconMappings = getDirectionIconMap("/busneighhbor");
+        this.iconMappings = getDirectionIconMap("/busneighbor");
         this.initialize();
 
         this.vehicleIdLocations = new Map();
