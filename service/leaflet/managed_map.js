@@ -21,11 +21,11 @@ class ManagedMap {
      * @param {HTMLElement} element
      * @param {string} pathToRepoRoot Path to repo root for the file where the map is imported
      */
-    constructor(element, pathToRepoRoot) {
+    constructor(element) {
         this.populateRequests = 0;
         this.leafletMap = null;
         this.element = element;
-        this.iconMappings = getDirectionIconMap(pathToRepoRoot);
+        this.iconMappings = getDirectionIconMap("/busneighhbor");
         this.initialize();
 
         this.vehicleIdLocations = new Map();
