@@ -16,6 +16,13 @@ displayedBuses = displayedBuses ? displayedBuses : new TypedSet(["45","4"]);
 console.log("displayed buses", displayedBuses);
 
 // Identify Elements
+const mapElement = document.getElementById("simplemap");
+const managedMap = new ManagedMap(mapElement, "..");
+
+const removeRouteFromMap = (routeCheckbox) => {
+  managedMap.clearRoute(routeCheckbox.name);
+}
+
 
 const formElement = document.getElementById("routeSubmissionForm");
 const inputElement = document.getElementById("busRouteInput");
@@ -23,10 +30,9 @@ const submitElement = document.getElementById("submitButton");
 const checkboxesElement = document.getElementById("checkboxes");
 
 const setSelectionInput = getResponsiveSetSelectionData(DEFAULT_PERMITTED_ROUTES,
-  formElement, inputElement, submitElement, checkboxesElement, displayedBuses );
+  formElement, inputElement, submitElement, checkboxesElement, displayedBuses, removeRouteFromMap );
 
-const mapElement = document.getElementById("simplemap");
-const managedMap = new ManagedMap(mapElement, "..");
+
 // Main body functions
 
 // Initialize map

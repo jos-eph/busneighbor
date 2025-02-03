@@ -102,6 +102,8 @@ class ManagedMap {
         return newPushpin;
     }
 
+
+
     _clearPushpin(pushpin) {
         const location = this.pushpinLocations.get(pushpin);
         const vehicleId = location.vehicleId;
@@ -127,6 +129,19 @@ class ManagedMap {
         }
 
         this.routePushpins.get(route).add(pushpin);
+    }
+
+    
+    /**
+     * Clear a route based on the route identifier
+     *
+     * @param {string} route 
+     */
+    clearRoute(route) {
+        const routePushpins = Array.from(this.routePushpins.get(route));
+        for (const pushpin of routePushpins) {
+            this._clearPushpin(pushpin);
+        }
     }
 
 
