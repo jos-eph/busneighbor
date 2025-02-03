@@ -1,4 +1,4 @@
-import { LatitudeLongitude } from "./latitudeLongitude.js";
+import { LatitudeLongitude } from "/model/latitudeLongitude.js";
 
 class DirectedPushpin extends LatitudeLongitude {
     constructor(latitude, longitude, name, direction) {

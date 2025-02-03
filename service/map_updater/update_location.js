@@ -1,10 +1,10 @@
-import { Store } from "../../store/store.js";
-import { ManagedMap } from "../leaflet/managed_map.js";
-import { getLocationDataV2 } from "../septa_api.js";
-import { SetSelectionData } from "../../forminput/set_selection_data.js";
-import { createProcessedLocationV2 } from "../septa_api_translation.js";
-import { PERPENDICULAR_DISTANCE } from "../septa_api_translation.js";
-import { routeAwarePerpendicularDistance } from "../septa_api_translation.js";
+import { Store } from "/store/store.js";
+import { ManagedMap } from "/service/leaflet/managed_map.js";
+import { getLocationDataV2 } from "/service/septa_api.js";
+import { SetSelectionData } from "/forminput/set_selection_data.js";
+import { createProcessedLocationV2 } from "/service/septa_api_translation.js";
+import { PERPENDICULAR_DISTANCE } from "/service/septa_api_translation.js";
+import { routeAwarePerpendicularDistance } from "/service/septa_api_translation.js";
 
 /**
  * Update a route in the background

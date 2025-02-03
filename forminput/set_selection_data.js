@@ -1,9 +1,9 @@
-import { setIntersectionLegacy } from "../common/utilities.js";
+import { setIntersectionLegacy } from "/common/utilities.js";
 
-import { TypedSet } from "../common/pickling/typedSet.js";
+import { TypedSet } from "/common/pickling/typedSet.js";
 import { getHandleKeyPress, getHandleTextChangeEvent, 
-    getHandleTextSubmitEvent, populateInitialCheckboxes } from "./set_selection_functions.js";
-import { KEYUP_EVENT, CHANGE_EVENT, SUBMIT_EVENT } from "./set_selection_constants.js";
+    getHandleTextSubmitEvent, populateInitialCheckboxes } from "/forminput/set_selection_functions.js";
+import { KEYUP_EVENT, CHANGE_EVENT, SUBMIT_EVENT } from "/forminput/set_selection_constants.js";
 
 const DEFAULT_PERMITTED_SET = new TypedSet(["45", "33", "38", "29", "47", "4", "40"]);
 
