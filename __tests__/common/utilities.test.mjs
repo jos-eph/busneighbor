@@ -1,5 +1,5 @@
 import { includesAsWord, concatenateStrings, defineHiddenProperty,
-    iterableToString, objectOfKeys, safeAddToKeyedSet} from "../../common/utilities.js";
+    iterableToString, objectOfKeys} from "../../common/utilities.js";
 
 const TEXT_SOUGHT_WORD_EXPECTED_OUTCOME = [
     ["ABC", "ABC", true],
