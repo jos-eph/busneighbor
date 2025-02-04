@@ -1,4 +1,6 @@
-import { LatitudeLongitude } from "/busneighbor/model/latitudeLongitude.js";
+import {jest} from '@jest/globals';
+
+import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
 
 import { getCurrentCoordinatesPromise, isApproachingMe, isLatitudeApproaching, isLongitudeApproaching,
      perpendicularDegreeDistance, getExtremePositions, getMinimumEnclosingRectangle } from "../../service/location.js";

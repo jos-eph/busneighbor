@@ -1,14 +1,14 @@
+import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
 import {  ALERT_SB_DISCONTINUED_ONE_ALERT,
      EARLY_BUS_12TH_BAINBRIDGE, MAGIC_VALUE_LOCATION
   } from "../stubs/septa_api_v2_samples.js";
 import { 
     createProcessedAlertV2, createProcessedLocationV2,
     routeAwarePerpendicularDistance } from "../../service/septa_api_translation.js";
-import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
+
 import { ProcessedLocationV2 } from "../../model/processed_location.js";
 import { populateDistancesFromOrigin } from "../../service/septa_api_translation.js";
 import { perpendicularDegreeDistance } from "../../service/location.js";
-
 const EXPECTED_PROCESSED_LOCATION = { // No staleness; staleness is dynamic
   "routeIdentifier": "45",
   "vehicleLocation": { "latitude": 39.937599, "longitude": -75.163022 },
