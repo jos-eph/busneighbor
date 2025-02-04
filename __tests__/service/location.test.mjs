@@ -1,3 +1,5 @@
+import {jest} from '@jest/globals';
+
 import { LatitudeLongitude } from "../../model/latitudeLongitude.js";
 
 import { getCurrentCoordinatesPromise, isApproachingMe, isLatitudeApproaching, isLongitudeApproaching,
