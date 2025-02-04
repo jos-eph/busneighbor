@@ -24,11 +24,6 @@ FILE_NAME = "route_ids.json"
 ROUTE_ID = "route_id"
 ROUTE_ID_URL = "https://www3.septa.org/api/v2/trips"
 
-if exists(FILE_NAME):
-    print("Happy dance!")
-else:
-    print("Sad puppy!")
-
 def fetchRouteIds() -> str:
     with urlopen(ROUTE_ID_URL) as response:
         if response.status != 200:
@@ -56,11 +51,11 @@ def padForSorting(item) -> str:
     try:
         test = int(item)
     except ValueError:
-        return "9999"
+        return "Z9999" + item.zfill(5)
     
     return item.zfill(5)
 
 rawdata = provideRouteIds()
 routes = { obj.get(ROUTE_ID) for obj in rawdata}
 sorted_output = sorted(list(routes), key=padForSorting)
-print(sorted_output)
+print(json.dumps(sorted_output, separators=(',  ', ':  ')))
