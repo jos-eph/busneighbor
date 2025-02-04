@@ -1,0 +1,23 @@
+{
+  "name": "busneighbor",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "(New repo)",
+  "main": "script.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jos-eph/busneighbor.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/jos-eph/busneighbor/issues"
+  },
+  "homepage": "https://github.com/jos-eph/busneighbor#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
