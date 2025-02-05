@@ -6,6 +6,7 @@ import { LatitudeLongitude } from "/busneighbor/model/latitudeLongitude.js";
 import { getDirectionIconMap } from "/busneighbor/service/leaflet/icon_functions.js";
 import { ProcessedLocationV2 } from "/busneighbor/model/processed_location.js";
 import { Directions } from "/busneighbor/service/constants/directions.js";
+import { TypedSet } from "/busneighbor/common/pickling/typedSet.js"
 
 const PUSHPIN_STYLE = "map-pushpin-style";
 const YOU_NAME = "You";
@@ -184,6 +185,10 @@ class ManagedMap {
             direction: Directions.STATIONARY,
             name: YOU_NAME
         });
+    }
+
+    getDisplayedRoutes() {
+        return new TypedSet(this.routePushpins.keys());
     }
 
 

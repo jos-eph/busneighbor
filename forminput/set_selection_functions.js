@@ -55,8 +55,8 @@ const checkboxRemovalFactory = (setSelection, uncheckedAction) => {
         if (checkbox.checked === false) {
             uncheckedAction(setSelection, checkbox);
 
-            if (setSelection.externalRemovalAction !== undefined) {
-                setSelection.externalRemovalAction(checkbox);
+            if (setSelection.afterChangeAction !== undefined) {
+                setSelection.afterChangeAction(checkbox, false);
             }
         }
     };
@@ -91,6 +91,10 @@ const generateCheckbox = (setSelection, checkboxText) => {
 
     newDiv.appendChild(newInput);
     newDiv.appendChild(newLabel);
+
+    if (setSelection.afterChangeAction !== undefined) {
+        setSelection.afterChangeAction(newInput, true);
+    }
 
     return newDiv;
 
