@@ -20,22 +20,28 @@ console.log("displayed buses", displayedBuses);
 // Identify Elements
 const mapElement = document.getElementById("simplemap");
 const managedMap = new ManagedMap(mapElement);
-
-const removeRouteFromMap = (routeCheckbox) => {
-  managedMap.clearRoute(routeCheckbox.name);
-}
-
-
 const formElement = document.getElementById("routeSubmissionForm");
 const inputElement = document.getElementById("busRouteInput");
 const submitElement = document.getElementById("submitButton");
 const checkboxesElement = document.getElementById("checkboxes");
 
 const setSelectionInput = getResponsiveSetSelectionData(DEFAULT_PERMITTED_ROUTES,
-  formElement, inputElement, submitElement, checkboxesElement, displayedBuses, removeRouteFromMap );
+  formElement, inputElement, submitElement, checkboxesElement, displayedBuses);
+
+// Define handler
+
+setSelectionInput.setChangeAction(
+  (routeCheckbox, newState) => {
+    if (newState === false) {
+      managedMap.clearRoute(routeCheckbox.name);
+    }
+  
+    pickle.storeSet(DISPLAYED_BUS_SET_NAME, setSelectionInput.viewSelection());
+  }
+);
 
 
-// Main body functions
+//// Main body functions
 
 // Initialize map
 console.log("Loading main loop...");
@@ -46,9 +52,6 @@ updateRoutes(store, managedMap, setSelectionInput);
 setInterval(() => {
   updateRoutes(store, managedMap, setSelectionInput);
   store.refreshUserInfo();
-  if (!setsIdentical(setSelectionInput.viewSelection(), managedMap.getDisplayedRoutes())) {
-    pickle.storeSet(DISPLAYED_BUS_SET_NAME, setSelectionInput.viewSelection());
-  }
 }, 3000);
 
 // Main loop

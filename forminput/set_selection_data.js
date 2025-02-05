@@ -10,13 +10,13 @@ const DEFAULT_PERMITTED_SET = new TypedSet(["45", "33", "38", "29", "47", "4", "
 // Stores objects relating to input and the current input
 class SetSelectionData {
 
-    constructor(permitted, formElement, textInputElement, submitElement, checkboxesElement, startupSet, externalRemovalAction) {
+    constructor(permitted, formElement, textInputElement, submitElement, checkboxesElement, startupSet) {
         this.permittedItems = permitted!==undefined ? permitted : DEFAULT_PERMITTED_SET;
         this.formElement = formElement;
         this.textInputElement = textInputElement;
         this.submitElement = submitElement;
         this.checkboxesElement = checkboxesElement;
-        this.externalRemovalAction = externalRemovalAction;
+        this.afterChangeAction = undefined;
 
         this.submissionElements = new Set([formElement, textInputElement, submitElement]);
 
@@ -30,13 +30,17 @@ class SetSelectionData {
         return new TypedSet(this.selectedSet);
     }
 
+    setChangeAction(func) {
+        this.afterChangeAction = func;
+    }
+
 
 }
 
 const getResponsiveSetSelectionData = (permitted, formElement, textInputElement,
-     submitElement, checkboxesElement, startupSet, externalAction) => {
+     submitElement, checkboxesElement, startupSet) => {
         const setSelection = new SetSelectionData(permitted, formElement, 
-            textInputElement, submitElement, checkboxesElement, startupSet, externalAction);
+            textInputElement, submitElement, checkboxesElement, startupSet);
         setSelection.textInputElement.addEventListener(KEYUP_EVENT, getHandleKeyPress(setSelection));
         setSelection.textInputElement.addEventListener(CHANGE_EVENT, getHandleTextChangeEvent(setSelection));
         setSelection.formElement.addEventListener(SUBMIT_EVENT, getHandleTextSubmitEvent(setSelection));
