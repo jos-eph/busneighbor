@@ -1,11 +1,10 @@
 body {
-    font-family: Menlo, 'Droid Sans Mono', Consolas, 'Courier New', monospace; 
     line-height: 1.6;
     font-size: large;
     color: #99cc99; /* Light text for dark background */
     background-color: #222; /* Dark background */
   }
-  
+
 .checkbox-group {
     display: inline-flex;          /* Enable flexbox for better control */
     flex-direction: row;   /* Stack checkboxes horizontally */    
