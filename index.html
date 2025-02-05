@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BusNeighbor Philly</title>
-  <link rel="manifest" href="./manifest.json">
+  <link rel="manifest" href="https://jos-eph.github.io/busneighbor/manifest.json">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="./leafletneeds.css" />
   <link rel="stylesheet" href="./visualstyling.css" />
@@ -30,7 +30,7 @@
   <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/service-worker.js') // Updated path
+            navigator.serviceWorker.register('/busneighbor/service-worker.js')
                 .then(registration => {
                     console.log('Service worker registered:', registration);
                 })
