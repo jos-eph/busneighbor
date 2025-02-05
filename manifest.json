@@ -2,7 +2,7 @@
     "name": "Bus Neighbor",
     "short_name": "BusNeighbor",
     "description": "Find out when the next bus is coming!",
-    "start_url": "/",
+    "start_url": "/busneighbor",
     "display": "standalone",
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
