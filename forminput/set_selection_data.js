@@ -11,7 +11,7 @@ const DEFAULT_PERMITTED_SET = new TypedSet(["45", "33", "38", "29", "47", "4", "
 class SetSelectionData {
 
     constructor(permitted, formElement, textInputElement, submitElement, checkboxesElement, startupSet, externalRemovalAction) {
-        this.permittedItems = permitted===undefined ? permitted : DEFAULT_PERMITTED_SET;
+        this.permittedItems = permitted!==undefined ? permitted : DEFAULT_PERMITTED_SET;
         this.formElement = formElement;
         this.textInputElement = textInputElement;
         this.submitElement = submitElement;
