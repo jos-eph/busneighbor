@@ -5,7 +5,6 @@ import { LocalStoragePickle } from '/busneighbor/common/pickling/localStoragePic
 import { Store } from "/busneighbor/store/store.js";
 import { updateRoutes } from "/busneighbor/service/map_updater/update_location.js";
 import { VALID_ROUTES } from "/busneighbor/service/constants/api_constants.js";
-import { setsIdentical } from "/busneighbor/common/utilities.js";
 
 // Set constants
 const DEFAULT_PERMITTED_ROUTES = new TypedSet(VALID_ROUTES);
