@@ -1,3 +1,8 @@
+body {
+    color: #99cc99; /* Light text for dark background */
+    background-color: #222; /* Dark background */
+  }
+
 .checkbox-group {
     display: inline-flex;          /* Enable flexbox for better control */
     flex-direction: row;   /* Stack checkboxes horizontally */    

@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
-  <title>Live Pushpin Painting Functionality</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BusNeighbor Philly</title>
+  <link rel="manifest" href="https://jos-eph.github.io/busneighbor/manifest.json">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="./leafletneeds.css" />
   <link rel="stylesheet" href="./visualstyling.css" />
   </style>
 </head>
 <body>
-  BusNeighbor
+  BusNeighbor By Joe D. Mirarchi
   <div class="managed-map" id="simplemap"></div>
   <div class="inputText" id="inputArea">
     <form id="routeSubmissionForm">
@@ -25,5 +27,28 @@
   </div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="/busneighbor/visualdisplay.js" type="module"></script>
+  <div>
+    <div>
+      <center>
+        If buses don't load, please 
+      <a href="https://jos-eph.github.io/busneighbor" target="_blank">open</a> in a new window (look for ... menu), or copy and paste this link: https://jos-eph.github.io/busneighbor , or try the QR code.
+        <BR><img src="/busneighbor/qrbn.png">
+      </center>
+    </div>
+    
+  </div>
+  <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/busneighbor/service-worker.js')
+                .then(registration => {
+                    console.log('Service worker registered:', registration);
+                })
+                .catch(error => {
+                    console.error('Service worker registration failed:', error);
+                });
+        });
+    }
+</script>
 </body>
 </html>
