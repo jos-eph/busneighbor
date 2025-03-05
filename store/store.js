@@ -40,7 +40,6 @@ class Store {
         await this.updateUserLocation();
         this._refreshDistancesFromOrigin();
         this.managedMap.placeYou(this.getUserLocation());
-        this.managedMap.zoomAroundLocation(this.getUserLocation());
     }
 
 }
